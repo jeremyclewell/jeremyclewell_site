@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" >
+<!--
+	<mx:Script>
+		<![CDATA[
+
+import mx.core.UIComponent;
+		import flash.display.Sprite;
+		import flash.display.MovieClip;
+		import flash.display.StageAlign;
+		import flash.display.StageScaleMode;
+		import flash.display.Stage;
+		import flash.display.StageQuality;
+		import flash.events.Event;
+		import flash.events.MouseEvent;
+		import flash.text.TextField;
+		import flash.filters.BitmapFilterQuality;
+		import flash.filters.BlurFilter;
+		import fl.transitions.easing.*;
+		import flash.media.Sound;
+		import flash.geom.Rectangle;
+		import flash.net.URLRequest;
+		
+		//import main papervision assets
+		import org.papervision3d.cameras.Camera3D;
+		import org.papervision3d.cameras.GenYCamera;
+		import org.papervision3d.lights.PointLight3D;
+		import org.papervision3d.render.BasicRenderEngine;
+		import org.papervision3d.materials.MovieAssetMaterial;
+		import org.papervision3d.scenes.Scene3D;
+		import org.papervision3d.events.InteractiveScene3DEvent;
+		import org.papervision3d.view.Viewport3D;
+		import org.papervision3d.objects.primitives.Plane;
+	
+	
+	
+		//import objects
+		import org.papervision3d.objects.DisplayObject3D;
+		import org.papervision3d.objects.parsers.DAE;
+	
+		//import event listener
+		import org.papervision3d.events.FileLoadEvent;
+	
+		import com.rockonflash.utils.Stats;
+	
+	
+	
+	
+		import com.hydrotik.go.HydroTween;
+		import com.hydrotik.go.HydroSequence;
+		//import org.goasap.managers.OverlapMonitor;
+	
+	
+	import mx.controls.Alert;
+	
+		import PopupEvent;
+		//import Scrollbar;
+	
+	
+			// _______________________________________________________________________
+			//                                                                    vars
+	
+			//papervision main assets
+			private var scene:Scene3D;
+			private var viewport:Viewport3D;
+			private var navViewport:Viewport3D;
+			private var camera:Camera3D;//GenYCamera;
+			private var navCamera:Camera3D;
+			private var light:PointLight3D;
+			private var renderer:BasicRenderEngine;
+	
+			//other things needed for dae
+			private var universe:DisplayObject3D;
+			private var daeFile:DAE;
+			private var bl:Number;
+			private var bt:Number;
+			private var per:Number;
+	
+	
+			
+			private var isActive:Boolean;
+			
+			private var yRot:Number;
+			private var xRot:Number = 0;
+	
+			//private var actorOne:Plane = new Plane(new MovieAssetMaterial("GirlOne", true, true, false, true), 155 * 1.5, 803 * 1.5, 1,1);
+			
+	
+	
+	
+			// _______________________________________________________________________
+			//                                                                    initialize
+			private function init():void {
+				//Setup stage.
+				
+				
+				isActive = false;
+				//stage.align = StageAlign.TOP_LEFT;
+				//stage.showDefaultContextMenu = false;
+				//stage.scaleMode = StageScaleMode.NO_BORDER;
+				//stage.quality = StageQuality.BEST;
+				
+	
+				//Setup viewport, add to stage
+				viewport = new Viewport3D(0,0,true, true);
+				
+				var uicomp:UIComponent = new UIComponent();
+				
+        		PVmainStage.addChild( uicomp );
+        		
+        		uicomp.addChild( viewport );
+        		
+	
+				//Setup renderer
+				renderer = new BasicRenderEngine();
+	
+				//Setup camera
+				camera = new Camera3D();
+				camera.z = -5000;
+				
+				//camera.zoom = 12;
+	
+				//Setup light
+				light = new PointLight3D(true);
+	
+				//Setup scene
+				scene = new Scene3D();
+	
+				//add dae object
+				daeFile = new DAE();
+				try {
+				daeFile.load("assets/swfs/10-13Button.dae");//Lincoln/models/Field.dae");
+				} catch (e:Error) {
+					trace("arrrrggggghhhhh"+e.message);
+				
+				}
+				daeFile.scaleX = daeFile.scaleY = daeFile.scaleZ = 800;
+				daeFile.z = 1500;
+				//add loading listeners to your dae
+				daeFile.addEventListener(FileLoadEvent.LOAD_COMPLETE, handleLoadComplete);
+				daeFile.addEventListener(FileLoadEvent.LOAD_ERROR, handleLoadError);
+				//daeFile.addEventListener(FileLoadEvent.LOAD_PROGRESS, handleProgress);
+				daeFile.addEventListener(FileLoadEvent.SECURITY_LOAD_ERROR, handleSecurity);
+				daeFile.addEventListener(FileLoadEvent.COLLADA_MATERIALS_DONE, handleMaterialsDone);
+	
+	
+	
+	
+	/*
+	
+	
+				actorOne.material.doubleSided = true;
+				actorOne.material.interactive = true;
+				actorOne.material.smooth = true;
+				actorOne.y = 400;
+	*/
+				
+	
+				//Setup container, add dae to container, add container to scene.
+				universe = new DisplayObject3D();
+				universe.addChild(daeFile);
+				//universe.addChild(actorOne);
+				
+				scene.addChild(universe);
+	
+				//Listen to enter frame
+				addEventListener(Event.ENTER_FRAME, handleRender);
+				//addEventListener(MouseEvent.MOUSE_DOWN, handleMouseDown);
+				//addEventListener(MouseEvent.MOUSE_UP, handleMouseUp);
+				//addEventListener(MouseEvent.CLICK, handle2DClick);
+				PVmainStage.addEventListener(MouseEvent.MOUSE_MOVE, handleCameraMovement);
+				PVmainStage.addEventListener(Event.MOUSE_LEAVE, handleMouseLeave);
+	
+				//var stats:Stats = new Stats();
+				//addChild( stats );
+				//stats.y = 100;
+	
+	
+	
+	
+	
+				
+	
+			}
+			// _______________________________________________________________________
+			//                                                                collada load event listeners
+	
+			private function handleLoadComplete(e:Event):void {
+				trace("IN EVENT LISTENER, LOAD COMPLETE");
+				//var s:Sound = new Sound();
+				///s.addEventListener(Event.COMPLETE, onSoundLoaded);
+			//	var req:URLRequest = new URLRequest("cityAmbience.mp3");
+				//s.load(req);
+	
+				//function onSoundLoaded(event:Event):void {
+					//var localSound:Sound = event.target as Sound;
+					//localSound.play(0, 20);
+				//}
+				function removeLoader():void {
+					//removeChild(loader_mc);
+					//stage.quality = StageQuality.LOW;
+				//
+				}
+				//loader_mc.y = 3000;
+				//HydroTween.go([loader_mc], {alpha:0}, 1, 0, Regular.easeOut, removeLoader);
+				//messageText.text = "COLLADA LOAD COMPLETE";
+			}
+	
+			private function handleLoadError(e:Event):void {
+				//messageText.text = "THERE HAS BEEN A LOADING ERROR";
+				Alert.show("fgjsyfs");
+			}
+	
+			private function handleProgress(e:Event):void {
+				bl = e.target.bytesLoaded;
+				bt = e.target.bytesTotal;
+				per = Math.round(bl/bt*100);
+				
+				//loader_mc.loadStatus_txt.text = "COLLADA "+per+"% LOADED, PLEASE WAIT";
+			}
+	
+			private function handleSecurity(e:Event):void {
+				//messageText.text = "THERE HAS BEEN A SECURITY ERROR";
+			}
+	
+			private function handleMaterialsDone(e:Event):void {
+				//messageText.text = "COLLADA MATERIALS LOAD COMPLETE";
+			}
+			private function handleMouseDown(e:MouseEvent):void {
+			}
+			private function handleMouseUp(e:MouseEvent):void {
+			}
+			private function handleMouseMove(e:MouseEvent):void {
+	
+			}
+	
+			// _______________________________________________________________________
+			//                                                                
+			private function handle2DClick(e:MouseEvent):void {
+				trace(e.target.name);
+				
+			}
+			private function handlePopup(e:PopupEvent):void {
+				
+			}
+			
+			
+			
+			// _______________________________________________________________________
+			//                                                                Setup Actors
+			private function setRotation():void {
+				dispatchEvent(new PopupEvent("OPEN_POPUP"));
+				trace("Complete!");
+	
+			}
+	
+	
+			private function handleClick(e:InteractiveScene3DEvent):void {
+				camera.rotationY = yRot;
+				/*switch (e.displayObject3D.material) {
+					case actorOne.material :
+						trace("Clicked!");
+						camera.unregisterCamera();
+						HydroTween.go(camera, {rotationY: 0, rotationX: 2, x:577, z:-962}, 2, 0, Regular.easeOut, setRotation);
+						HydroTween.go([viewport, sky_mc], {Blur_blurX:10, Blur_blurY:10}, 1, 1, Regular.easeOut);
+	
+	
+	
+						break;
+					case actorTwo.material :
+						trace("Clicked!");
+						camera.unregisterCamera();
+						HydroTween.go(camera, {rotationY:250, rotationX:-11, x:-4485, z:-6333}, 2, 0, Regular.easeOut, setRotation);
+						HydroTween.go([viewport, sky_mc], {Blur_blurX:10, Blur_blurY:10}, 1, 1, Regular.easeOut);
+	
+	
+	
+						break;
+					case actorThree.material :
+						trace("Clicked!");
+						camera.unregisterCamera();
+						HydroTween.go(camera, {rotationY:94, rotationX:2, x:2022, z:-7634}, 2, 0, Regular.easeOut, setRotation);
+						HydroTween.go([viewport, sky_mc], {Blur_blurX:10, Blur_blurY:10}, 1, 1, Regular.easeOut);
+	
+	
+	
+						break;
+					case actorFour.material :
+						trace("Clicked!");
+						camera.unregisterCamera();
+						HydroTween.go(camera, {rotationY:285, rotationX: 5, x:-4800, z:-1950}, 2, 0, Regular.easeOut, setRotation);
+						HydroTween.go([viewport, sky_mc], {Blur_blurX:10, Blur_blurY:10}, 1, 1, Regular.easeOut);
+	
+	
+	
+						break;
+	
+	
+				}*/
+			}
+			// _______________________________________________________________________
+			//                                                                Frame-by-frame setup
+	
+	
+			private function handleMouseLeave(event:Event):void {
+				if (isActive) 
+				{
+					isActive = false;
+					trace(isActive);
+					HydroTween.go(daeFile, {z:1500}, 1, 0, Regular.easeOut);
+					HydroTween.go(camera, {x:0, y:150}, 1, 0, Regular.easeOut);
+					
+				}
+			}
+	
+	
+			
+			private function handleCameraMovement(event:MouseEvent):void {
+				//var newX:Number = ( event.stageX / stage.stageWidth ) * 100;
+				//var newY:Number = ( event.stageY / stage.stageHeight ) * 100;
+				//HydroTween.go(camera, {x:newX, y:newY}, 2, 0, Regular.easeOut);
+				
+				if (!isActive) 
+				{
+					HydroTween.go(daeFile, {z:-300}, 1, 0, Regular.easeOut);
+					isActive = true;;
+				} else {
+				
+				camera.x = (( event.localX / 250 ) * 1000) ;
+				camera.y = (( event.localY / 380 ) * 1000);
+				}
+				
+			}
+			
+	
+			// _______________________________________________________________________
+			//                                                                   render on enterframe
+	
+			private function handleRender(e:Event):void {
+	
+				camera.lookAt(daeFile);
+	
+	
+				renderer.renderScene(scene,camera,viewport);
+	
+				//DAE IN PV3D GREATWHITE COMPLETE!
+			}
+		
+
+			
+		]]>
+	</mx:Script>
+
+		
+		
+	
+		
+		
+	<mx:Canvas id="PVmainStage" rollOut="handleMouseLeave(event)" x="-380" y="-180" >
+	</mx:Canvas>
+	-->
+	
+<mx:Image source="assets/images/prize_home.png" />
+
+</mx:Canvas>

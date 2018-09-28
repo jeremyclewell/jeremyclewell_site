@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<tool>
+		<name>Hydration formula</name>
+		<module>HydrationFormula</module>
+		<thumbnail><![CDATA[assets/images/hydrationIcon.png]]></thumbnail>
+	</tool>
+	<tool>
+		<name>Calculate your BMI</name>
+		<module>BMICalculator</module>
+		<thumbnail><![CDATA[assets/images/bmiCalculatorIcon.png]]></thumbnail>
+	</tool>
+	<tool>
+		<name>Check your heart rate</name>
+		<module>HeartRateCalculator</module>
+		<thumbnail><![CDATA[assets/images/heartrateCalculatorIcon.png]]></thumbnail>
+	</tool>
+	<tool>
+		<name>Calorie calculator</name>
+		<module>CalorieCounter</module>
+		<thumbnail><![CDATA[assets/images/calorieCalculatorIcon.png]]></thumbnail>
+	</tool>
+	<tool>
+		<name>Local running clubs</name>
+		<module>RunningClubs</module>
+		<thumbnail><![CDATA[assets/images/localRunnersClubsIcon.png]]></thumbnail>
+	</tool>
+</root>

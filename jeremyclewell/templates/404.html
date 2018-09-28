@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="noisy frame">
+    <div id="gameport" class="piece output">
+        <div id="loadingpane">
+            <img src="{{ url_for('static', filename='if_resources/waiting.gif') }}" alt="LOADING"><br>
+            <em>{{ error }}</em>
+        </div>
+    </div>
+    <div class="piece scanlines noclick" />
+    <div class="piece glow noclick" />
+</div>
+{% endblock %}

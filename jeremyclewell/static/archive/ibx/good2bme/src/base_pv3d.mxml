@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" creationComplete="init3D()">
+
+	<mx:Script>
+<![CDATA[
+import mx.core.UIComponent;
+import mx.controls.*;
+import org.papervision3d.view.*;
+import org.papervision3d.cameras.*;
+import org.papervision3d.materials.*;
+import org.papervision3d.objects.primitives.*;
+import fl.transitions.easing.*;
+
+//import objects
+		import org.papervision3d.objects.DisplayObject3D;
+		import org.papervision3d.objects.parsers.DAE;
+	
+		//import event listener
+		import org.papervision3d.events.FileLoadEvent;
+	
+		import com.rockonflash.utils.Stats;
+	
+	
+	
+	
+		import com.hydrotik.go.HydroTween;
+		import com.hydrotik.go.HydroSequence;
+
+
+private var view:BasicView;
+private var thePlane:Plane;
+private var flexSkin:MovieMaterial;
+private var daeFile:DAE;
+private var bl:Number;
+			private var bt:Number;
+			private var per:Number;
+
+private function init3D():void {
+  view = new BasicView(936, 600, false, true, CameraType.FREE);
+  flex.addChild(view); 
+  
+  view.camera.zoom = 10;
+  view.camera.focus = 100;
+  
+  //add dae object
+				daeFile = new DAE();
+				daeFile.load("assets/swfs/cell_phone.dae");
+  daeFile.scale = 25;
+view.scene.addChild(daeFile);
+  flexSkin = new MovieMaterial(myPanel, false, true, true);
+  flexSkin.doubleSided = true;
+  flexSkin.interactive = true;
+  thePlane = new Plane(flexSkin, 205, 315, 4, 4);
+  thePlane.useOwnContainer = true;
+ thePlane.y = 43;
+ thePlane.z = -20;
+  view.scene.addChild(thePlane);
+  
+  
+  view.addEventListener(MouseEvent.MOUSE_MOVE, handleCameraMovement);
+  
+  
+				
+				
+
+  //addEventListener(Event.ENTER_FRAME, loop3D);
+}
+
+private function loop3D(e:Event):void {
+  if(view.camera != null) {
+  	view.camera.lookAt(daeFile);
+    view.singleRender();
+  }
+}
+
+private function hit():void {
+  Alert.show("clicked!");
+}
+
+private function handleCameraMovement(event:MouseEvent):void {
+	view.camera.x = (( event.localX / 250 ) * 600) ;
+	view.camera.y = -(( event.localY / 380 ) * 600);
+	
+}
+
+]]>
+</mx:Script>
+
+<mx:Fade id="hideEffect"
+		alphaTo="0" 
+		duration="250" />
+
+<mx:Fade id="showEffect"
+		alphaTo="1.0" 
+		duration="250"/>
+
+<mx:Canvas id="myPanel" backgroundColor="#000000" color="#fFFFFF" width="260" backgroundAlpha="1.0" height="400"  y="10" >
+<mx:Image source="assets/swfs/cellphone_ui.png" />
+<mx:ViewStack id="cellScreens" width="200" height="263">
+	<mx:Canvas id="homeScreen" label="Home" width="200" height="220" hideEffect="hideEffect" showEffect="showEffect" >
+		<mx:Image source="assets/images/boy.png" width="199" height="200" />
+		<mx:Button x="115" y="45" label="Button"/>
+		<mx:DateField x="55" y="95"/>
+		<mx:CheckBox x="28" y="26" label="Checkbox"/>
+	
+	</mx:Canvas>
+	<mx:Canvas id="messagingScreen" label="Messaging" width="200" height="220" hideEffect="hideEffect" showEffect="showEffect" >
+	<mx:TextInput color="#333333" fontSize="16" fontWeight="bold" width="150" height="150" editable="true" backgroundAlpha=".5" />
+	</mx:Canvas>
+	<mx:Canvas id="phoneScreen" label="Phone" width="200" height="220" hideEffect="hideEffect" showEffect="showEffect" >
+		<mx:Label text="Phone!!!" color="#FFFFFF" />
+	</mx:Canvas>
+	<mx:Canvas id="gamesScreen" label="Game" width="200" height="220" hideEffect="hideEffect" showEffect="showEffect" >
+		<mx:Label text="Game!!!" color="#FFFFFF" />
+	</mx:Canvas>
+	<mx:Canvas id="settingsScreen" label="Settings" width="200" height="220" hideEffect="hideEffect" showEffect="showEffect" >
+		<mx:Label text="Settings!!!" color="#FFFFFF" />
+	</mx:Canvas>
+	
+	
+</mx:ViewStack>
+<mx:ToggleButtonBar id="cellNav" dataProvider="cellScreens" width="250" x="0" y="360" />
+</mx:Canvas>
+<mx:UIComponent id="flex" x="-200" y="-30"/>
+</mx:Canvas>
+
+
+
+
+
+

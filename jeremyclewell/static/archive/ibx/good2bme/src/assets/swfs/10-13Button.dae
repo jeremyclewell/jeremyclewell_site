@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA version="1.4.0" xmlns="http://www.collada.org/2005/11/COLLADASchema">
+	<asset>
+		<contributor>
+			<author>Illusoft Collada 1.4.0 plugin for Blender - http://colladablender.illusoft.com</author>
+			<authoring_tool>Blender v:247 - Illusoft Collada Exporter v:0.3.160</authoring_tool>
+			<comments></comments>
+			<copyright></copyright>
+			<source_data>file:///Users/jclewell/Desktop/10-13.blend</source_data>
+		</contributor>
+		<created>2009-04-20T16:51:02.682453</created>
+		<modified>2009-04-20T16:51:02.682477</modified>
+		<unit meter="0.01" name="centimeter"/>
+		<up_axis>Z_UP</up_axis>
+	</asset>
+	<library_cameras>
+		<camera id="Camera-Camera" name="Camera-Camera">
+			<optics>
+				<technique_common>
+					<perspective>
+						<yfov>49.13434</yfov>
+						<znear>0.1</znear>
+						<zfar>100.0</zfar>
+					</perspective>
+				</technique_common>
+			</optics>
+		</camera>
+	</library_cameras>
+	<library_effects>
+		<effect id="stars_png-fx" name="stars_png-fx">
+			<profile_COMMON>
+				<newparam sid="stars_png-surface">
+					<surface type="2D">
+						<init_from>stars_png-img</init_from>
+						<format>A8R8G8B8</format>
+					</surface>
+				</newparam>
+				<newparam sid="stars_png-sampler">
+					<sampler2D>
+						<source>stars_png-surface</source>
+						<minfilter>LINEAR_MIPMAP_LINEAR</minfilter>
+						<maxfilter>LINEAR</maxfilter>
+					</sampler2D>
+				</newparam>
+				<technique sid="blender">
+					<lambert>
+						<diffuse>
+							<texture texcoord="CHANNEL1" texture="stars_png-sampler"/>
+						</diffuse>
+					</lambert>
+				</technique>
+			</profile_COMMON>
+		</effect>
+		<effect id="box_png-fx" name="box_png-fx">
+			<profile_COMMON>
+				<newparam sid="box_png-surface">
+					<surface type="2D">
+						<init_from>box_png-img</init_from>
+						<format>A8R8G8B8</format>
+					</surface>
+				</newparam>
+				<newparam sid="box_png-sampler">
+					<sampler2D>
+						<source>box_png-surface</source>
+						<minfilter>LINEAR_MIPMAP_LINEAR</minfilter>
+						<maxfilter>LINEAR</maxfilter>
+					</sampler2D>
+				</newparam>
+				<technique sid="blender">
+					<lambert>
+						<diffuse>
+							<texture texcoord="CHANNEL1" texture="box_png-sampler"/>
+						</diffuse>
+					</lambert>
+				</technique>
+			</profile_COMMON>
+		</effect>
+		<effect id="kids_text_png-fx" name="kids_text_png-fx">
+			<profile_COMMON>
+				<newparam sid="kids_text_png-surface">
+					<surface type="2D">
+						<init_from>kids_text_png-img</init_from>
+						<format>A8R8G8B8</format>
+					</surface>
+				</newparam>
+				<newparam sid="kids_text_png-sampler">
+					<sampler2D>
+						<source>kids_text_png-surface</source>
+						<minfilter>LINEAR_MIPMAP_LINEAR</minfilter>
+						<maxfilter>LINEAR</maxfilter>
+					</sampler2D>
+				</newparam>
+				<technique sid="blender">
+					<lambert>
+						<diffuse>
+							<texture texcoord="CHANNEL1" texture="kids_text_png-sampler"/>
+						</diffuse>
+					</lambert>
+				</technique>
+			</profile_COMMON>
+		</effect>
+		<effect id="kids_png-fx" name="kids_png-fx">
+			<profile_COMMON>
+				<newparam sid="kids_png-surface">
+					<surface type="2D">
+						<init_from>kids_png-img</init_from>
+						<format>A8R8G8B8</format>
+					</surface>
+				</newparam>
+				<newparam sid="kids_png-sampler">
+					<sampler2D>
+						<source>kids_png-surface</source>
+						<minfilter>LINEAR_MIPMAP_LINEAR</minfilter>
+						<maxfilter>LINEAR</maxfilter>
+					</sampler2D>
+				</newparam>
+				<technique sid="blender">
+					<lambert>
+						<diffuse>
+							<texture texcoord="CHANNEL1" texture="kids_png-sampler"/>
+						</diffuse>
+					</lambert>
+				</technique>
+			</profile_COMMON>
+		</effect>
+	</library_effects>
+	<library_images>
+		<image id="stars_png-img" name="stars_png-img">
+			<init_from>stars.png</init_from>
+		</image>
+		<image id="box_png-img" name="box_png-img">
+			<init_from>box.png</init_from>
+		</image>
+		<image id="kids_text_png-img" name="kids_text_png-img">
+			<init_from>kids_text.png</init_from>
+		</image>
+		<image id="kids_png-img" name="kids_png-img">
+			<init_from>kids.png</init_from>
+		</image>
+	</library_images>
+	<library_lights>
+		<light id="Spot" name="Spot">
+			<technique_common>
+				<point>
+					<color>1.00000 1.00000 1.00000</color>
+					<constant_attenuation>1.0</constant_attenuation>
+					<linear_attenuation>0.0</linear_attenuation>
+					<quadratic_attenuation>0.0</quadratic_attenuation>
+				</point>
+			</technique_common>
+		</light>
+	</library_lights>
+	<library_materials>
+		<material id="stars_png" name="stars_png">
+			<instance_effect url="#stars_png-fx"/>
+		</material>
+		<material id="box_png" name="box_png">
+			<instance_effect url="#box_png-fx"/>
+		</material>
+		<material id="kids_text_png" name="kids_text_png">
+			<instance_effect url="#kids_text_png-fx"/>
+		</material>
+		<material id="kids_png" name="kids_png">
+			<instance_effect url="#kids_png-fx"/>
+		</material>
+	</library_materials>
+	<library_geometries>
+		<geometry id="Plane_008" name="Plane_008">
+			<mesh>
+				<source id="Plane_008-Position">
+					<float_array count="12" id="Plane_008-Position-array">1.00000 1.00000 0.00000 1.00000 -1.00000 0.00000 -1.00000 -1.00000 0.00000 -1.00000 1.00000 0.00000</float_array>
+					<technique_common>
+						<accessor count="4" source="#Plane_008-Position-array" stride="3">
+							<param type="float" name="X"></param>
+							<param type="float" name="Y"></param>
+							<param type="float" name="Z"></param>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Plane_008-Normals">
+					<float_array count="3" id="Plane_008-Normals-array">0.00000 -0.00000 1.00000</float_array>
+					<technique_common>
+						<accessor count="1" source="#Plane_008-Normals-array" stride="3">
+							<param type="float" name="X"></param>
+							<param type="float" name="Y"></param>
+							<param type="float" name="Z"></param>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Plane_008-UV">
+					<float_array count="12" id="Plane_008-UV-array">0.00000 0.00000 1.00000 0.00000 1.00000 1.00000 1.00000 1.00000 0.00000 1.00000 0.00000 0.00000</float_array>
+					<technique_common>
+						<accessor count="6" source="#Plane_008-UV-array" stride="2">
+							<param type="float" name="S"></param>
+							<param type="float" name="T"></param>
+						</accessor>
+					</technique_common>
+				</source>
+				<vertices id="Plane_008-Vertex">
+					<input semantic="POSITION" source="#Plane_008-Position"/>
+				</vertices>
+				<triangles count="2" material="stars_png">
+					<input offset="0" semantic="VERTEX" source="#Plane_008-Vertex"/>
+					<input offset="1" semantic="NORMAL" source="#Plane_008-Normals"/>
+					<input offset="2" semantic="TEXCOORD" source="#Plane_008-UV"/>
+					<p>0 0 0 3 0 1 2 0 2 2 0 3 1 0 4 0 0 5</p>
+				</triangles>
+			</mesh>
+		</geometry>
+		<geometry id="Plane_007" name="Plane_007">
+			<mesh>
+				<source id="Plane_007-Position">
+					<float_array count="24" id="Plane_007-Position-array">1.00000 1.00000 0.00000 1.00000 -1.00000 0.00000 -1.00000 -1.00000 0.00000 -1.00000 1.00000 0.00000 -0.50289 0.18728 0.88221 -0.50289 -0.86811 0.88221 0.55250 -0.86811 0.88221 0.55250 0.18728 0.88221</float_array>
+					<technique_common>
+						<accessor count="8" source="#Plane_007-Position-array" stride="3">
+							<param type="float" name="X"></param>
+							<param type="float" name="Y"></param>
+							<param type="float" name="Z"></param>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Plane_007-Normals">
+					<float_array count="6" id="Plane_007-Normals-array">0.00000 -0.00000 1.00000 0.00000 -0.00000 1.00000</float_array>
+					<technique_common>
+						<accessor count="2" source="#Plane_007-Normals-array" stride="3">
+							<param type="float" name="X"></param>
+							<param type="float" name="Y"></param>
+							<param type="float" name="Z"></param>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Plane_007-UV">
+					<float_array count="24" id="Plane_007-UV-array">0.00000 0.00000 1.00000 0.00000 1.00490 1.00294 1.00490 1.00294 0.00000 1.00294 0.00000 0.00000 0.00000 0.00000 1.00787 0.00000 1.00787 1.00990 1.00787 1.00990 0.00000 1.00000 0.00000 0.00000</float_array>
+					<technique_common>
+						<accessor count="12" source="#Plane_007-UV-array" stride="2">
+							<param type="float" name="S"></param>
+							<param type="float" name="T"></param>
+						</accessor>
+					</technique_common>
+				</source>
+				<vertices id="Plane_007-Vertex">
+					<input semantic="POSITION" source="#Plane_007-Position"/>
+				</vertices>
+				<triangles count="2" material="box_png">
+					<input offset="0" semantic="VERTEX" source="#Plane_007-Vertex"/>
+					<input offset="1" semantic="NORMAL" source="#Plane_007-Normals"/>
+					<input offset="2" semantic="TEXCOORD" source="#Plane_007-UV"/>
+					<p>0 0 0 3 0 1 2 0 2 2 0 3 1 0 4 0 0 5</p>
+				</triangles>
+				<triangles count="2" material="kids_text_png">
+					<input offset="0" semantic="VERTEX" source="#Plane_007-Vertex"/>
+					<input offset="1" semantic="NORMAL" source="#Plane_007-Normals"/>
+					<input offset="2" semantic="TEXCOORD" source="#Plane_007-UV"/>
+					<p>7 1 6 4 1 7 5 1 8 5 1 9 6 1 10 7 1 11</p>
+				</triangles>
+			</mesh>
+		</geometry>
+		<geometry id="Plane_006" name="Plane_006">
+			<mesh>
+				<source id="Plane_006-Position">
+					<float_array count="12" id="Plane_006-Position-array">1.00000 1.00000 0.00000 1.00000 -1.00000 0.00000 -1.00000 -1.00000 0.00000 -1.00000 1.00000 0.00000</float_array>
+					<technique_common>
+						<accessor count="4" source="#Plane_006-Position-array" stride="3">
+							<param type="float" name="X"></param>
+							<param type="float" name="Y"></param>
+							<param type="float" name="Z"></param>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Plane_006-Normals">
+					<float_array count="3" id="Plane_006-Normals-array">0.00000 -0.00000 1.00000</float_array>
+					<technique_common>
+						<accessor count="1" source="#Plane_006-Normals-array" stride="3">
+							<param type="float" name="X"></param>
+							<param type="float" name="Y"></param>
+							<param type="float" name="Z"></param>
+						</accessor>
+					</technique_common>
+				</source>
+				<source id="Plane_006-UV">
+					<float_array count="12" id="Plane_006-UV-array">0.00000 0.00000 1.00000 0.00000 1.00000 0.99333 1.00000 0.99333 0.00000 0.99333 0.00000 0.00000</float_array>
+					<technique_common>
+						<accessor count="6" source="#Plane_006-UV-array" stride="2">
+							<param type="float" name="S"></param>
+							<param type="float" name="T"></param>
+						</accessor>
+					</technique_common>
+				</source>
+				<vertices id="Plane_006-Vertex">
+					<input semantic="POSITION" source="#Plane_006-Position"/>
+				</vertices>
+				<triangles count="2" material="kids_png">
+					<input offset="0" semantic="VERTEX" source="#Plane_006-Vertex"/>
+					<input offset="1" semantic="NORMAL" source="#Plane_006-Normals"/>
+					<input offset="2" semantic="TEXCOORD" source="#Plane_006-UV"/>
+					<p>0 0 0 3 0 1 2 0 2 2 0 3 1 0 4 0 0 5</p>
+				</triangles>
+			</mesh>
+		</geometry>
+	</library_geometries>
+	<library_visual_scenes>
+		<visual_scene id="Scene" name="Scene">
+			<node layer="L1" id="Plane_003" name="Plane_003">
+				<translate sid="translate">0.11637 6.43332 2.55521</translate>
+				<rotate sid="rotateZ">0 0 1 179.47325</rotate>
+				<rotate sid="rotateY">0 1 0 -0.00001</rotate>
+				<rotate sid="rotateX">1 0 0 -90.00092</rotate>
+				<scale sid="scale">3.99892 3.99892 3.99892</scale>
+				<instance_geometry url="#Plane_008">
+					<bind_material>
+						<technique_common>
+							<instance_material symbol="stars_png" target="#stars_png">
+								<bind_vertex_input input_semantic="TEXCOORD" input_set="1" semantic="CHANNEL1"/>
+							</instance_material>
+						</technique_common>
+					</bind_material>
+				</instance_geometry>
+			</node>
+			<node layer="L1" id="Plane_002" name="Plane_002">
+				<translate sid="translate">0.00000 1.23950 -1.99849</translate>
+				<rotate sid="rotateZ">0 0 1 179.47325</rotate>
+				<rotate sid="rotateY">0 1 0 -0.00001</rotate>
+				<rotate sid="rotateX">1 0 0 -90.00092</rotate>
+				<scale sid="scale">1.76767 1.76767 1.76767</scale>
+				<instance_geometry url="#Plane_007">
+					<bind_material>
+						<technique_common>
+							<instance_material symbol="box_png" target="#box_png">
+								<bind_vertex_input input_semantic="TEXCOORD" input_set="1" semantic="CHANNEL1"/>
+							</instance_material>
+							<instance_material symbol="kids_text_png" target="#kids_text_png">
+								<bind_vertex_input input_semantic="TEXCOORD" input_set="1" semantic="CHANNEL1"/>
+							</instance_material>
+						</technique_common>
+					</bind_material>
+				</instance_geometry>
+			</node>
+			<node layer="L1" id="Plane" name="Plane">
+				<translate sid="translate">-0.13371 3.45028 0.92009</translate>
+				<rotate sid="rotateZ">0 0 1 179.47325</rotate>
+				<rotate sid="rotateY">0 1 0 -0.00001</rotate>
+				<rotate sid="rotateX">1 0 0 -90.00092</rotate>
+				<scale sid="scale">1.90899 1.90899 1.90899</scale>
+				<instance_geometry url="#Plane_006">
+					<bind_material>
+						<technique_common>
+							<instance_material symbol="kids_png" target="#kids_png">
+								<bind_vertex_input input_semantic="TEXCOORD" input_set="1" semantic="CHANNEL1"/>
+							</instance_material>
+						</technique_common>
+					</bind_material>
+				</instance_geometry>
+			</node>
+			<node layer="L1" id="Lamp" name="Lamp">
+				<translate sid="translate">4.07625 1.00545 5.90386</translate>
+				<rotate sid="rotateZ">0 0 1 106.93632</rotate>
+				<rotate sid="rotateY">0 1 0 3.16371</rotate>
+				<rotate sid="rotateX">1 0 0 37.26105</rotate>
+				<scale sid="scale">1.00000 1.00000 1.00000</scale>
+				<instance_light url="#Spot"/>
+			</node>
+			<node layer="L1" id="Camera" name="Camera">
+				<translate sid="translate">7.48113 -6.50764 5.34367</translate>
+				<rotate sid="rotateZ">0 0 1 46.69194</rotate>
+				<rotate sid="rotateY">0 1 0 0.61977</rotate>
+				<rotate sid="rotateX">1 0 0 63.55930</rotate>
+				<scale sid="scale">1.00000 1.00000 1.00000</scale>
+				<instance_camera url="#Camera-Camera"/>
+			</node>
+		</visual_scene>
+	</library_visual_scenes>
+	<library_physics_materials>
+		<physics_material id="Plane_003-PhysicsMaterial" name="Plane_003-PhysicsMaterial">
+			<technique_common>
+				<dynamic_friction>0</dynamic_friction>
+				<restitution>0</restitution>
+				<static_friction>0</static_friction>
+			</technique_common>
+		</physics_material>
+		<physics_material id="Plane_002-PhysicsMaterial" name="Plane_002-PhysicsMaterial">
+			<technique_common>
+				<dynamic_friction>0</dynamic_friction>
+				<restitution>0</restitution>
+				<static_friction>0</static_friction>
+			</technique_common>
+		</physics_material>
+		<physics_material id="Plane-PhysicsMaterial" name="Plane-PhysicsMaterial">
+			<technique_common>
+				<dynamic_friction>0</dynamic_friction>
+				<restitution>0</restitution>
+				<static_friction>0</static_friction>
+			</technique_common>
+		</physics_material>
+	</library_physics_materials>
+	<library_physics_models>
+		<physics_model id="Scene-PhysicsModel" name="Scene-PhysicsModel">
+			<rigid_body name="Plane_003-RigidBody" sid="Plane_003-RigidBody">
+				<technique_common>
+					<dynamic>false</dynamic>
+					<mass>0</mass>
+					<instance_physics_material url="#Plane_003-PhysicsMaterial"/>
+					<shape>
+						<instance_geometry url="#Plane_008"/>
+					</shape>
+				</technique_common>
+			</rigid_body>
+			<rigid_body name="Plane_002-RigidBody" sid="Plane_002-RigidBody">
+				<technique_common>
+					<dynamic>false</dynamic>
+					<mass>0</mass>
+					<instance_physics_material url="#Plane_002-PhysicsMaterial"/>
+					<shape>
+						<instance_geometry url="#Plane_007"/>
+					</shape>
+				</technique_common>
+			</rigid_body>
+			<rigid_body name="Plane-RigidBody" sid="Plane-RigidBody">
+				<technique_common>
+					<dynamic>false</dynamic>
+					<mass>0</mass>
+					<instance_physics_material url="#Plane-PhysicsMaterial"/>
+					<shape>
+						<instance_geometry url="#Plane_006"/>
+					</shape>
+				</technique_common>
+			</rigid_body>
+		</physics_model>
+	</library_physics_models>
+	<library_physics_scenes>
+		<physics_scene id="Scene-Physics" name="Scene-Physics">
+			<instance_physics_model url="#Scene-PhysicsModel">
+				<instance_rigid_body body="Plane_003-RigidBody" target="#Plane_003"/>
+				<instance_rigid_body body="Plane_002-RigidBody" target="#Plane_002"/>
+				<instance_rigid_body body="Plane-RigidBody" target="#Plane"/>
+			</instance_physics_model>
+		</physics_scene>
+	</library_physics_scenes>
+	<scene>
+		<instance_physics_scene url="#Scene-Physics"/>
+		<instance_visual_scene url="#Scene"/>
+	</scene>
+</COLLADA>

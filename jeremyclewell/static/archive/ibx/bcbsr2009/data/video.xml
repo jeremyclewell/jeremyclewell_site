@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<videoClip genre="current">
+		<url><![CDATA[rtmp://ibx023tylm.rtmphost.com/BCBSR09/training_6]]></url>
+	</videoClip>
+	<videoClip genre="drills">
+		<url><![CDATA[rtmp://ibx023tylm.rtmphost.com/BCBSR09/warmup]]></url>
+	</videoClip>
+	<videoClip genre="drills">
+		<url><![CDATA[rtmp://ibx023tylm.rtmphost.com/BCBSR09/endurance]]></url>
+	</videoClip>
+	<videoClip genre="drills">
+		<url><![CDATA[rtmp://ibx023tylm.rtmphost.com/BCBSR09/strength]]></url>
+	</videoClip>
+	<videoClip genre="drills">
+		<url><![CDATA[rtmp://ibx023tylm.rtmphost.com/BCBSR09/stretching]]></url>
+	</videoClip>
+	<videoClip genre="training">
+		<active>true</active>
+		<week1>02.01</week1>
+		<week2>02.08</week2>
+		<thumbnail><![CDATA[assets/images/vickiButton1.swf]]></thumbnail>
+		<url><![CDATA[rtmp://ibx023tylm.rtmphost.com/BCBSR09/training_1]]></url>
+	</videoClip>
+	<videoClip genre="training">
+		<active>true</active>
+		<week1>02.15</week1>
+		<week2>02.22</week2>
+		<thumbnail><![CDATA[assets/images/vickiButton1.swf]]></thumbnail>
+		<url><![CDATA[rtmp://ibx023tylm.rtmphost.com/BCBSR09/training_2]]></url>
+	</videoClip>
+	<videoClip genre="training">
+		<active>true</active>
+		<week1>03.01</week1>
+		<week2>03.08</week2>
+		<thumbnail><![CDATA[assets/images/vickiButton1.swf]]></thumbnail>
+		<url><![CDATA[rtmp://ibx023tylm.rtmphost.com/BCBSR09/training_3]]></url>
+	</videoClip>
+	<videoClip genre="training">
+		<active>true</active>
+		<week1>03.15</week1>
+		<week2>03.22</week2>
+		<thumbnail><![CDATA[assets/images/vickiButton1.swf]]></thumbnail>
+		<url><![CDATA[rtmp://ibx023tylm.rtmphost.com/BCBSR09/training_4]]></url>
+	</videoClip>
+	<videoClip genre="training">
+		<active>true</active>
+		<week1>03.29</week1>
+		<week2>04.05</week2>
+		<thumbnail><![CDATA[assets/images/vickiButton1.swf]]></thumbnail>
+		<url><![CDATA[rtmp://ibx023tylm.rtmphost.com/BCBSR09/training_5]]></url>
+	</videoClip>
+	<videoClip genre="training">
+		<active>true</active>
+		<week1>04.12</week1>
+		<week2>04.19</week2>
+		<thumbnail><![CDATA[assets/images/vickiButton1.swf]]></thumbnail>
+		<url><![CDATA[rtmp://ibx023tylm.rtmphost.com/BCBSR09/training_6]]></url>
+	</videoClip>
+</root>

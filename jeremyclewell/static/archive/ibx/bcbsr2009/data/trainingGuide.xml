@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<week name="WEEK 02.01 & 02.08">
+		<text>WEEK OF FEBRUARY 1
+	Sun:		rest
+	Mon:		x-train
+	Tues:	1 mile
+	Wed:	x-train
+	Thur:	2 miles
+	Fri:		rest
+	Sat:		2 miles
+	
+Total milage:	5 miles</text>
+	
+	<text>WEEK OF FEBRUARY 8
+	Sun:		rest
+	Mon:		x-train
+	Tues:	1 mile
+	Wed:	x-train
+	Thur:	3 miles
+	Fri:		rest
+	Sat:		2 miles
+	
+Total milage:	6 miles</text>
+	</week>
+	
+	
+	
+	<week name="WEEK 02.15 & 02.22">
+		<text>WEEK OF FEBRUARY 15
+	Sun:		rest
+	Mon:		x-train
+	Tues:	2 miles
+	Wed:	x-train
+	Thur:	2 miles
+	Fri:		rest
+	Sat:		3 miles
+	
+Total milage:	7 miles</text>
+	
+	<text>WEEK OF FEBRUARY 22
+	Sun:		rest
+	Mon:		x-train
+	Tues:	2 miles
+	Wed:	x-train
+	Thur:	3 miles
+	Fri:		rest
+	Sat:		3 miles
+	
+Total milage:	8 miles</text>
+	</week>
+	
+	
+	
+	<week name="WEEK 03.01 & 03.08">
+		<text>WEEK OF MARCH 1
+	Sun:		rest
+	Mon:		x-train
+	Tues:	3 miles
+	Wed:	x-train
+	Thur:	2 miles
+	Fri:		rest
+	Sat:		4 miles
+	
+Total milage:	9 miles</text>
+	
+	<text>WEEK OF MARCH 8
+	Sun:		rest
+	Mon:		x-train
+	Tues:	2 miles
+	Wed:	x-train
+	Thur:	4 miles
+	Fri:		rest
+	Sat:		4 miles
+	
+Total milage:	10 miles</text>
+	</week>
+	
+	
+	
+	<week name="WEEK 03.15 & 03.22">
+		<text>WEEK OF MARCH 15
+	Sun:		rest
+	Mon:		x-train
+	Tues:	3 miles
+	Wed:	x-train
+	Thur:	4 miles
+	Fri:		rest
+	Sat:		5 miles
+	
+Total milage:	12 miles</text>
+	
+	<text>WEEK OF MARCH 22
+	Sun:		rest
+	Mon:		x-train
+	Tues:	2 miles
+	Wed:	x-train
+	Thur:	5 miles
+	Fri:		rest
+	Sat:		3 miles
+	
+Total milage:	10 miles</text>
+	</week>
+	
+	
+	
+	<week name="WEEK 03.29 & 04.05">
+		<text>WEEK OF MARCH 29
+	Sun:		rest
+	Mon:		x-train
+	Tues:	3 miles
+	Wed:	x-train
+	Thur:	4 miles
+	Fri:		rest
+	Sat:		6 miles
+	
+Total milage:	13 miles</text>
+	
+	<text>WEEK OF APRIL 05
+	Sun:		rest
+	Mon:		x-train
+	Tues:	4 miles
+	Wed:	x-train
+	Thur:	5 miles
+	Fri:		rest
+	Sat:		6 miles
+	
+Total milage:	15 miles</text>
+	</week>
+	
+	
+	
+	<week name="WEEK 04.12, 04.19, & 04.26">
+		<text>WEEK OF APRIL 12
+	Sun:		rest
+	Mon:		x-train
+	Tues:	5 miles
+	Wed:	x-train
+	Thur:	3 miles
+	Fri:		rest
+	Sat:		8 miles
+	
+Total milage:	16 miles</text>
+	
+	<text>WEEK OF APRIL 19
+	Sun:		rest
+	Mon:		x-train
+	Tues:	2 miles
+	Wed:	x-train
+	Thur:	4 miles
+	Fri:		rest
+	Sat:		4 miles
+	
+Total milage:	10 miles</text>
+	
+	<text>WEEK OF APRIL 26
+	Sun:		rest
+	Mon:		x-train
+	Tues:	2 miles
+	Wed:	x-train
+	Thur:	rest
+	Fri:		2 miles
+	Sat:		rest
+	
+Total milage:	4 miles</text>
+	</week>
+
+
+</root>

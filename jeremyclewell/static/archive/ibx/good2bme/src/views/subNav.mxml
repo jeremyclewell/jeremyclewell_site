@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml">
+	<mx:Label text="{data.@name}" click="changePage()" />
+	<mx:Script>
+		<![CDATA[
+			public function changePage():void {
+				parentDocument.contentSwf.source = data.@source;
+				
+				if (ExternalInterface.available)
+				{
+					try
+					{
+						ExternalInterface.call(
+							'dcsMultiTrack',                        
+							'DCS.dcsuri',                          
+							data.@source,
+							'WT.ti', 
+							'FlashEvent:' + data.@name 
+						);
+					}
+					catch (error:Error)
+					{
+						// Error handling here
+					}
+					catch (error:SecurityError)
+					{
+						// Error handling here
+					}
+				}
+			}
+		]]>
+	</mx:Script>
+</mx:Canvas>

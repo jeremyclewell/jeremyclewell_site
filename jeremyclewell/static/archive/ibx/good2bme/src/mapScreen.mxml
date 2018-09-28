@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" >
+
+<mx:Script>
+	<![CDATA[
+	
+		[Embed(source='assets/swfs/FlashAssets.swf#take_me_there_btn')]
+		[Bindable]
+		public var take_me_there_btn:Class;
+		
+		[Embed(source='assets/swfs/FlashAssets.swf#world_screen_close_btn')]
+		[Bindable]
+		private var close_btn:Class;
+		
+		private var currentLocation:int = 8;
+		
+		private function fadeAll():void 
+		{
+			chad.visible = tim.visible = cunninghams.visible = miller.visible = jamiesue.visible = jason.visible = kimberly.visible = cooke.visible = smiths.visible = jimmy.visible = false;
+		}
+		
+		private function locationChosen():void 
+		{
+			switch (this.currentLocation) {
+				case 1:
+					parentDocument.takeMeThere(5229, -9932, 169);
+				//	parentDocument.hideMap();
+					break;
+				case 2:
+					parentDocument.takeMeThere(9661, -9932, 156);
+					//parentDocument.hideMap();
+					break;
+				case 3:
+					parentDocument.takeMeThere(12560, -8493, 90);
+				//	parentDocument.hideMap();
+					break;
+				case 4:
+					parentDocument.takeMeThere(8558, -7189, 102);
+				//	parentDocument.hideMap();
+					break;
+				case 5:
+					parentDocument.takeMeThere(3102, -6835, 228);
+				//	parentDocument.hideMap();
+					break;
+				case 6:
+					parentDocument.takeMeThere(1081, -7250, 272);
+				//	parentDocument.hideMap();
+					break;
+				case 7:
+					parentDocument.takeMeThere(1081, -4830, 282);
+					//parentDocument.hideMap();
+					break;
+				case 8:
+					parentDocument.takeMeThere(2754,-4066,359);
+				//	parentDocument.hideMap();
+					break;
+				case 9:
+					parentDocument.takeMeThere(5739, -4066, 5);
+				//	parentDocument.hideMap();
+					break;
+				case 10:
+					parentDocument.takeMeThere(12047, -4066, 36);
+				//	parentDocument.hideMap();
+					break;
+				default:
+				break;
+			}
+		}
+	]]>
+</mx:Script>
+
+
+
+<mx:Resize id="grow"
+	widthBy="10"
+	heightBy="10"
+	duration="250" />
+	
+<mx:Resize id="shrink"
+	widthBy="-10"
+	heightBy="-10"
+	duration="250" />
+	
+<mx:Glow id="glow"
+	 color="#fffec4"
+	 strength="10"
+	 blurXTo="15"
+	 blurYTo="15"
+	 duration="250" />
+	 
+<mx:Fade id="fadeOut"
+	alphaFrom="1"
+	alphaTo="0"
+	duration="250" />
+	
+<mx:Fade id="fadeIn"
+	alphaFrom="0"
+	alphaTo="1"
+	duration="250" />
+	
+	<mx:Image source="@Embed(source='assets/images/map.png')" /> 
+	
+	
+	<mx:Image x="433" y="10" id="chad" source="@Embed(source='assets/images/map/Chad.png')" hideEffect="fadeOut" showEffect="fadeIn"/>
+	<mx:Image x="484" y="7" id="tim" source="@Embed(source='assets/images/map/coach_tim.png')" visible="false" hideEffect="fadeOut" showEffect="fadeIn"/>
+	<mx:Image x="373" y="10" id="cunninghams" source="@Embed(source='assets/images/map/Cunninghams.png')" visible="false" hideEffect="fadeOut" showEffect="fadeIn"/>
+	<mx:Image x="254" y="10" id="miller" source="@Embed(source='assets/images/map/Dr_miller.png')" visible="false" hideEffect="fadeOut" showEffect="fadeIn"/>
+	<mx:Image x="186" y="10" id="jamiesue" source="@Embed(source='assets/images/map/Jamiesue.png')" visible="false" hideEffect="fadeOut" showEffect="fadeIn"/>
+	<mx:Image x="256" y="10" id="jason" source="@Embed(source='assets/images/map/jason.png')" visible="false" hideEffect="fadeOut" showEffect="fadeIn"/>
+	<mx:Image x="254" y="10" id="kimberly" source="@Embed(source='assets/images/map/Kimerly.png')" visible="false" hideEffect="fadeOut" showEffect="fadeIn"/>
+	<mx:Image x="461" y="10" id="cooke" source="@Embed(source='assets/images/map/Mrs_cooke.png')" visible="false" hideEffect="fadeOut" showEffect="fadeIn"/>
+	<mx:Image x="122" y="10" id="smiths" source="@Embed(source='assets/images/map/Smiths.png')" visible="false" hideEffect="fadeOut" showEffect="fadeIn"/>
+	<mx:Image x="104" y="7" id="jimmy" source="@Embed(source='assets/images/map/jimmy.png')" visible="false" hideEffect="fadeOut" showEffect="fadeIn"/>
+	
+	<mx:SWFLoader source="{take_me_there_btn}"  x="650" y="330" click="locationChosen();"/>
+	
+	<mx:Image x="99" y="165" source="@Embed(source='assets/images/map/icon_parents.png')" click="if(smiths.visible == true) return; fadeAll(); smiths.visible = true; currentLocation = 1;"/>
+	<mx:Image x="69" y="268" source="@Embed(source='assets/images/map/icon_boy.png')" click="if(jimmy.visible == true) return; fadeAll(); jimmy.visible = true; currentLocation = 2;"/>
+	<mx:Image x="164" y="321" source="@Embed(source='assets/images/map/icon_chick.png')" click="if(jamiesue.visible == true) return; fadeAll(); jamiesue.visible = true; currentLocation = 3;"/>
+	<mx:Image x="233" y="225" source="@Embed(source='assets/images/map/icon_chick2.png')" click="if(kimberly.visible == true) return; fadeAll(); kimberly.visible = true; currentLocation = 4;"/>
+	<mx:Image x="226" y="144" source="@Embed(source='assets/images/map/icon_dreds.png')" click="if(jason.visible == true) return; fadeAll(); jason.visible = true; currentLocation = 5;"/>
+	<mx:Image x="227" y="69" source="@Embed(source='assets/images/map/icon_dr.png')" click="if(miller.visible == true) return; fadeAll(); miller.visible = true; currentLocation = 6;"/>
+	<mx:Image x="343" y="69" source="@Embed(source='assets/images/map/icon_cunninghams.png')" click="if(cunninghams.visible == true) return; fadeAll(); cunninghams.visible = true; currentLocation = 7;"/>
+	<mx:Image x="409" y="94" source="@Embed(source='assets/images/map/icon_dude.png')" click="if(chad.visible == true) return; fadeAll(); chad.visible = true; currentLocation = 8;"/>
+	<mx:Image x="427" y="163" source="@Embed(source='assets/images/map/icon_teacher.png')" click="if(cooke.visible == true) return; fadeAll(); cooke.visible = true; currentLocation = 9;"/>
+	<mx:Image x="452" y="294" source="@Embed(source='assets/images/map/icon_coach.png')" click="if(tim.visible == true) return; fadeAll(); tim.visible = true; currentLocation = 10;"/>
+	<mx:SWFLoader source="{close_btn}" click="parentDocument.hideMap();"  x="906"/>
+	
+</mx:Canvas>

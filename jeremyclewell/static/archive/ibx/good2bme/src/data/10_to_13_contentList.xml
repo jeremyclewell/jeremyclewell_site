@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<location name="My House" closeupImage="assets/images/closeups/people-large-parents.png">
+		<topic name="IMMUNIZATIONS, VACCINES AND SHOTS" backgroundImage="assets/images/arrow1.png" headerSwf="assets/swfs/headers/1_1.swf">
+			<swf name="RECOMMENDED VACCINES" source="assets/swfs/10-13/my_house/immunizations_vaccines/recommended_vaccines.swf"/>
+			<swf name="CATCH-UP VACCINES" source="assets/swfs/10-13/my_house/immunizations_vaccines/catch-up_vaccines.swf"/>
+			<swf name="VACCINES FOR HIGH-RISK GROUPS" source="assets/swfs/10-13/my_house/immunizations_vaccines/vaccines_for_high-risk_groups.swf"/>
+		</topic>
+		<topic name="ASTHMA" backgroundImage="assets/images/arrow1.png" headerSwf="assets/swfs/headers/1_2.swf">
+			<swf name="WHAT IS ASTHMA?" source="assets/swfs/10-13/my_house/asthma/what_is_asthma.swf"/>
+			<swf name="WHAT ARE ASTHMA TRIGGERS?" source="assets/swfs/10-13/my_house/asthma/what_are_asthma_triggers.swf"/>
+			<swf name="ASTHMA VS. ALLERGIES" source="assets/swfs/10-13/my_house/asthma/asthma_vs_allergies.swf"/>
+			<swf name="IMPORTANCE OF ASTHMA MEDICATION" source="assets/swfs/10-13/my_house/asthma/importance_of_asthma_medication.swf"/>
+			<swf name="TELLING OTHERS ABOUT MY ASTHMA" source="assets/swfs/10-13/my_house/asthma/telling_others_about_my_asthma.swf"/>
+		</topic>
+	</location>
+	<location name="MOVIE THEATER" closeupImage="assets/images/closeups/people-large-movie.png">
+		<topic name="ABOUT YOUR BODY" backgroundImage="assets/images/arrow1.png" headerSwf="assets/swfs/headers/2_1.swf">
+			<swf name="JUST FOR GIRLS" source="assets/swfs/10-13/movie_theater/about_your_body/just_for_girls.swf"/>
+			<swf name="JUST FOR GUYS" source="assets/swfs/10-13/movie_theater/about_your_body/just_for_guys.swf"/>
+			<swf name="HAIR, HAIR EVERYWHERE" source="assets/swfs/10-13/movie_theater/about_your_body/hair_hair_everywhere.swf"/>
+		</topic>
+		<topic name="DEPRESSION" backgroundImage="assets/images/arrow1.png" headerSwf="assets/swfs/headers/2_2.swf">
+			<swf name="CAUSES OF DEPRESSION" source="assets/swfs/10-13/movie_theater/depression/causes_of_depression.swf"/>
+			<swf name="GETTING HELP" source="assets/swfs/10-13/movie_theater/depression/getting_help.swf"/>
+		</topic>
+		<topic name="EATING DISORDERS" backgroundImage="assets/images/arrow1.png" headerSwf="assets/swfs/headers/2_3.swf">
+			<swf name="ANOREXIA NERVOSA" source="assets/swfs/10-13/movie_theater/eating_disorders/anorexia_nervosa.swf"/>
+			<swf name="BULIMIA NERVOSA" source="assets/swfs/10-13/movie_theater/eating_disorders/bulimia_nervosa.swf"/>
+			<swf name="GETTING HELP" source="assets/swfs/10-13/movie_theater/eating_disorders/getting_help.swf"/>
+		</topic>
+	</location>
+	<location name="MINI MART" closeupImage="assets/images/closeups/people-large-minimart.png">
+		<topic name="NUTRITION" backgroundImage="assets/images/arrow1.png" headerSwf="assets/swfs/headers/3_1.swf">
+			<swf name="WHAT FOODS DO I NEED?" source="assets/swfs/10-13/mini_mart/nutrition/what_foods_do_i_need.swf"/>
+			<swf name="MYPYRAMID.GOV" source="assets/swfs/10-13/mini_mart/nutrition/my_pyramid_gov.swf"/>
+		</topic>
+		<topic name="WHAT'S THE RIGHT WEIGHT FOR ME?" backgroundImage="assets/images/arrow1.png" headerSwf="assets/swfs/headers/3_2.swf">
+			<swf name="AM I A HEALTHY WEIGHT?" source="assets/swfs/10-13/mini_mart/weight/am_i_a_healthy_weight.swf"/>
+			<swf name="BMI AND WEIGHT CATEGORIES" source="assets/swfs/10-13/mini_mart/weight/bmi_and_weight_categories.swf"/>
+		</topic>
+		<topic name="HEALTHY SNACK IDEAS" backgroundImage="assets/images/arrow1.png" headerSwf="assets/swfs/headers/3_3.swf">
+			<swf name="HEALTHY SNACK IDEAS" source="assets/swfs/10-13/mini_mart/healthy_snack_ideas/healthy_snack_ideas.swf"/>
+		</topic>
+		<topic name="CALORIE COUNTER" backgroundImage="assets/images/arrow1.png" headerSwf="assets/swfs/headers/3_4.swf">
+			<swf name="CALORIE COUNTER" source="assets/swfs/10-13/mini_mart/calorie_counter/calorie_counter.swf"/>
+		</topic>
+	</location>
+	<location name="DOCTOR'S OFFICE" closeupImage="assets/images/closeups/people-large-doctor.png">
+		<topic name="WHY IS IT IMPORTANT TO GO TO THE DOCTOR'S OFFICE?" backgroundImage="assets/images/arrow1.png" headerSwf="assets/swfs/headers/4_1.swf">
+			<swf name="WHY IS IT IMPORTANT TO GO TO THE DOCTOR'S OFFICE?" source="assets/swfs/10-13/doctors_office/why_is_it_important/why_is_it_important_to_go_top_the_doctors_office.swf"/>
+		</topic>
+		<topic name="IMMUNIZATIONS, VACCINES AND SHOTS" backgroundImage="assets/images/arrow1.png" headerSwf="assets/swfs/headers/1_1.swf">
+			<swf name="RECOMMENDED VACCINES" source="assets/swfs/10-13/my_house/immunizations_vaccines/recommended_vaccines.swf"/>
+			<swf name="CATCH-UP VACCINES" source="assets/swfs/10-13/my_house/immunizations_vaccines/catch-up_vaccines.swf"/>
+			<swf name="VACCINES FOR HIGH-RISK GROUPS" source="assets/swfs/10-13/my_house/immunizations_vaccines/vaccines_for_high-risk_groups.swf"/>
+		</topic>
+	</location>
+	<location name="GYM" closeupImage="assets/images/closeups/people-large-gym.png">
+		<topic name="EXERCISE" backgroundImage="assets/images/arrow1.png" headerSwf="assets/swfs/headers/5_1.swf">
+			<swf name="HOW MUCH EXCERCISE DO I NEED?" source="assets/swfs/10-13/gym/exercise/how_much_excercise_do_i_need.swf"/>
+			<swf name="DO WHAT YOU LOVE" source="assets/swfs/10-13/gym/exercise/do_what_you_love.swf"/>
+		</topic>
+		<topic name="BODY MASS INDEX AND YOUR HEALTH" backgroundImage="assets/images/arrow1.png" headerSwf="assets/swfs/headers/5_2.swf">
+			<swf name="BMI AND WEIGHT CATEGORIES" source="assets/swfs/10-13/mini_mart/weight/bmi_and_weight_categories.swf"/>
+		</topic>
+		<topic name="BMI CALCULATOR" backgroundImage="assets/images/arrow1.png" headerSwf="assets/swfs/headers/5_3.swf">
+			<swf name="BMI CALCULATOR" source="assets/swfs/10-13/gym/bmi_counter/bmi_calculator.swf"/>
+		</topic>
+	</location>
+	<location name="PLAYGROUND" closeupImage="assets/images/closeups/people-large-playground.png">
+		<topic name="DRUGS, ALCOHOL, TOBACCO" backgroundImage="assets/images/arrow1.png" headerSwf="assets/swfs/headers/6_1.swf">
+			<swf name="WHAT'S SO BAD ABOUT TOBACCO?" source="assets/swfs/10-13/playground/drugs_alcohol_tobacco/whats_so_bad_about_tobacco.swf"/>
+			<swf name="DANGERS OF DRUGS" source="assets/swfs/10-13/playground/drugs_alcohol_tobacco/dangers_of_drugs.swf"/>
+			<swf name="RISKS OF USING ALCOHOL" source="assets/swfs/10-13/playground/drugs_alcohol_tobacco/risks_of_using_alcohol.swf"/>
+			<swf name="HOW DOES SOMEONE BECOME AN ADDICT?" source="assets/swfs/10-13/playground/drugs_alcohol_tobacco/how_does_someone_become_an_addict.swf"/>
+		</topic>
+		<topic name="STREET SAFETY" backgroundImage="assets/images/arrow1.png" headerSwf="assets/swfs/headers/6_2.swf">
+			<swf name="BASIC STREET SAFETY REMINDERS" source="assets/swfs/10-13/playground/street_safety/basic_street_safety_reminders.swf"/>
+			<swf name="ON FOOT" source="assets/swfs/10-13/playground/street_safety/on_foot.swf"/>
+			<swf name="ON PUBLIC TRANSPORTATION" source="assets/swfs/10-13/playground/street_safety/on_public_transportation.swf"/>
+		</topic>
+	</location>
+	<location name="SCHOOL" closeupImage="assets/images/closeups/people-large-teacher.png">
+		<topic name="INTERNET SAFETY" backgroundImage="assets/images/arrow1.png" headerSwf="assets/swfs/headers/7_1.swf">
+			<swf name="INTERNET AND CELL PHONE SAFETY TIPS" source="assets/swfs/10-13/school/internet_safety/internet_and_cell_phone_safety_tips.swf"/>
+			<swf name="CYBER-BULLIES" source="assets/swfs/10-13/school/internet_safety/cyber-bullies.swf"/>
+		</topic>
+		<topic name="BULLYING" backgroundImage="assets/images/arrow1.png" headerSwf="assets/swfs/headers/7_2.swf">
+			<swf name="CYBER-BULLIES" source="assets/swfs/10-13/school/internet_safety/cyber-bullies.swf"/>
+			<swf name="WHAT CAN I DO IF I'M BEING BULLIED?" source="assets/swfs/10-13/school/bullying/what_can_i_do_if_im_being_bullied.swf"/>
+		</topic>
+		<topic name="MRSA" backgroundImage="assets/images/arrow1.png" headerSwf="assets/swfs/headers/7_3.swf">
+			<swf name="HOW CAN I PREVENT MRSA?" source="assets/swfs/10-13/school/mrsa/how_can_i_prevent_mrsa.swf"/>
+			<swf name="HOW IS MRSA TREATED?" source="assets/swfs/10-13/school/mrsa/how_is_mrsa_treated.swf"/>
+		</topic>
+	</location>
+	<location name="Teenager 1 - Talking to Your Parents" closeupImage="assets/images/closeups/people-large-talktoparents.png">
+		<topic name="TIPS FOR TALKING TO PARENTS" backgroundImage="assets/images/arrow1.png" headerSwf="assets/swfs/headers/8_1.swf">
+			<swf name="TIPS FOR TALKING TO PARENTS" source="assets/swfs/10-13/teenager_1/tips_for_talking_to_parents/tips_for_talking_to_parents.swf"/>
+		</topic>
+		<topic name="WHO ELSE CAN I TALK TO?" backgroundImage="assets/images/arrow1.png" headerSwf="assets/swfs/headers/8_2.swf">
+			<swf name="WHO ELSE CAN I TALK TO?" source="assets/swfs/10-13/teenager_1/who_else_can_i_talk_to/who_else_can_i_talk_to.swf"/>
+		</topic>
+	</location>
+	<location name="Teenager 2 - Acne" closeupImage="assets/images/closeups/people-large-acne.png">
+		<topic name="TIPS FOR GOOD SKIN CARE" backgroundImage="assets/images/arrow1.png" headerSwf="assets/swfs/headers/9_1.swf">
+			<swf name="TIPS FOR GOOD SKIN CARE" source="assets/swfs/10-13/teenager_2/tips_for_good_skin_care/tips_for_good_skin_care.swf"/>
+		</topic>
+		<topic name="WHAT CAN I DO IF I HAVE ACNE?" backgroundImage="assets/images/arrow1.png" headerSwf="assets/swfs/headers/9_2.swf">
+			<swf name="WHAT CAN I DO IF I HAVE ACNE?" source="assets/swfs/10-13/teenager_2/what_can_i_do_if_i_have_acne/what_can_i_do_if_i_have_acne.swf"/>
+		</topic>
+	</location>
+	<location name="Teenager 3 - Bike Safety" closeupImage="assets/images/closeups/people-large-bike.png">
+		<topic name="WEAR A HELMET" backgroundImage="assets/images/arrow1.png" headerSwf="assets/swfs/headers/10_1.swf">
+			<swf name="WEAR A HELMET" source="assets/swfs/10-13/teenager_3/wear_a_helmet/wear_a_helmet.swf"/>
+		</topic>
+		<topic name="PREPARING TO RIDE" backgroundImage="assets/images/arrow1.png" headerSwf="assets/swfs/headers/10_2.swf">
+			<swf name="PREPARING TO RIDE" source="assets/swfs/10-13/teenager_3/preparing_to_ride/preparing_to_ride.swf"/>
+		</topic>
+		<topic name="BASIC RULES OF THE ROAD" backgroundImage="assets/images/arrow1.png" headerSwf="assets/swfs/headers/10_3.swf">
+			<swf name="BASIC RULES OF THE ROAD" source="assets/swfs/10-13/teenager_3/basic_rules_of_the_road/basic_rules_of_the_road.swf"/>
+		</topic>
+	</location>
+	<location name="BACKPACK" closeupImage="assets/images/closeups/backpack.png">
+		<topic name="ABOUT YOUR BACKPACK" backgroundImage="assets/images/arrow1.png" headerSwf="assets/swfs/headers/11_1.swf">
+			<swf name="ABOUT YOUR BACKPACK" source="assets/swfs/10-13/backpack/about_your_backpack/about_your_backpack.swf"/>
+		</topic>
+		<topic name="REFERENCES/OUTSIDE LINKS" backgroundImage="assets/images/arrow1.png" headerSwf="assets/swfs/headers/11_2.swf">
+			<swf name="REFERENCES/OUTSIDE LINKS" source="assets/swfs/10-13/backpack/references_outside_links/references_outside_links.swf"/>
+		</topic>
+	</location>
+</root>

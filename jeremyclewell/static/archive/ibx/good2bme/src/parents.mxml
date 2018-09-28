@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:analytics="com.google.analytics.components.*" layout="absolute" creationComplete="contentSource.send(); parentsNav.selectedIndex = -1;">
+<mx:Script >
+	<![CDATA[
+		
+		import mx.controls.Alert;
+		import com.google.analytics.GATracker; //this is the actual tracking class
+		import com.google.analytics.AnalyticsTracker; //this is an interface that the GATracker class implements
+	
+		[Embed(source='assets/swfs/FlashAssets.swf#home_button')]
+		[Bindable]
+		public var home_button:Class;
+		[Embed(source='assets/swfs/FlashAssets.swf#arrow_right')]
+		[Bindable]
+		public var arrow_right:Class;
+		[Embed(source='assets/swfs/FlashAssets.swf#arrow_down')]
+		[Bindable]
+		public var arrow_down:Class;
+		[Embed(source='assets/swfs/FlashAssets.swf#content_close')]
+		[Bindable]
+		public var content_close:Class;
+		[Embed(source='assets/swfs/FlashAssets.swf#parents_fitness_btn')]
+		[Bindable]
+		public var parents_fitness_btn:Class;
+		[Embed(source='assets/swfs/FlashAssets.swf#parents_doctor_btn')]
+		[Bindable]
+		public var parents_doctor_btn:Class;
+		[Embed(source='assets/swfs/FlashAssets.swf#parents_nutrition_btn')]
+		[Bindable]
+		public var parents_nutrition_btn:Class;
+		
+		
+		
+		 public function reloadPage(event:MouseEvent):void 
+		     {
+		     	var branding:String;
+		     	try 
+		     	{
+		     		branding = (ExternalInterface.call("getHash") == undefined || ExternalInterface.call("getHash") == 'undefined') ? '' : ExternalInterface.call("getHash");
+		     	} catch (e:Error) 
+		     	{
+		     		branding = ''
+		     	}
+		     	finally 
+		     	{
+		     	var requestString:String = "main.html" + branding;
+		        var u:URLRequest = new URLRequest(requestString);
+		        navigateToURL(u, "_self");
+		      }
+		     }
+		     
+		public function fire():void {
+			
+		}
+		
+		public function init():void {
+			tweensRepeater.dataProvider = content.getItemAt(0,1).tweens.group; 
+			teensRepeater.dataProvider = content.getItemAt(0,1).teens.group;
+		}
+		
+		public function loadSection(section:int):void {
+			splashPage.visible = false;
+			try {
+			contentLoader.source = content.getItemAt(section,1).@source + "#" + Math.random().toString();
+			headerLoader.source = content.getItemAt(section,1).@headerSwf;
+			tweensRepeater.dataProvider = content.getItemAt(section,1).tweens.group;
+			teensRepeater.dataProvider = content.getItemAt(section,1).teens.group;
+			tracker.trackPageview("parents/" + content.getItemAt(section,1).@source);
+			} catch (e:Error) {}
+			if (ExternalInterface.available)
+			{
+				try
+				{
+					ExternalInterface.call(
+						'dcsMultiTrack',                        
+						'DCS.dcsuri',                          
+						content.getItemAt(section,1).@source,
+						'WT.ti', 
+						'FlashEvent:' + content.getItemAt(section,1).@source
+					);
+				}
+				catch (error:Error)
+				{
+					// Error handling here
+				}
+				catch (error:SecurityError)
+				{
+					// Error handling here
+				}
+			}
+		}
+		
+		public function loadSubSection(event:MouseEvent):void {
+			splashPage.visible = false;
+			contentLoader.source = event.target.styleName + "#" + Math.random().toString();
+			headerLoader.source = event.target.name + "#" + Math.random().toString();
+			tracker.trackPageview("parents/" + event.target.label);
+			if (ExternalInterface.available)
+			{
+				try
+				{
+					ExternalInterface.call(
+						'dcsMultiTrack',                        
+						'DCS.dcsuri',                          
+						event.target.styleName,
+						'WT.ti', 
+						'FlashEvent:' + event.target.label
+					);
+				}
+				catch (error:Error)
+				{
+					// Error handling here
+				}
+				catch (error:SecurityError)
+				{
+					// Error handling here
+				}
+			}
+		}
+		
+		private function showTweensPage(event:MouseEvent):void {
+			buildSubNav(event.target.styleName);
+			closeUp.source = "assets/images/pablo.png";
+			closeUp.y = 35;
+			childrensContent.visible = true;
+			childrensContentBG.visible = true;
+		}
+		
+		private function showTeensPage(event:MouseEvent):void {
+			buildSubNav(event.target.styleName);
+			closeUp.source = "assets/images/movies.png";
+			closeUp.y = 15;
+			childrensContent.visible = true;
+			childrensContentBG.visible = true;
+		}
+		
+		public function buildSubNav(content:XML):void {
+			pageTitle.source = content.@headerSwf;
+			var length:int = content.children().length();
+			for (var n:int = 0; n < 3; n++) {
+				subNavContainer1.getChildren()[n].label = '';
+				subNavContainer1.getChildren()[n].id = '';
+			}
+			for (var m:int = 0; m < 3; m++) {
+				subNavContainer2.getChildren()[m].label = '';
+				subNavContainer2.getChildren()[m].id = '';
+			}
+			trace(length);
+			if (length == 1) {
+				wrapper.height = 295;
+				wrapper.y = 75;
+				return;
+			} else if (length <= 3) {
+				wrapper.height = 280;
+				wrapper.y = 90;
+			} else if (length > 3) {
+				wrapper.height = 255;
+				wrapper.y = 115;
+			}
+			contentSwf.source = content.children()[0].@source + "#" + Math.random().toString();
+			for (var i:int = 0; i < length; i++) {
+				
+				if (i < 3) {
+					subNavContainer1.getChildren()[i].label = content.children()[i].@name;
+					subNavContainer1.getChildren()[i].id = content.children()[i].@source + "#" + Math.random().toString();
+					subNavContainer1.getChildAt(i).addEventListener(MouseEvent.CLICK, function(e:MouseEvent):void {contentSwf.source = e.target.id + "#" + Math.random().toString();
+																													tracker.trackPageview("parents/childrens_content/" + e.target.label);
+																													if (ExternalInterface.available)
+																													{
+																														try
+																														{
+																															ExternalInterface.call(
+																																'dcsMultiTrack',                        
+																																'DCS.dcsuri',                          
+																																e.target.id,
+																																'WT.ti', 
+																																'FlashEvent: Parent Reference' + e.target.label
+																															);
+																														}
+																														catch (error:Error)
+																														{
+																															// Error handling here
+																														}
+																														catch (error:SecurityError)
+																														{
+																															// Error handling here
+																														}
+																													}
+																												});
+				}
+				if (i > 2) {
+					subNavContainer2.getChildren()[i-3].label = content.children()[i].@name;
+					subNavContainer2.getChildren()[i-3].id = content.children()[i].@source + "#" + Math.random().toString();
+					subNavContainer2.getChildAt(i-3).addEventListener(MouseEvent.CLICK, function(e:MouseEvent):void {contentSwf.source = e.target.id + "#" + Math.random().toString();
+																													tracker.trackPageview("parents/childrens_content/" + e.target.label);
+																													if (ExternalInterface.available)
+																													{
+																														try
+																														{
+																															ExternalInterface.call(
+																																'dcsMultiTrack',                        
+																																'DCS.dcsuri',                          
+																																e.target.id,
+																																'WT.ti', 
+																																'FlashEvent: Parent Reference' + e.target.label
+																															);
+																														}
+																														catch (error:Error)
+																														{
+																															// Error handling here
+																														}
+																														catch (error:SecurityError)
+																														{
+																															// Error handling here
+																														}
+																													}
+																												});
+				}
+			}
+		}
+		
+		public function closeChildrensContent():void {
+			childrensContent.visible = false;
+			childrensContentBG.visible = false;
+		}
+	]]>
+</mx:Script>
+
+<mx:Style>
+	.accordianHeader {
+		font-size: 12;
+		font-weight: normal;
+		color: #ba6501;
+		text-align: right;
+		kerning: 200;
+	}
+</mx:Style>
+
+	<analytics:FlexTracker
+        xmlns:analytics="com.google.analytics.components.*"
+        id="tracker"
+        account="UA-10098215-1"
+        mode="AS3"
+        visualDebug="false"
+     />
+
+	<mx:Fade id="fadeIn"
+		alphaFrom="0"
+		alphaTo="1" 
+		duration="250" />
+		
+	<mx:Fade id="fadeOut"
+		alphaFrom="1"
+		alphaTo="0" 
+		duration="250" />
+		
+	<mx:HTTPService id="contentSource"
+		url="data/parents_contentList.xml"
+		resultFormat="e4x"
+		result="init()" />
+	<mx:XMLListCollection id="content" source="{contentSource.lastResult.topic}" />
+	
+
+	<mx:Image source="assets/images/parents_BG.jpg"/>
+		<!--<mx:Image id="logo" source="assets/images/logo.png" horizontalCenter="429" top="100" click="navigateToURL(new URLRequest('http://www.ibx.com'), '_blank');" />-->
+	<mx:SWFLoader source="{home_button}" click="reloadPage(event)" horizontalCenter="-426" top="95"/>
+	<mx:Accordion id="parentsNav" x="132" y="214" headerStyleName="accordianHeader" width="190" height="350" backgroundAlpha="0" borderStyle="none" change="loadSection(parentsNav.selectedIndex);">
+		<mx:Canvas label="IMMUNIZATION" width="100%"  id="immunization" >
+			<mx:Repeater id="r0" dataProvider="{content.getItemAt(0,1).articles.article}" height="300" >
+				<mx:LinkButton right="0" label="{r0.currentItem.@name}" name="{r0.currentItem.@headerSwf}" styleName="{r0.currentItem.@source}" skin="{null}" y="{25 * r0.currentIndex}" fontWeight="normal" fontSize="10" textAlign="right" color="#333333" click="loadSubSection(event)" />
+			</mx:Repeater> 
+		</mx:Canvas>
+		<mx:Canvas label="NUTRITION" width="100%" id="nutrition">
+			<mx:Repeater id="r1" dataProvider="{content.getItemAt(1,1).articles.article}" height="300" >
+				<mx:LinkButton right="0" label="{r1.currentItem.@name}" name="{r1.currentItem.@headerSwf}" styleName="{r1.currentItem.@source}" skin="{null}" y="{25 * r1.currentIndex}" fontWeight="normal" fontSize="10" textAlign="right" color="#333333" click="loadSubSection(event)" />
+			</mx:Repeater> 
+		</mx:Canvas>
+		<mx:Canvas label="WELLNESS" width="100%" id="wellness">
+			<mx:Repeater id="r2" dataProvider="{content.getItemAt(2,1).articles.article}" height="300" >
+				<mx:LinkButton right="0" label="{r2.currentItem.@name}" name="{r2.currentItem.@headerSwf}" styleName="{r2.currentItem.@source}" skin="{null}" y="{25 * r2.currentIndex}" fontWeight="normal" fontSize="10" textAlign="right" color="#333333" click="loadSubSection(event)" />
+			</mx:Repeater> 
+		</mx:Canvas>
+		<mx:Canvas label="FITNESS" width="100%" id="fitness">
+			<mx:Repeater id="r3" dataProvider="{content.getItemAt(3,1).articles.article}" height="300" >
+				<mx:LinkButton right="0" label="{r3.currentItem.@name}" name="{r3.currentItem.@headerSwf}" styleName="{r3.currentItem.@source}" skin="{null}" y="{25 * r3.currentIndex}" fontWeight="normal" fontSize="10" textAlign="right" color="#333333" click="loadSubSection(event)" />
+			</mx:Repeater> 
+		</mx:Canvas>
+		<mx:Canvas label="SAFETY" width="100%" id="safety">
+			<mx:Repeater id="r4" dataProvider="{content.getItemAt(4,1).articles.article}" height="300" >
+				<mx:LinkButton right="0" label="{r4.currentItem.@name}" name="{r4.currentItem.@headerSwf}" styleName="{r4.currentItem.@source}" skin="{null}" y="{25 * r4.currentIndex}" fontWeight="normal" fontSize="10" textAlign="right" color="#333333" click="loadSubSection(event)" />
+			</mx:Repeater> 
+		</mx:Canvas>
+		<mx:Canvas label="BULLYING" width="100%" id="bullying">
+			<mx:Repeater id="r5" dataProvider="{content.getItemAt(5,1).articles.article}" height="300" >
+				<mx:LinkButton right="0" label="{r5.currentItem.@name}" name="{r5.currentItem.@headerSwf}" styleName="{r5.currentItem.@source}" skin="{null}" y="{25 * r5.currentIndex}" fontWeight="normal" fontSize="10" textAlign="right" color="#333333" click="loadSubSection(event)" />
+			</mx:Repeater> 
+		</mx:Canvas>
+		<mx:Canvas label="PUBERTY" width="100%" id="puberty">
+			<mx:Repeater id="r6" dataProvider="{content.getItemAt(6,1).articles.article}" height="300" >
+				<mx:LinkButton right="0" label="{r6.currentItem.@name}" name="{r6.currentItem.@headerSwf}" styleName="{r6.currentItem.@source}" skin="{null}" y="{25 * r6.currentIndex}" fontWeight="normal" fontSize="10" textAlign="right" color="#333333" click="loadSubSection(event)" />
+			</mx:Repeater> 
+		</mx:Canvas>
+		<mx:Canvas label="TALKING TO YOUR KIDS" width="100%" id="talking">
+			<mx:Repeater id="r7" dataProvider="{content.getItemAt(7,1).articles.article}" height="300" >
+				<mx:LinkButton right="0" label="{r7.currentItem.@name}" name="{r7.currentItem.@headerSwf}" styleName="{r7.currentItem.@source}" skin="{null}" y="{25 * r7.currentIndex}" fontWeight="normal" fontSize="10" textAlign="right" color="#333333" click="loadSubSection(event)" />
+			</mx:Repeater> 
+		</mx:Canvas>
+	</mx:Accordion>
+	
+	<mx:LinkButton label="PARENTS" fontWeight="normal" styleName="accordianHeader" fontSize="12" skin="{null}" y="191" click="splashPage.visible = true; parentsNav.selectedIndex = 0;" horizontalCenter="-312"/>
+	<mx:SWFLoader id="headerLoader"  y="188" x="355"/>
+	<mx:Canvas   y="235" x="353" height="443" horizontalScrollPolicy="off"  width="514">
+		<mx:SWFLoader id="contentLoader"/>
+	</mx:Canvas>
+	
+	<mx:Canvas id="tweensLinks"  x="890" y="334">
+		<mx:Repeater id="tweensRepeater" >
+			<mx:LinkButton label="{tweensRepeater.currentItem.@name}" styleName="{tweensRepeater.currentItem}" y="{20 * tweensRepeater.currentIndex}" click="showTweensPage(event)" />
+		</mx:Repeater>
+	</mx:Canvas>
+	<mx:Canvas id="teensLinks"  x="890" y="504">
+		<mx:Repeater id="teensRepeater" >
+			<mx:LinkButton label="{teensRepeater.currentItem.@name}" styleName="{teensRepeater.currentItem}" y="{20 * teensRepeater.currentIndex}" click="showTeensPage(event)" />
+		</mx:Repeater>
+	</mx:Canvas>
+	<mx:Canvas id="childrensContentBG" width="100%" height="100% " backgroundColor="#000000" backgroundAlpha=".25" visible="false" showEffect="{fadeIn}" hideEffect="{fadeOut}" />
+	<mx:Canvas id="childrensContent" visible="false" showEffect="{fadeIn}" hideEffect="{fadeOut}" width="100%" height="100%">
+		
+	
+		<mx:Canvas horizontalCenter="0" y="165" width="808" height="525" horizontalScrollPolicy="off" verticalScrollPolicy="off"   backgroundColor="#FFFFFF" backgroundAlpha="0.0"  >
+		<mx:Image source="assets/images/parents_popup_BG.png" x="0" y="18" />
+		<mx:Image id="closeUp" y="35" />
+		<mx:Canvas id="header"  width="100%" height="170" x="204" y="20" backgroundAlpha="0.0" verticalScrollPolicy="off" horizontalScrollPolicy="off">
+			<mx:SWFLoader id="pageTitle" x="5" y="0" />
+			<mx:SWFLoader source="{content_close}" click="closeChildrensContent()" x="557" y="10"/>
+			<mx:Panel id="subNavContainer1" x="0" y="50" width="550" height="200" layout="horizontal" borderAlpha="0.0" borderThicknessTop="0"	borderThicknessLeft="0" borderThicknessRight="0" headerHeight="0" dropShadowEnabled="false" backgroundAlpha="0.0"  horizontalScrollPolicy="off" verticalScrollPolicy="off">
+				<mx:LinkButton id="subNav1" color="#0088ce" skin="{null}" textDecoration="underline" />
+				<mx:LinkButton id="subNav2" color="#0088ce" skin="{null}" textDecoration="underline" />
+				<mx:LinkButton id="subNav3" color="#0088ce" skin="{null}" textDecoration="underline" />
+			</mx:Panel>
+			<mx:Panel id="subNavContainer2" x="0" y="75" width="550" height="200" layout="horizontal" borderAlpha="0.0" borderThicknessTop="0"	borderThicknessLeft="0" borderThicknessRight="0" headerHeight="0" dropShadowEnabled="false" backgroundAlpha="0.0"  horizontalScrollPolicy="off" verticalScrollPolicy="off">
+				<mx:LinkButton id="subNav4" color="#0088ce" skin="{null}" textDecoration="underline" />
+				<mx:LinkButton id="subNav5" color="#0088ce" skin="{null}" textDecoration="underline" />
+				<mx:LinkButton id="subNav6" color="#0088ce" skin="{null}" textDecoration="underline" />
+			</mx:Panel>
+			<!--<mx:TileList id="subNav" x="10" y=""2" direction="horizontal" rowHeight="20" columnWidth="150" itemRenderer="views.subNav"></mx:TileList>
+			-->
+		</mx:Canvas>
+		<mx:Canvas id="wrapper" x="204" height="245" y="105" width="545" backgroundAlpha="0.0">
+			
+		<mx:SWFLoader id="contentSwf" />
+		</mx:Canvas>
+		</mx:Canvas>
+	</mx:Canvas>
+	
+	<mx:Canvas id="splashPage" horizontalCenter="106" top="148" showEffect="fadeIn" hideEffect="fadeOut" visible="true"  backgroundImage="assets/images/parents_start.jpg">
+		<!--<mx:Image source="assets/images/parents_start.jpg"  y="0" x="0"/>-->
+		
+		<mx:SWFLoader source="{parents_doctor_btn}"  x="546" y="22" click="parentsNav.selectedIndex = 0; loadSection(0); splashPage.visible = false;"/>
+		<mx:SWFLoader source="{parents_nutrition_btn}"  x="540" y="230" click="parentsNav.selectedIndex = 1; loadSection(1); splashPage.visible = false;"/>
+		<mx:SWFLoader source="{parents_fitness_btn}"  x="506" y="384" click="parentsNav.selectedIndex = 3; loadSection(3); splashPage.visible = false;"/>
+		<mx:Text text="Each day adolescents face a maze of social, emotional, and physical challenges. And, while you can’t always be there to help your child, you can prepare them to make good decisions and healthy choices. Good 2 B Me is your source for inside information — to help you help your child. " color="#222222" fontSize="10"  width="430" height="83" y="450" x="40" selectable="false" kerning="true" leading="5" letterSpacing=".5"/>
+	</mx:Canvas>
+	
+</mx:Module>

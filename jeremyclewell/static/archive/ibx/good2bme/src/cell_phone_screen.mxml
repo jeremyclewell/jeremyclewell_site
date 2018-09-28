@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="240" height="300">
+	<mx:ViewStack x="0" y="0" id="Screens" width="240" height="275">
+		<mx:Canvas label="Home" width="100%" height="100%" id="Home">
+			<mx:Label x="10" y="10" text="Home" fontSize="17"/>
+		</mx:Canvas>
+		<mx:Canvas label="Messaging" width="100%" height="100%" id="Messaging" fontSize="17">
+			<mx:Label x="10" y="10" text="Messaging"/>
+		</mx:Canvas>
+		<mx:Canvas label="Phone" width="100%" height="100%" id="Phone">
+			<mx:Label x="10" y="10" text="Phone" fontSize="17"/>
+		</mx:Canvas>
+		<mx:Canvas label="Games" width="100%" height="100%" id="Games">
+			<mx:Label x="10" y="10" text="Games" fontSize="17"/>
+		</mx:Canvas>
+		<mx:Canvas label="Settings" width="100%" height="100%" id="Settings">
+			<mx:Label x="10" y="10" text="Settings" fontSize="17"/>
+		</mx:Canvas>
+	</mx:ViewStack>
+	<mx:ToggleButtonBar x="0" y="270" dataProvider="{Screens}" fontSize="8" fontWeight="normal">
+	</mx:ToggleButtonBar>
+</mx:Canvas>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <gallery>
+		<image id = "0">
+			<src>images/swfs/photos/1.jpg</src>
+		</image>
+		
+		<image id = "1">
+			<src>images/swfs/photos/2.jpg</src>
+		</image>
+		
+		<image id = "2">
+			<src>images/swfs/photos/3.jpg</src>
+		</image>
+		
+		<image id = "3">
+			<src>images/swfs/photos/4.jpg</src>
+		</image>
+		
+		<image id = "4">
+			<src>images/swfs/photos/5.jpg</src>
+		</image>
+		
+		<image id = "5">
+			<src>images/swfs/photos/6.jpg</src>
+		</image>
+		
+		<image id = "6">
+			<src>images/swfs/photos/7.jpg</src>
+		</image>
+		
+		<image id = "7">
+			<src>images/swfs/photos/8.jpg</src>
+		</image>
+	</gallery>

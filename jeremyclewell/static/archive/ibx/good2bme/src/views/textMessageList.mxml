@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"  height="36" x="-5" y="-2"  width="100%"  >
+	<mx:Script>
+		<![CDATA[
+			import mx.effects.easing.Back;
+		]]>
+	</mx:Script>
+
+<mx:Style>
+	
+	.hover {
+		border-color: #80dfdb;
+		border-thickness: 5;
+	}
+	
+	.off {
+		border-color: #694597;
+		border-thickness: 1;
+	}
+	
+	.visited {
+		background-alpha: 0.25;
+		background-color: '#FFFFFF';	
+	}
+	
+</mx:Style>
+
+<mx:Canvas id="tmItem" width="100%" height="100%" horizontalScrollPolicy="off" verticalScrollPolicy="off" borderColor="#694597" borderThickness="1" borderStyle="solid" rollOver="trace('Over'); tmItem.styleName = 'hover'" rollOut="styleName = 'off'" click="parentDocument.textMessageViews.selectedIndex = 1; styleName = 'visited';" styleName="off">
+	
+	<mx:Image source="{data.@sender_image_TN}"  y="-3" x="-4"/>
+	
+	<mx:Label text="{data.@sender}" x="36" y="-1" color="#FFFFFF" fontSize="14" />
+	
+	<mx:Label text="{data.text}" x="37" y="15" color="#d2afff"  fontSize="12"  width="180"/>
+	
+	<!--<mx:Label text="{data.@time}" x="57" y="2" color="#B7B7B7"  fontSize="10"  width="180" textAlign="right" fontWeight="bold"/>-->
+	
+</mx:Canvas>
+	
+	
+</mx:Canvas>

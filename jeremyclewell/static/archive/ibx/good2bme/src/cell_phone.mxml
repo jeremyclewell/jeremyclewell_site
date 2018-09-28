@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" backgroundImage="assets/images/cellphone/cell_BG.png" width="306" height="393">
+
+
+
+		
+<mx:Script >
+	<![CDATA[
+
+		[Embed(source='assets/swfs/FlashAssets.swf#cell_home')]
+		[Bindable]
+		private var cell_home:Class;
+		[Embed(source='assets/swfs/FlashAssets.swf#cell_letter')]
+		[Bindable]
+		private var cell_letter:Class;
+		[Embed(source='assets/swfs/FlashAssets.swf#cell_game')]
+		[Bindable]
+		private var cell_game:Class;
+		[Embed(source='assets/swfs/FlashAssets.swf#new_messages_button')]
+		[Bindable]
+		private var new_messages_button:Class;
+		[Embed(source='assets/swfs/FlashAssets.swf#back_to_inbox')]
+		[Bindable]
+		private var back_to_inbox:Class;
+		[Embed(source='assets/swfs/FlashAssets.swf#take_me_there')]
+		[Bindable]
+		private var take_me_there:Class;
+		[Embed(source='assets/swfs/FlashAssets.swf#immunizer_start')]
+		[Bindable]
+		private var immunizer_start:Class;
+		[Embed(source='assets/swfs/FlashAssets.swf#cell_close')]
+		[Bindable]
+		private var cell_close:Class;
+		[Embed(source='assets/swfs/FlashAssets.swf#popup_close_btn')]
+		[Bindable]
+		private var popup_close_btn:Class;
+		
+		
+		[Bindable]
+		public var timeString:String =  new Date().toLocaleTimeString();
+		[Bindable]
+		public var dateString:String = new Date().toDateString();
+		public var myTimer:Timer = new Timer(1000, 0);
+	
+		
+		[Bindable]
+		public var currentMessages:XMLListCollection = new XMLListCollection();
+		public var textMessageTimer:Timer = new Timer(1000, 0);
+		public var textMessageDelay:int = 25;
+		
+        public var cell_button:Sound = new Sound(new URLRequest("assets/audio/cell_button.mp3"));
+        public var button_transform:SoundTransform = new SoundTransform(1, 0);
+		public var cell_click:Sound = new Sound(new URLRequest("assets/audio/cell_click.mp3"));
+		[Bindable]
+		public var game_transform:SoundTransform = new SoundTransform(0.5, 1.0);
+		
+		public function init():void {
+	        myTimer.addEventListener("timer", function():void {var currentTime:Date = new Date(); timeString =  currentTime.toLocaleTimeString();});
+    	    myTimer.start();
+    	    textMessageTimer.addEventListener("timer", pushMessage);
+  		}    
+  		
+  		public function pushMessage(event:TimerEvent):void {
+  			if(event.target.currentCount >= textMessageDelay) {
+  				try {
+  					currentMessages.addItemAt(textMessages.getItemAt(0,1), 0);
+  					var time:String = new Date().toLocaleTimeString();
+  					currentMessages.getItemAt(0,1).@time = time;
+  					//parentDocument.nextTarget = textMessages.getItemAt(0,1).@sender;
+  					parentDocument.ringPhone();
+  					textMessages.removeItemAt(0);
+  					textMessageTimer.stop();
+  				} catch (e:Error) {
+  					textMessageTimer.stop();
+  				}
+  			}
+  		}
+  		
+  		public function restartPhone():void {
+  			textMessageTimer.reset();
+  			textMessageTimer.start();
+  			textMessageDelay = Math.random() * 5;
+  		}
+  		
+  		public function getTextMessages(url:String):void {
+  			textMessageSource.url = url;
+  			textMessageSource.send();
+  		}
+   
+	]]>
+</mx:Script>
+
+<mx:Style>
+	
+	.messageOff {
+		color: #0000FF;	
+	}
+	
+	.messageOver {
+		color: #FFFFFF;
+	}
+	
+</mx:Style>
+
+<mx:Move id="hideEffect"
+		xTo="-270" 
+		duration="350" />
+
+<mx:Move id="showEffect"
+		xFrom="270" 
+		duration="350"/>
+		
+<mx:Move id="hideEffectReverse"
+		xTo="270" 
+		duration="350" />
+
+<mx:Move id="showEffectReverse"
+		xFrom="-270" 
+		duration="350"/>
+		
+<mx:Move id="hideFromTopEffect"
+		yTo="-300" 
+		duration="350" />
+
+<mx:Move id="showFromTopEffect"
+		yFrom="300" 
+		duration="350"/>
+		
+<mx:HTTPService id="textMessageSource" url="" resultFormat="e4x" result="init()" />
+
+<mx:XMLListCollection id="textMessages" source="{textMessageSource.lastResult.textMessage}" />
+
+<mx:Image source="assets/images/cellphone/cell_screen_BG.jpg" x="20" y="71" />
+<mx:ViewStack id="cellScreens" width="267" height="298" x="20" y="71" borderStyle="none">
+	<mx:Canvas id="homeScreen" label="Home" width="100%" height="100%" hideEffect="hideEffect" showEffect="showEffect" >
+		<mx:Text y="10" text="{parentDocument.userName + '\'s Phone'}" color="#fbe3ff" fontSize="13" id="username" fontFamily="Univers" fontWeight="bold" textAlign="center" horizontalCenter="0"/>
+		<mx:Text x="105.5" y="21" text="{timeString}" color="#fbe3ff" fontSize="38" fontFamily="UniversLightCon" horizontalCenter="0" textAlign="center" id="time"/>
+		<mx:Text x="113.5" y="62" text="{dateString}" color="#fbe3ff" fontSize="16" fontFamily="Univers" horizontalCenter="0" textAlign="center" id="date"/>
+		<mx:SWFLoader source="{new_messages_button}" click="try {cell_click.play(); textMessageViews.selectedIndex = 0; cellScreens.selectedIndex = 1; cell_button.play(0, 0, button_transform);} catch(e:Error) {cell_click.play(); cellScreens.selectedIndex = 1; cell_button.play(0, 0, button_transform); parentDocument.tracker.trackPageview('cellphone/messages');}" y="95" x="17"/>
+		<mx:Text y="110" x="1" text="{currentMessages.length}" color="#333333" fontSize="52" fontFamily="Univers" selectable="false" horizontalCenter="30" textAlign="right" id="messageCount"/>
+		<mx:Text y="108" text="{currentMessages.length}" click="null" color="#FFFFFF" fontSize="52" fontFamily="Univers" selectable="false" horizontalCenter="30" textAlign="right" id="messageCountShadow"/>
+	</mx:Canvas>
+	<mx:Canvas id="messagingScreen" label="Messaging" width="100%" height="100%" hideEffect="hideEffect" showEffect="showEffect" >
+		<mx:Text y="10" text="NEW MESSAGES INBOX" color="#e5d9f6" fontSize="13" fontFamily="Univers" fontWeight="bold" textAlign="center" horizontalCenter="0"/>
+		<mx:ViewStack id="textMessageViews"  x="11" y="30" borderStyle="solid">
+			<mx:Canvas hideEffect="hideEffect" showEffect="showEffectReverse">
+				<mx:List id="inbox" dataProvider="{currentMessages}" click="cell_click.play();" borderSides="bottom" itemRenderer="views.textMessageList" backgroundColor="#000000"  backgroundAlpha=".3" borderColor="#694597" rollOverColor="#441787" selectionColor="#441787" borderThickness="1" themeColor="#441787" width="244" height="191" />
+			</mx:Canvas>
+			<mx:Canvas id="messageScreen"  x="10" y="30"  backgroundColor="#000000"  backgroundAlpha=".3" borderColor="#694597" borderThickness="1" themeColor="#441787" width="244" height="191"  hideEffect="hideEffectReverse" showEffect="showEffect">
+				<mx:SWFLoader source="{back_to_inbox}" click="textMessageViews.selectedIndex = 0; cell_click.play();"  x="6" y="8"/>
+				<mx:Text x="10" y="34" text="{currentMessages.getItemAt(inbox.selectedIndex,0).@sender}" fontSize="14" color="#FFFFFF" width="124" height="117"/>
+				<mx:Text x="10" y="58" text="{currentMessages.getItemAt(inbox.selectedIndex,0).text}" fontSize="12" color="#d2afff" width="125" height="117"/>
+				<mx:Image source="{currentMessages.getItemAt(inbox.selectedIndex,0).@sender_image}"  x="140" y="8"/>
+				<mx:SWFLoader source="{take_me_there}"  y="140" x="32" click="cell_click.play(); parentDocument.takeMeThere(currentMessages.getItemAt(inbox.selectedIndex,0).xPos, currentMessages.getItemAt(inbox.selectedIndex,0).zPos, currentMessages.getItemAt(inbox.selectedIndex,0).yRot);"/>
+			</mx:Canvas>
+			
+		</mx:ViewStack>
+	</mx:Canvas>
+	<mx:Canvas id="gameScreen" label="Game" width="100%" height="100%" hideEffect="hideEffect" showEffect="showEffect" >
+	<mx:SWFLoader source="{immunizer_start}" y="10" x="13" click="immunizer.source = 'assets/swfs/Immunizer.swf'; cellPhoneMenu.visible = false; closeButton.visible = true; closeButton.x = 10; closeButton.y = 10;" />
+ 	<mx:SWFLoader id="immunizer"  soundTransform="{game_transform}" />
+ 	<mx:SWFLoader id="closeButton" y="10" x="10" visible="false" blendMode="screen" alpha=".4" source="{popup_close_btn}" click="immunizer.unloadAndStop();  cellPhoneMenu.visible = true; closeButton.visible = false;" />
+	</mx:Canvas>
+	
+	
+</mx:ViewStack>
+	<mx:Canvas id="cellPhoneMenu" >
+		<mx:Image source="assets/images/cellphone/bottomBG.jpg"  x="20" y="346"/>
+		<mx:SWFLoader source="{cell_home}" click="cellScreens.selectedIndex = 0; cell_button.play(0, 0, button_transform); parentDocument.tracker.trackPageview('cellphone/home');" y="300" x="38"/>
+		<mx:SWFLoader source="{cell_letter}" rollOut="messageCountsmall.styleName = 'messageOff'" rollOver="messageCountsmall.styleName = 'messageOver'" click="try { textMessageViews.selectedIndex = 0; cellScreens.selectedIndex = 1; cell_button.play(0, 0, button_transform);} catch(e:Error) {}; parentDocument.tracker.trackPageview('cellphone/messages');" y="306" x="118"/>
+		<mx:SWFLoader source="{cell_game}" click="cellScreens.selectedIndex = 2; cell_button.play(0, 0, button_transform); parentDocument.tracker.trackPageview('cellphone/immunizer');" x="201" y="306"/> 
+		<mx:Text y="328" text="{currentMessages.length}" styleName="messageOff" fontWeight="bold" fontSize="10" fontFamily="Univers" selectable="false" horizontalCenter="30" textAlign="center" id="messageCountsmall"/>
+		
+	</mx:Canvas>
+	<mx:SWFLoader source="{cell_close}" click="try {parentDocument.closeCellPhone(); immunizer.unloadAndStop();  cellPhoneMenu.visible = true; closeButton.visible = false;} catch(e:Error) {}"  x="133" y="17"/>
+</mx:Canvas>
+
+
+
+
+
+

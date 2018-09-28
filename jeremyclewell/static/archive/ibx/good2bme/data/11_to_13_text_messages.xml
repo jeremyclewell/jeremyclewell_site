@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<textMessage sender="The Smiths" sender_image="assets/images/cellphone/smiths.jpg" sender_image_TN="assets/images/cellphone/smiths_TN.png">
+		<text>Think we nag too much? Find out why.</text>
+		<xPos>5229</xPos>
+		<zPos>-9932</zPos>
+		<yRot>169</yRot>
+	</textMessage>
+	<textMessage sender="Principal Cooke" sender_image="assets/images/cellphone/cooke.jpg" sender_image_TN="assets/images/cellphone/cooke_TN.png">
+		<text>Welcome. Here are some tips to stay out of trouble and out of my office.</text>
+		<xPos>5739</xPos>
+		<zPos>-4066</zPos>
+		<yRot>5</yRot>
+	</textMessage>
+	<textMessage sender="Cunninghams" sender_image="assets/images/cellphone/cunninghams.jpg" sender_image_TN="assets/images/cellphone/cunninghams_TN.png">
+		<text>Grabbing a bite? Remember, you are what you eat.</text>
+		<xPos>1081</xPos>
+		<zPos>-4830</zPos>
+		<yRot>282</yRot>
+	</textMessage>
+	<textMessage sender="Dr. Miller" sender_image="assets/images/cellphone/doc_miller.jpg" sender_image_TN="assets/images/cellphone/doc_miller_TN.png">
+		<text>Hey there. Remember me? Don't be a stranger.</text>
+		<xPos>1081</xPos>
+		<zPos>-7250</zPos>
+		<yRot>272</yRot>
+	</textMessage>
+	<textMessage sender="Coach Tim" sender_image="assets/images/cellphone/coach_tim.jpg" sender_image_TN="assets/images/cellphone/coach_tim_TN.png">
+		<text>Wassup? I've got the skinny on staying fit <![CDATA[ & ]]> @ the top of your game.</text>
+		<xPos>12047</xPos>
+		<zPos>-4066</zPos>
+		<yRot>36</yRot>
+	</textMessage>
+	<textMessage sender="Jason" sender_image="assets/images/cellphone/jason.jpg" sender_image_TN="assets/images/cellphone/jason_TN.png">
+		<text>Yo, its cool 2 try new things but know when 2 say no.</text>
+		<xPos>3102</xPos>
+		<zPos>-6835</zPos>
+		<yRot>228</yRot>
+	</textMessage>
+	<textMessage sender="Jamie Sue" sender_image="assets/images/cellphone/jamie_sue.jpg" sender_image_TN="assets/images/cellphone/jamie_sue_TN.png">
+		<text>HRU? Looking good means feeling good. UR beautiful.</text>
+		<xPos>12560</xPos>
+		<zPos>-8493</zPos>
+		<yRot>90</yRot>
+	</textMessage>
+	<textMessage sender="Jimmy" sender_image="assets/images/cellphone/jimmy.jpg" sender_image_TN="assets/images/cellphone/jimmy_TN.png">
+		<text>Heyo. Keep ur helmet on 2 keep ur head on. L8R</text>
+		<xPos>9661</xPos>
+		<zPos>-9932</zPos>
+		<yRot>156</yRot>
+	</textMessage>
+	<textMessage sender="Chad" sender_image="assets/images/cellphone/chad.jpg" sender_image_TN="assets/images/cellphone/chad_TN.png">
+		<text>Sup. Wanna look fresh? Start w ur face.</text>
+		<xPos>2754</xPos>
+		<zPos>-4066</zPos>
+		<yRot>359</yRot>
+	</textMessage>
+	<textMessage sender="Kimberly" sender_image="assets/images/cellphone/kimberly.jpg" sender_image_TN="assets/images/cellphone/kimberly_TN.png">
+		<text>Keep ur 'rents in the loop. B patient, they might need a tranl8r.</text>
+		<xPos>8558</xPos>
+		<zPos>-7189</zPos>
+		<yRot>102</yRot>
+	</textMessage>
+</root>

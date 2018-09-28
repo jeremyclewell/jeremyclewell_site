@@ -1,0 +1,77 @@
+/* CSS file */
+
+
+global 
+{
+	embedFonts: true;
+	font-family: "Arial"; 
+}
+
+LinkButton
+{
+	skin: Embed(skinClass="LinkButton_skin");
+	font-size: 12;
+}
+
+.on 
+{
+	color: '0x2b75c7';
+}
+
+.off 
+{
+	color: '0x333333';
+}
+
+ComboBox
+{
+	skin: Embed(skinClass="ComboBox_skin");
+	selectionColor: #FFFFFF;
+}
+
+.DGHeader 
+{
+	font-size: 12;
+	color: '0x2B2B2B';
+}
+Button
+{
+	skin: Embed(skinClass="Button_skin");
+	font-weight: bold;
+		selection-color: '0x2b75c7';
+	roll-over-color: '0xFF0000';
+}
+
+ToggleButtonBar
+{
+	selection-color: '0x2b75c7';
+	roll-over-color: '0xFF0000';
+	color: '0x2B2B2B';
+	font-size: 12;
+	buttonStyleName: "toggleButtonBarButton";
+	firstButtonStyleName: "toggleButtonBarFirstButton";
+	lastButtonStyleName: "toggleButtonBarLastButton";
+	selectedButtonTextStyleName: "toggleButtonBarSelectedButton";
+}
+.toggleButtonBarButton
+{
+	skin: Embed(skinClass="ToggleButtonBar$button_skin");
+}
+.toggleButtonBarFirstButton
+{
+	skin: Embed(skinClass="ToggleButtonBar$firstButton_skin");
+}
+.toggleButtonBarLastButton
+{
+	skin: Embed(skinClass="ToggleButtonBar$lastButton_skin");
+}
+.toggleButtonBarSelectedButton {
+}
+ProgressBar
+{
+	barSkin: Embed(skinClass="ProgressBar_barSkin");
+	indeterminateSkin: Embed(skinClass="ProgressBar_indeterminateSkin");
+	trackSkin: Embed(skinClass="ProgressBar_trackSkin");
+}
+
+

@@ -1,0 +1,39 @@
+/* CSS file */
+
+Accordion, Repeater
+{
+	embedFonts: true;
+	font-weight: bold;
+	font-thickness: 600;
+	font-family: "Arial";
+}
+
+
+HScrollBar
+{
+	downArrowSkin: Embed(skinClass="HScrollBar_downArrowSkin");
+	thumbIcon: Embed(skinClass="HScrollBar_thumbIcon");
+	thumbSkin: Embed(skinClass="HScrollBar_thumbSkin");
+	trackSkin: Embed(skinClass="HScrollBar_trackSkin");
+	upArrowSkin: Embed(skinClass="HScrollBar_upArrowSkin");
+}
+VScrollBar
+{
+	downArrowSkin: Embed(skinClass="VScrollBar_downArrowSkin");
+	thumbIcon: Embed(skinClass="VScrollBar_thumbIcon");
+	thumbSkin: Embed(skinClass="VScrollBar_thumbSkin");
+	trackSkin: Embed(skinClass="VScrollBar_trackSkin");
+	upArrowSkin: Embed(skinClass="VScrollBar_upArrowSkin");
+}
+AccordionHeader
+{
+	skin: Embed(skinClass="AccordionHeader_skin");
+	margin-bottom: 10px;
+	
+}
+Slider
+{
+	thumbSkin: Embed(skinClass="Slider_thumbSkin");
+	trackHighlightSkin: Embed(skinClass="Slider_trackHighlightSkin");
+	trackSkin: Embed(skinClass="Slider_trackSkin");
+}

@@ -1,0 +1,1317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:analytics="com.google.analytics.components.*" layout="absolute" backgroundGradientAlphas="[1.0, 1.0]" backgroundColor="#ffffff"  backgroundGradientColors="[#FFFFFF, #FFFFFF]" xmlns:local="*" horizontalScrollPolicy="off" creationComplete="init()">
+	
+	<mx:states>
+	
+		<mx:State name="Tweens">
+		
+			<!--<mx:RemoveChild target="{button_Prizes}"/>
+		
+			<mx:RemoveChild target="{button_Parents}"/>
+			
+			<mx:RemoveChild target="{button_Teens}"/>
+			
+			<mx:RemoveChild target="{button_Tweens}"/>
+			
+			-->
+			
+			<mx:RemoveChild target="{homePageSwf}"/>
+			
+			<mx:SetProperty target="{logo}" name="visible" value="false" />
+			
+			<mx:SetProperty target="{footer}" name="visible" value="false" />
+			
+			<mx:SetProperty target="{footer}" name="y" value="620" />
+			
+			<mx:SetProperty target="{moduleProgBar}" name="visible" value="true" />
+			
+		</mx:State>
+		
+		<mx:State name="Teens">
+		
+			<!--<mx:RemoveChild target="{button_Prizes}"/>
+		
+			<mx:RemoveChild target="{button_Parents}"/>
+			
+			<mx:RemoveChild target="{button_Teens}"/>
+			
+			<mx:RemoveChild target="{button_Tweens}"/>
+			
+			<mx:RemoveChild target="{image1}"/>-->
+			
+			<mx:SetProperty target="{footer}" name="visible" value="false" />
+			
+			<mx:SetProperty target="{homePageSwf}" name="visible" value="false" />
+			
+			<mx:SetProperty target="{logo}" name="y" value="100" />
+			
+			<mx:SetProperty target="{footer}" name="y" value="620" />
+			
+			<mx:SetProperty target="{moduleProgBar}" name="visible" value="true" />
+			
+		</mx:State>
+		
+		<mx:State name="Parents">
+		
+			<!--<mx:RemoveChild target="{button_Prizes}"/>
+		
+			<mx:RemoveChild target="{button_Parents}"/>
+			
+			<mx:RemoveChild target="{button_Teens}"/>
+			
+			<mx:RemoveChild target="{image1}"/>
+			
+			<mx:RemoveChild target="{button_Tweens}"/>-->
+			
+			<mx:RemoveChild target="{homePageSwf}"/>
+			
+			
+			
+			<mx:SetProperty target="{footer}" name="y" value="720" />
+			
+		</mx:State>
+		
+	</mx:states>
+
+	<mx:Script source="worldModel.as" />
+
+	<mx:Script>
+	
+		<![CDATA[
+			import org.papervision3d.core.render.sort.NullSorter;
+			import flash.net.*;
+			import mx.controls.Alert;
+			import flash.filters.BitmapFilter;
+    		import flash.filters.BitmapFilterQuality;
+    		import flash.filters.BlurFilter;
+    		import mx.events.ValidationResultEvent;        
+			import mx.validators.Validator;
+			import mx.validators.ValidationResult;
+			import flash.external.ExternalInterface;
+			import mx.collections.ArrayCollection;
+			import flash.net.LocalConnection;			
+			
+			import com.google.analytics.GATracker; //this is the actual tracking class
+			import com.google.analytics.AnalyticsTracker; //this is an interface that the GATracker class implements
+    		
+    		[Embed(source='assets/fonts/Avenir-Black.otf', 
+		        fontName='Avenir', 
+		        mimeType='application/x-font', 
+		        advancedAntiAliasing='true'
+		     )] 
+			public var Avenir:Class;
+			
+			[Embed(source='assets/fonts/UniversLTStd-LightCn.otf', 
+		        fontName='UniversLightCon', 
+		        mimeType='application/x-font', 
+		        advancedAntiAliasing='true'
+		     )] 
+			public var UniversLC:Class;
+			
+			[Embed(source='assets/fonts/UniversLTStd-Bold.otf', 
+				fontWeight='bold', 
+		        fontName='Univers', 
+		        mimeType='application/x-font', 
+		        advancedAntiAliasing='true'
+		     )] 
+			public var UniversB:Class;
+			
+			[Embed(source='assets/fonts/UniversLTStd.otf', 
+		        fontName='Univers', 
+		        mimeType='application/x-font', 
+		        advancedAntiAliasing='true'
+		     )] 
+			public var Univers:Class;
+    		
+    		[Embed(source='assets/swfs/FlashAssets.swf#popup_close_btn')]
+			[Bindable]
+			private var popup_close_btn:Class;
+			
+			[Bindable]
+			private var statesDP:ArrayCollection = new ArrayCollection([{label: "Alabama", value: "Alabama"},
+																		{label: "Alaska", value: "Alaska"},
+																		{label: "Arizona", value: "Arizona"},
+																		{label: "Arkansas", value: "Arkansas"},
+																		{label: "California", value: "California"},
+																		{label: "Colorado", value: "Colorado"},
+																		{label: "Connecticut", value: "Connecticut"},
+																		{label: "Delaware", value: "Delaware"},
+																		{label: "Florida", value: "Florida"},
+																		{label: "Georgia", value: "Georgia"},
+																		{label: "Hawaii", value: "Hawaii"},
+																		{label: "Idaho", value: "Idaho"},
+																		{label: "Illinois", value: "Illinois"},
+																		{label: "Indiana", value: "Indiana"},
+																		{label: "Iowa", value: "Iowa"},
+																		{label: "Kansas", value: "Kansas"},
+																		{label: "Kentucky", value: "Kentucky"},
+																		{label: "Louisiana", value: "Louisiana"},
+																		{label: "Maine", value: "Maine"},
+																		{label: "Maryland", value: "Maryland"},
+																		{label: "Massachusetts", value: "Massachusetts"},
+																		{label: "Michigan", value: "Michigan"},
+																		{label: "Minnesota", value: "Minnesota"},
+																		{label: "Mississippi", value: "Mississippi"},
+																		{label: "Missouri", value: "Missouri"},
+																		{label: "Montana", value: "Montana"},
+																		{label: "Nebraska", value: "Nebraska"},
+																		{label: "Nevada", value: "Nevada"},
+																		{label: "New Hampshire", value: "New Hampshire"},
+																		{label: "New Jersey", value: "New Jersey"},
+																		{label: "New Mexico", value: "New Mexico"},
+																		{label: "New York", value: "New York"},
+																		{label: "North Carolina", value: "North Carolina"},
+																		{label: "North Dakota", value: "North Dakota"},
+																		{label: "Ohio", value: "Ohio"},
+																		{label: "Oklahoma", value: "Oklahoma"},
+																		{label: "Oregon", value: "Oregon"},
+																		{label: "Pennsylvania", value: "Pennsylvania"},
+																		{label: "Rhode Island", value: "Rhode Island"},
+																		{label: "South Carolina", value: "South Carolina"},
+																		{label: "South Dakota", value: "South Dakota"},
+																		{label: "Tennessee", value: "Tennessee"},
+																		{label: "Texas", value: "Texas"},
+																		{label: "Utah", value: "Utah"},
+																		{label: "Vermont", value: "Vermont"},
+																		{label: "Virginia", value: "Virginia"},
+																		{label: "Virgin Islands", value: "Virgin Islands"},
+																		{label: "Washington", value: "Washington"},
+																		{label: "Washington D.C.", value: "Washington D.C."},
+																		{label: "West Virginia", value: "West Virginia"},
+																		{label: "Wisconsin", value: "Wisconsin"},
+																		{label: "Wyoming", value: "Wyoming"}]);
+    		
+    		[Bindable]
+			private var logoSource:String;
+			
+			[Bindable]
+			private var parentUrl:String;
+			
+			[Bindable]
+			private var privacyUrl:String;
+			
+			[Bindable]
+			private var legalUrl:String;
+			
+    		private var branding:String;
+    		
+    		[Bindable]
+    		private var feedbackUrl:String;
+    		
+    		private var vResults:Array;
+    		
+        	private var validatorlist:Array;
+        	
+        	public var volumeLC:LocalConnection = new LocalConnection();
+        	
+    		public var navLC:LocalConnection = new LocalConnection();
+    		
+    		private var blurFilter:BlurFilter = new BlurFilter(5, 5, BitmapFilterQuality.HIGH);
+    		
+    		
+		    public function reloadPage(event:MouseEvent):void 
+		    {
+		    	var requestString:String = "main.html" + branding;
+		    	var u:URLRequest = new URLRequest(requestString);
+		    	navigateToURL(u, "_self");
+		    }
+		      
+			public function GC():void 
+			{
+				try
+				{
+				      var lc1:LocalConnection = new LocalConnection();
+				      var lc2:LocalConnection = new LocalConnection();
+				
+				      lc1.connect( "gcConnection" );
+				      lc2.connect( "gcConnection" );
+				}
+				catch (e:Error) {}
+			}
+			
+			private function init():void 
+			{
+				if (ExternalInterface.available) 
+				{
+					branding = (ExternalInterface.call("getHash") == undefined || ExternalInterface.call("getHash") == 'undefined') ? '' : ExternalInterface.call("getHash");
+				}
+				switch (branding.substr(0,3)) 
+				{
+					case "#ah":
+						logoSource = "assets/images/ah_logo.png";
+						parentUrl = "http://www.amerihealth.com";
+						logo.y = 75;
+						footerText1.text = "© 2010 AmeriHealth, Inc.";
+						footerText2.text = '';
+						formFootnote.text = '†Only children age 11 – 17 who are enrolled in an AmeriHealth health plan on the date this application is received are eligible. AH reserves the right to determine eligibility and all decisions will be final.'
+						formText2.text = 'I certify that my child is age 11 – 17, has visited an AmeriHealth health care provider, and has either received recommended  immunization(s) (such as those for human papilloma virus (HPV),  meningococcal, tetanus, diphtheria toxoids, acellular pertussis (Tdap),  mumps, measles, rubella, hepatitis B, varicella, and influenza) or been told that  he/she is fully immunized. I currently have health insurance coverage provided by AmeriHealth.'
+						feedbackUrl = "https://ecom.amerihealth.com/ah/htdocs/email_forms/good2bme_mailing.html";
+					break;
+					case "#ib": 
+						logoSource = "assets/images/ibc_logo.png";
+						parentUrl = "http://www.ibx.com";
+						footerText1.text = "© 2010 Independence Blue Cross is an independent licensee of the Blue Cross and Blue Shield Association,";
+						footerText2.text = "serving the health insurance needs of Philadelphia and southeastern Pennsylvania.";
+						feedbackUrl = "https://ecom.ibx.com/ibx/htdocs/email_forms/geny_mailing_feedback.html";
+					break;
+					default:
+						logoSource = "assets/images/ibc_logo.png";
+						parentUrl = "http://www.ibx.com";
+						footerText1.text = "© 2010 Independence Blue Cross is an independent licensee of the Blue Cross and Blue Shield Association,";
+						footerText2.text = "serving the health insurance needs of Philadelphia and southeastern Pennsylvania.";
+						feedbackUrl = "https://ecom.ibx.com/ibx/htdocs/email_forms/geny_mailing_feedback.html";
+					break;
+				}
+				navLC.connect( "navConnection" );
+				volumeLC.connect( "volumeConnection" );
+				footer.visible = true;
+				volumeLC.client = this;
+				navLC.client = this;
+			}
+			
+			public function setVolume():void 
+			{
+				SoundMixer.soundTransform = new SoundTransform(volumeSlider.value/10, 0);
+			}
+			
+			public function muteToggle():void 
+			{
+				if (mute.source == "assets/images/speaker_on.png") 
+				{
+					SoundMixer.soundTransform = new SoundTransform(0, 0);
+					mute.source= "assets/images/speaker_off.png"
+				} else 
+				{
+					SoundMixer.soundTransform = new SoundTransform(volumeSlider.value, 0);
+					mute.source= "assets/images/speaker_on.png"
+				}
+			}
+			
+			private function addBlur(obj:Object):void 
+			{
+				obj.filters = [blurFilter];
+				obj.enabled = false;
+			}
+			
+			private function removeBlur(obj:Object):void 
+			{
+				obj.filters = [];
+				obj.enabled = true;
+			}
+			
+			public function wiiHit():void 
+			{
+				prizesCanvas.visible = true;
+				popupBG.visible = true;
+				addBlur(mainWrapper);
+				callWebTrends('homepage.swf', 'Wii Form');
+				tracker.trackPageview("Wii Form");
+		    }
+		    
+		    public function tweensHit():void 
+		    {
+				mainModule.url = "tweens_world.swf"; 
+				currentState = "Tweens";
+				tracker.trackPageview("Tweens");
+				
+		    }
+		    
+		    public function teensHit():void 
+		    {
+				mainModule.url = "teens_world.swf";
+				currentState = "Teens";
+				tracker.trackPageview("Teens");
+		    }
+		    
+		    public function parentsHit():void 
+		    {
+				mainModule.url = "parents.swf";
+				currentState = "Parents";
+				tracker.trackPageview("Parents");
+		    }
+		    
+		    private function validateContactUs():void 
+		    {
+			validatorlist = [fnCheck, lnCheck, emailCheck, commentsCheck];
+			vResults = [];
+			vResults = Validator.validateAll(validatorlist);
+            if (vResults.length < 1) 
+            {
+            	contactCanvas.visible = false;
+	            submitContactUs();	
+            }
+			
+		}
+		
+		private function submitContactUs():void 
+		{
+			var params:URLVariables = new URLVariables();
+		    params.recipient = "CONTACT";
+		    params.subject = "Good2BMe Contact Us";
+		    params.formId = "2001";
+		    params.template = ""
+		    params.FirstName = firstName.text;
+		    params.LastName = lastName.text;
+		    params.EmailAddress = email.text;
+		    params.Comments = comments.text;
+		    var request:URLRequest = new URLRequest("/mailman");
+		    request.method = URLRequestMethod.POST;
+		    request.data = params;
+		    var loader:URLLoader = new URLLoader();
+			loader.dataFormat = URLLoaderDataFormat.VARIABLES;
+			loader.addEventListener(Event.COMPLETE, completeHandler);
+			try
+			{
+				thankYou.visible = true;
+			    loader.load(request);
+			}
+			catch (error:Error)
+			{
+			    //errorSending.visible = true;
+			}
+			
+			function completeHandler(event:Event):void
+			{
+			    
+			}	
+		}
+		
+		private function validatePrizeForm():void 
+		{
+			validatorlist = [fnPrizeCheck, lnPrizeCheck, fnChildPrizeCheck, lnChildPrizeCheck, emailPrizeCheck, zipPrizeCheck, providerNameCheck, IDCheck, addressCheck, cityCheck, phoneCheck];
+			vResults = [];
+			vResults = Validator.validateAll(validatorlist);
+            if (vResults.length < 1) 
+            {
+            	prizesCanvas.visible = false;
+	            submitPrizeForm();	
+            }
+		}
+		
+		private function submitPrizeForm():void 
+		{
+			var params:URLVariables = new URLVariables();
+		    params.recipient = "PRIZE";
+		    params.subject = "Good2BMe Contest";
+		    params.formId = "2002";
+		    params.template = ""
+		    params.FirstName = parentsFirstName.text;
+		    params.LastName = parentsLastName.text;
+		    params.ChildsFirstName = childsFirstName.text;
+		    params.ChildsLastName = childsLastName.text;
+		    params.ProvidersName = providersName.text;
+		    params.IDNumber = IDNumber.text;
+		    params.DateOfVaccine = vaccineDate.text;
+		    params.DateOfBirth = DOB.text;
+		    params.StreetAddress = streetAddress.text;
+		    params.City = city.text;
+		    params.State = state.text;
+		    params.ZipCode = zipCode.text;
+		    params.PhoneNumber = phone.text;
+		    params.Email = parentsEmail.text;
+		    var request:URLRequest = new URLRequest("/mailman");
+		    request.method = URLRequestMethod.POST;
+		    request.data = params;
+		    var loader:URLLoader = new URLLoader();
+			loader.dataFormat = URLLoaderDataFormat.VARIABLES;
+			loader.addEventListener(Event.COMPLETE, completeHandler);
+			try
+			{
+				thankYou.visible = true;
+			    loader.load(request);
+			}
+			catch (error:Error)
+			{
+			    //errorSending.visible = true;
+			}
+			
+			function completeHandler(event:Event):void
+			{
+			    
+			}	
+		}
+		
+		public function callWebTrends(loc:String, desc:String):void {
+			trace("###  WT ###\n\tLoc: " +  loc + "\n\tDesc: " + desc);
+			if (ExternalInterface.available)
+			{
+				try
+				{
+					ExternalInterface.call(
+						'dcsMultiTrack',                        
+						'DCS.dcsuri',                          
+						loc,
+						'WT.ti', 
+						desc
+					);
+				}
+				catch (error:Error)
+				{
+					// Error handling here
+				}
+				catch (error:SecurityError)
+				{
+					// Error handling here
+				}
+			}
+		}
+		
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Style>
+		
+	 @font-face {
+        src:url("assets/fonts/HelveticaRoundedBold.swf");
+        fontFamily: "HelveticaRounded Bold";
+        fontStyle: bold;
+     }     
+     .helveticaRoundedBold {
+        fontFamily: "HelveticaRounded Bold";
+        fontSize: 24;
+     }
+		
+	</mx:Style>
+	
+<analytics:FlexTracker
+        xmlns:analytics="com.google.analytics.components.*"
+        id="tracker"
+        account="UA-10098215-1"
+        mode="AS3"
+        visualDebug="false"
+     />
+	
+	
+<mx:StringValidator id="fnCheck"
+	source="{firstName}"
+	property="text"
+	minLength="2"
+	maxLength="30" />
+	
+<mx:StringValidator id="lnCheck"
+	source="{lastName}"
+	property="text"
+	minLength="2"
+	maxLength="30" />
+	
+<mx:EmailValidator id="emailCheck"
+	source="{email}"
+	property="text" />	
+	
+<mx:StringValidator id="commentsCheck"
+	source="{comments}"
+	property="text"
+	minLength="2"
+	maxLength="10000" />
+	
+<mx:StringValidator id="fnPrizeCheck"
+	source="{parentsFirstName}"
+	property="text"
+	minLength="2"
+	maxLength="30" />
+	
+<mx:StringValidator id="lnPrizeCheck"
+	source="{parentsLastName}"
+	property="text"
+	minLength="2"
+	maxLength="30" />
+	
+<mx:StringValidator id="fnChildPrizeCheck"
+	source="{childsFirstName}"
+	property="text"
+	minLength="2"
+	maxLength="30" />
+	
+<mx:StringValidator id="lnChildPrizeCheck"
+	source="{childsLastName}"
+	property="text"
+	minLength="2"
+	maxLength="30" />
+	
+<mx:EmailValidator id="emailPrizeCheck"
+	source="{parentsEmail}"
+	property="text" />	
+	
+<mx:ZipCodeValidator id="zipPrizeCheck"
+	source="{zipCode}"
+	property="text" />
+	
+<mx:StringValidator id="providerNameCheck"
+	source="{providersName}"
+	property="text"
+	minLength="2"
+	maxLength="30" />
+	
+<mx:StringValidator id="IDCheck"
+	source="{IDNumber}"
+	property="text"
+	minLength="8"
+	maxLength="11" />
+	
+<mx:StringValidator id="addressCheck"
+	source="{streetAddress}"
+	property="text"
+	minLength="2"
+	maxLength="40" />
+	
+<mx:StringValidator id="cityCheck"
+	source="{city}"
+	property="text"
+	minLength="2"
+	maxLength="40"  />
+	
+<mx:PhoneNumberValidator id="phoneCheck"
+	source="{phone}"
+	property="text" />
+	
+	
+	
+
+<mx:Fade id="hideEffect"
+		alphaTo="0" 
+		duration="250" />
+
+<mx:Fade id="showEffect"
+		alphaTo="1.0" 
+		duration="250"/>
+	
+<mx:Canvas id="mainWrapper"  
+	horizontalCenter="0">
+
+	
+	<mx:SWFLoader id="homePageSwf" 
+		source="assets/swfs/homepage.swf" 
+		horizontalCenter="0" 
+		y="0" 
+		hideEffect="hideEffect"/>
+	
+		<mx:ModuleLoader id="mainModule" 
+			horizontalCenter="0" />
+		
+		<mx:Canvas id="footer" 
+			width="1024" 
+			horizontalCenter="0" 
+			height="54" y="678" 
+			showEffect="showEffect" 
+			visible="true">
+			
+			<mx:LinkButton label="ABOUT GOOD 2 B ME" 
+				click="aboutCanvas.visible = true; popupBG.visible = true; addBlur(mainWrapper); callWebTrends('homepage.swf', 'About Good 2 B Me'); tracker.trackPageview('About Good 2 B Me');" 
+				skin="{null}" 
+				color="#333333" 
+				textRollOverColor="#0088ce" 
+				fontWeight="bold" 
+				fontSize="9" 
+				fontFamily="Verdana" 
+				textAlign="left" 
+				horizontalCenter="-440"/>
+			
+			<mx:LinkButton label="CONTACT US" 
+				click="contactCanvas.visible = true; popupBG.visible = true; addBlur(mainWrapper); callWebTrends('homepage.swf', 'Contact Us'); tracker.trackPageview('Contact Us');" 
+				skin="{null}" 
+				color="#333333" 
+				fontWeight="bold" 
+				textRollOverColor="#0088ce" 
+				fontSize="9" 
+				fontFamily="Verdana" 
+				textAlign="left" 
+				horizontalCenter="-335"/>
+			
+			<mx:LinkButton label="PRIVACY STATEMENT" 
+				click="navigateToURL(new URLRequest(parentUrl+'/privacy/website_privacy.html'), '_blank'); callWebTrends(parentUrl+'/privacy/website_privacy.html', 'Privacy Statement'); tracker.trackPageview('Privacy Statement');" 
+				skin="{null}" 
+				color="#333333" 
+				textRollOverColor="#0088ce" 
+				fontWeight="bold" 
+				fontSize="9" 
+				fontFamily="Verdana" 
+				textAlign="left" 
+				horizontalCenter="-222"/>
+			
+			<mx:LinkButton label="LEGAL INFORMATION" 
+				click="navigateToURL(new URLRequest(parentUrl+'/legal/index.html'), '_blank'); callWebTrends(parentUrl+'/legal/index.html', 'Legal Information'); tracker.trackPageview('Legal Information');" 
+				skin="{null}" 
+				color="#333333" 
+				textRollOverColor="#0088ce" 
+				fontWeight="bold" 
+				fontSize="9" 
+				fontFamily="Verdana" 
+				textAlign="left" 
+				horizontalCenter="-84"/>
+			
+			<mx:Text text="© 2009 Independence Blue Cross is an independent licensee of the Blue Cross and Blue Shield Association,"  
+				id="footerText1"
+				fontFamily="Arial" 
+				textAlign="left" 
+				color="#5B6227" 
+				y="19" 
+				fontSize="10" 
+				fontWeight="normal" 
+				selectable="false" 
+ x="14"/>
+			
+			<mx:Text text="serving the health insurance needs of Philadelphia and southeastern Pennsylvania."  
+				id="footerText2"
+				fontFamily="Arial" 
+				textAlign="left" 
+				color="#5B6227" 
+				y="33" 
+				fontSize="10" 
+				fontWeight="normal" 
+				selectable="false" 
+				horizontalCenter="-297"/>
+			
+			<mx:HSlider id="volumeSlider" 
+				thumbOffset="5" 
+				change="setVolume()" 
+				labelOffset="20" 
+				value="5" 
+				width="93" 
+				thumbSkin="@Embed(source='assets/images/volumeHandle.png')" 
+				trackHighlightSkin="@Embed(source='assets/images/volumeTrackHighlight.png')" 
+				trackSkin="@Embed(source='assets/images/volumeTrack.png')" 
+				horizontalCenter="406" 
+				height="21" 
+				y="6"/>
+			
+			<mx:Image id="mute" 
+				x="859" 
+				y="0" 
+				source="assets/images/speaker_on.png" 
+				click="muteToggle();"/>
+				
+		</mx:Canvas>
+			
+		<mx:Image id="logo" 
+			source="{logoSource}" 
+			horizontalCenter="408" 
+			y="89" 
+			click="navigateToURL(new URLRequest(parentUrl), '_blank'); callWebTrends(parentUrl, 'Parent Site'); tracker.trackPageview(parentUrl);" 
+			useHandCursor="true" />
+		
+	</mx:Canvas>
+	
+	<mx:Canvas id="popupBG" 
+		width="100%" 
+		height="100%" 
+		visible="false" 
+		backgroundAlpha=".2" 
+		alpha="0" 
+		backgroundColor="#000000" 
+		hideEffect="hideEffect" 
+		showEffect="showEffect" />
+	
+	<mx:Canvas id="aboutCanvas" 
+		visible="false" 
+		horizontalCenter="0" 
+		y="199" 
+		hideEffect="hideEffect" 
+		showEffect="showEffect" >
+		
+		<mx:Image source="assets/images/popup_AU_BG.png"  />
+		
+		<mx:Label x="30" y="30" 
+			text="About Good 2 B Me" 
+			styleName="helveticaRoundedBold" 
+			color="#0088ce" 
+			fontSize="36"/>
+		
+		<mx:Text horizontalCenter="0" 
+			y="85" 
+			letterSpacing="1" 
+			fontSize="16" 
+			color="#2B2B2B" 
+			fontFamily="Arial" 
+			text="The preteen and teenage years are a time when many kids begin to think about their well-being and to cultivate the health habits they’ll carry with them for the rest of their lives. Good 2 B Me helps teens and adolescents — and their parents — learn about the major physical, emotional, and social issues that affect them and gain the confidence to make smart choices for their health today and in the years ahead." 
+			width="500" 
+			height="335" 
+			selectable="false"/>
+		
+		<mx:SWFLoader horizontalCenter="250" 
+			y="12" 
+			source="{popup_close_btn}" 
+			toolTip="Close" 
+			click="aboutCanvas.visible = false; popupBG.visible = false; removeBlur(mainWrapper);" />
+	
+	</mx:Canvas>
+	
+	<mx:Canvas id="contactCanvas" 
+		visible="false" 
+		horizontalCenter="0" 
+		y="179" 
+		hideEffect="hideEffect" 
+		showEffect="showEffect" >
+		
+		<mx:Image source="assets/images/popup_BG.png"  />
+		
+		<mx:Label x="30" y="30" 
+			text="Contact Us" 
+			styleName="helveticaRoundedBold" 
+			color="#0088ce" 
+			fontSize="36" />
+			
+		<mx:Label x="50" y="101" 
+			text="Let us know what you thought of our site."  
+			fontSize="14" 
+			color="#2B2B2B" fontFamily="Arial"/>
+			
+		<mx:Button id="cancel_button0" 
+			x="472.15" y="395" 
+			label="CANCEL" 
+			click="contactCanvas.visible = false; popupBG.visible = false; removeBlur(mainWrapper);" 
+			fontSize="12" 
+			color="#0088CE" />
+			
+		<mx:Button id="submit_button0" 
+			x="574" y="395" 
+			label="SUBMIT" 
+			click="validateContactUs();" 
+			fontSize="12" 
+			color="#0088CE"/>
+			
+		<mx:Form x="37" y="144" >
+			
+			<mx:FormItem required="true">
+				
+				<mx:TextInput id="firstName" 
+					x="10" 
+					fontSize="16" 
+					color="#666666"/>
+				
+			</mx:FormItem>
+		
+		</mx:Form>
+		
+		<mx:Form  x="37" y="201">
+			
+			<mx:FormItem required="true">
+				
+				<mx:TextInput id="lastName" 
+					x="10" 
+					fontSize="16" 
+					color="#666666"/>
+			
+			</mx:FormItem>
+		
+		</mx:Form>
+		
+		<mx:Form  x="37" y="261">
+			
+			<mx:FormItem required="true">
+				
+				<mx:TextInput id="email" 
+					x="10" 
+					fontSize="16" 
+					color="#666666"/>
+			
+			</mx:FormItem>
+		
+		</mx:Form>
+		
+		<mx:TextArea x="263" y="161" 
+			width="390" 
+			height="201" 
+			fontSize="16" 
+			color="#666666" 
+			id="comments" />
+			
+		<mx:Label x="66" y="141" 
+			text="First Name:"  
+			fontSize="14" 
+			color="#2B2B2B" />
+			
+		<mx:Label x="66" y="259" 
+			text="Email Address:"  
+			fontSize="14" 
+			color="#2B2B2B" />
+			
+		<mx:Label x="262" y="141" 
+			text="Your Comments:"  
+			fontSize="14" 
+			color="#2B2B2B" />
+			
+		<mx:Label x="67" y="198" 
+			text="Last Name:"  
+			fontSize="14" 
+			color="#2B2B2B" />
+			
+		<mx:SWFLoader x="690" y="12" 
+			source="{popup_close_btn}" 
+			toolTip="Close" 
+			click="contactCanvas.visible = false; popupBG.visible = false; removeBlur(mainWrapper);" />
+						
+		<mx:HRule x="30" y="81" 
+			width="674"/>
+			
+	</mx:Canvas>
+	
+	<mx:Canvas id="thankYou"
+			horizontalCenter="0"  y="179" 
+			visible="false" 
+			hideEffect="hideEffect" 
+			showEffect="showEffect" >
+					
+		<mx:Image source="assets/images/popup_BG.png"  />
+		
+		<mx:Label x="36" y="35" 
+			styleName="helveticaRoundedBold" 
+			fontSize="46" />
+		
+		<mx:TextArea y="130" 
+			text="Your information was successfully transmitted."  
+			fontSize="14" 
+			fontWeight="bold"
+			borderStyle="none"
+			color="#2B2B2B" horizontalCenter="0" width="552" height="70" textAlign="center"/>
+			
+		
+			
+		<mx:TextArea y="150" 
+			text="If eligible, you will be entered into the raffle for a Nintendo® Wii™."  
+			fontSize="14" 
+			borderStyle="none"
+			color="#2B2B2B" horizontalCenter="0" width="552" height="75" textAlign="center"/>
+			
+		<mx:TextArea y="190" 
+			text="If you received our mailing on adolescent immunization please take a few minutes to provide your"  
+			fontSize="14" 
+			borderStyle="none"
+			color="#2B2B2B" horizontalCenter="0" width="522" textAlign="center" height="68"/>
+			
+		
+			
+		<mx:LinkButton label="feedback" 
+				click="navigateToURL(new URLRequest(feedbackUrl), '_blank'); callWebTrends(feedbackUrl, 'Feedback Form');" 
+				skin="{null}" 
+				color="#333333" 
+				textRollOverColor="#0088ce" 
+				fontWeight="bold" 
+				fontSize="14" 
+				fontFamily="Verdana" 
+				textAlign="left" 
+				horizontalCenter="125" y="207" textDecoration="underline"/>
+		
+		<mx:TextArea 
+			text="."  
+			fontSize="14" 
+			borderStyle="none"
+			horizontalCenter="165" y="210"
+			color="#2B2B2B"  height="23" textAlign="center" width="10"/>		
+			
+		<mx:Button id="FBcontinue_button" 
+			y="256" 
+			label="CONTINUE" 
+			click="thankYou.visible = false; popupBG.visible = false; removeBlur(mainWrapper);" 
+			fontSize="12" 
+			color="#0088CE"  horizontalCenter="0"/>
+		
+	</mx:Canvas>
+
+	<mx:Canvas id="prizesCanvas" 
+		visible="false" 
+		horizontalCenter="0" 
+		y="179" 
+		hideEffect="hideEffect" 
+		showEffect="showEffect"  
+		height="452" 
+		verticalScrollPolicy="off" 
+		horizontalScrollPolicy="off">
+		
+		<mx:Image source="assets/images/popup_BG.png"  />
+		
+		<mx:Text x="30" y="16" 
+			text="Immunization Can Be  Your Chance to Win a Wii  !" 
+			styleName="helveticaRoundedBold" 
+			color="#0088ce" 
+			fontSize="36"  
+			width="490" 
+			height="93"/>
+		
+		<mx:Text x="478" y="60" 
+			text="™" 
+			styleName="helveticaRoundedBold" 
+			color="#0088ce" 
+			fontSize="18"/>
+		
+		<mx:HRule x="30" y="107" 
+			width="650"/>
+		
+		<mx:Canvas id="prizesWrapper"  
+			height="319" 
+			y="105" 
+			width="713" 
+			horizontalScrollPolicy="off">
+			
+			<mx:Canvas x="30" y="1" 
+				verticalScrollPolicy="off" 
+				horizontalScrollPolicy="off" 
+				borderSides="top bottom" 
+				borderStyle="solid" 
+				backgroundColor="#e2f2fa"  
+				height="46" 
+				width="650">
+			
+				<mx:Label
+					text="A parent or guardian must complete this form to enter the raffle to win a Nintendo® Wii™."  
+					fontSize="16" 
+					color="#2B2B2B" 
+					fontFamily="Arial" 
+					width="653"  
+					height="22" 
+					y="12" 
+					x="10"/>
+					
+			</mx:Canvas>
+			<mx:TextArea x="37" y="742" 
+				id="formFootnote"
+				text="†Only children age 11 – 17 who are enrolled in an Independence Blue Cross health plan on the date this application is received are eligible. IBC reserves the right to determine eligibility and all decisions will be final."  
+				fontSize="10" 
+				color="#2B2B2B" fontFamily="Arial" width="643" borderStyle="none"/>
+				
+			<mx:Button id="prize_cancel_button" 
+				x="272.15" y="705" 
+				label="CANCEL" 
+				click="prizesCanvas.visible = false; popupBG.visible = false; removeBlur(mainWrapper);"
+				fontSize="12" 
+				color="#0088CE" />
+				
+			<mx:Button id="prize_submit_button" 
+				x="374" y="705" 
+				label="SUBMIT" 
+				click="validatePrizeForm();" 
+				fontSize="12" 
+				color="#0088CE"/>
+				
+			<mx:Canvas borderSides="top bottom" 
+				verticalScrollPolicy="off" 
+				horizontalScrollPolicy="off" 
+				borderStyle="solid" 
+				backgroundColor="#e2f2fa"  
+				height="133" 
+				width="650"  
+				y="128" 
+				x="30"/>
+						
+			<mx:Canvas borderSides="top bottom" 
+				verticalScrollPolicy="off" 
+				horizontalScrollPolicy="off" 
+				borderStyle="solid" 
+				backgroundColor="#e2f2fa" 
+				height="151" 
+				width="650"  
+				y="375" 
+				x="30"/>
+				
+			<mx:Form y="139"  horizontalCenter="-115">
+				
+				<mx:FormItem required="true">
+					
+					<mx:TextInput id="parentsFirstName" 
+						x="10" 
+						fontSize="16" 
+						color="#666666"/>
+					
+				</mx:FormItem>
+			
+			</mx:Form>
+			
+			<mx:Form y="139" horizontalCenter="105">
+				
+				<mx:FormItem required="true">
+					
+					<mx:TextInput id="parentsLastName" 
+						x="10" 
+						fontSize="16" 
+						color="#666666"/>
+				
+				</mx:FormItem>
+			
+			</mx:Form>
+			
+			<mx:Form x="140" y="207" >
+				
+				<mx:FormItem required="true">
+					
+					<mx:TextInput id="childsFirstName" 
+						x="10" 
+						fontSize="16" 
+						color="#666666"/>
+					
+				</mx:FormItem>
+			
+			</mx:Form>
+			
+			<mx:Form  x="359" y="207">
+				
+				<mx:FormItem required="true">
+					
+					<mx:TextInput id="childsLastName" 
+						x="10" 
+						fontSize="16" 
+						color="#666666"/>
+				
+				</mx:FormItem>
+			
+			</mx:Form>
+			
+			<mx:Label x="170" y="204" 
+				text="Child's first name"  
+				fontSize="11" 
+				color="#2B2B2B"  
+				fontStyle="normal" 
+				fontWeight="bold"/>
+				
+			<mx:Label x="390" y="204" 
+				text="Last name"  
+				fontSize="11" 
+				color="#2B2B2B"  
+				fontStyle="normal" 
+				fontWeight="bold"/>
+			
+			<mx:Form  x="37" y="391">
+				
+				<mx:FormItem required="true">
+					
+					<mx:TextInput id="providersName" 
+						x="10" 
+						fontSize="16" 
+						color="#666666"/>
+				
+				</mx:FormItem>
+			
+			</mx:Form>
+			
+			<mx:Form  x="37" y="454">
+				
+				<mx:FormItem required="true">
+					
+					<mx:TextInput id="IDNumber" 
+						x="10" 
+						fontSize="16" 
+						restrict="0-9"
+						color="#666666" width="268"/>
+				
+				</mx:FormItem>
+			
+			</mx:Form>
+			
+			<mx:Form  x="28" y="552">
+				
+				<mx:FormItem required="true">
+					
+					<mx:TextInput id="streetAddress" 
+						x="10" 
+						fontSize="16" 
+						color="#666666" width="150"/>
+				
+				</mx:FormItem>
+			
+			</mx:Form>
+			
+			<mx:Form  x="240" y="552">
+				
+				<mx:FormItem required="true">
+					
+					<mx:TextInput id="city" 
+						x="10" 
+						fontSize="16" 
+						color="#666666" width="150"/>
+				
+				</mx:FormItem>
+			
+			</mx:Form>
+			
+			<mx:Form  x="28" y="631" 
+				width="137" 
+				horizontalScrollPolicy="off" 
+				verticalScrollPolicy="off">
+				
+				<mx:FormItem required="true">
+					
+					<mx:TextInput id="zipCode" 
+						x="10" 
+						fontSize="16" 
+						color="#666666" width="101"/>
+				
+				</mx:FormItem>
+			
+			</mx:Form>
+			
+			<mx:Form  x="239" y="631">
+				
+				<mx:FormItem required="true">
+					
+					<mx:TextInput id="phone" 
+						x="10" 
+						fontSize="16" 
+						color="#666666" width="150"/>
+				
+				</mx:FormItem>
+			
+			</mx:Form>
+			
+			<mx:Form  x="449" y="631">
+				
+				<mx:FormItem required="true">
+					
+					<mx:TextInput id="parentsEmail" 
+						x="10" 
+						fontSize="16" 
+						color="#666666" width="150"/>
+				
+				</mx:FormItem>
+			
+			</mx:Form>
+			
+			<mx:Label y="135" 
+				text="Parent/Guardian first name"  
+				fontSize="11" 
+				color="#2B2B2B"  
+				horizontalCenter="-95" 
+				fontWeight="bold"/>
+				
+			<mx:Label x="67" y="388" 
+				text="Provider's name"  
+				fontSize="11" 
+				color="#2B2B2B"  
+				fontWeight="bold"/>
+				
+			<mx:Label x="66" y="451" 
+				text="Independence Blue Cross ID number (from my ID card)"  
+				fontSize="11" 
+				color="#2B2B2B"  
+				fontWeight="bold"/>
+				
+			<mx:Label x="57" y="547" 
+				text="Street address"  
+				fontSize="11" 
+				color="#2B2B2B"  
+				fontWeight="bold"/>
+				
+			<mx:Label x="269" y="547" 
+				text="City"  
+				fontSize="11" 
+				color="#2B2B2B"  
+				fontWeight="bold"/>
+				
+			<mx:Label x="269" y="627" 
+				text="Phone"  
+				fontSize="11" 
+				color="#2B2B2B"  
+				fontWeight="bold"/>
+				
+			<mx:Label x="479" y="627" 
+				text="Email (parent)"  
+				fontSize="11" 
+				color="#2B2B2B"  
+				fontWeight="bold"/>
+				
+			<mx:Label x="57" y="626" 
+				text="ZIP code"  
+				fontSize="11" 
+				color="#2B2B2B"  
+				fontWeight="bold"/>
+				
+			<mx:Label x="471" y="543" 
+				text="State"  
+				fontSize="11" 
+				color="#2B2B2B"  
+				fontWeight="bold"/>
+				
+			<mx:Label x="275" y="387" 
+				text="Date of vaccine"  
+				fontSize="11" 
+				color="#2B2B2B"  
+				fontWeight="bold"/>
+				
+			<mx:Label x="474" y="387" 
+				text="Child's date of birth"  
+				fontSize="11" 
+				color="#2B2B2B"  
+				fontWeight="bold"/>
+				
+			<mx:DateField x="476" y="410" 
+				displayedYear="1995" 
+				editable="true" 
+				id="DOB"/>
+				
+			<mx:Label y="135" 
+				text="Last name"  
+				fontSize="11" 
+				color="#2B2B2B"  
+				horizontalCenter="67" 
+				fontWeight="bold"/>
+				
+		<mx:TextArea x="28" y="54" 
+			width="655" 
+			height="71" 
+			borderStyle="none" 
+			color="#2B2B2B" 
+			fontSize="12" 
+			fontFamily="Arial" 
+			kerning="true" 
+			leading="3">
+			<mx:text>After your child has seen his or her health care provider and received the recommended immunizations or has been told he/she is already fully immunized, you will be entered into a raffle to win a Nintendo Wii, or one of our other great prizes.† In December 2009, one Nintendo Wii will be raffled off to those that meet the immunization requirements. In addition other great prizes will be distributed starting in September. Supply is limited.</mx:text>
+		</mx:TextArea>
+		
+		<mx:TextArea x="28" y="269" 
+			id="formText2"
+			width="655" 
+			height="105" 
+			borderStyle="none" 
+			color="#2B2B2B" 
+			fontSize="14" 
+			fontFamily="Arial" 
+			kerning="true" 
+			leading="3"
+			text="I  certify that my child is age 11 – 17, has visited a Personal Choice®/Keystone Health Plan East or BlueCard® PPO health care provider, and has either received recommended  immunization(s) (such as those for human papilloma virus (HPV),  meningococcal, tetanus, diphtheria toxoids, acellular pertussis (Tdap),  mumps, measles, rubella, hepatitis B, varicella, and influenza) or been told that  he/she is fully immunized. I currently have health insurance coverage  provided by Independence Blue Cross (IBC)" />
+		
+		<mx:DateField x="275" y="410" 
+			id="vaccineDate"/>
+			
+		<mx:ComboBox x="472" y="567" 
+			id="state" 
+			dataProvider="{statesDP}" 
+			width="138"/>
+			
+		</mx:Canvas>
+		
+	<mx:SWFLoader x="690" y="12" 
+		source="{popup_close_btn}" 
+		toolTip="Close" 
+		click="prizesCanvas.visible = false; popupBG.visible = false; removeBlur(mainWrapper);" />
+		
+	<mx:Image x="551" y="4" 
+		source="assets/images/littleWii.png"/>
+		
+</mx:Canvas>
+
+<mx:Style source="main.css"/>
+	
+	<mx:ProgressBar id="mainProgBar" 
+		horizontalCenter="0"
+		y="275" 
+		barColor="#fb5f02"
+		color="#666666"
+		source="{this.homePageSwf}" 
+		complete="{this.mainProgBar.visible = false;}" 
+		showEffect="showEffect"
+		hideEffect="hideEffect"/>
+	 
+	<mx:ProgressBar id="moduleProgBar" 
+		horizontalCenter="0"
+		y="275"
+		visible="false"
+		barColor="#fb5f02"
+		color="#666666"
+		source="{this.mainModule}" 
+		complete="{this.moduleProgBar.visible = false;}"
+		showEffect="showEffect"
+		hideEffect="hideEffect" />
+	
+	<mx:Image source="assets/images/chad.png" visible="false" />
+	
+</mx:Application>
+
+

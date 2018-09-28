@@ -1,0 +1,590 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>
+			Independence Blue Cross Broad Street Run 2010: Runners’ Articles
+		</title>
+		<meta name="keywords" content="training tips; training advice; training for the Broad Street Run; training for a 10 miler; running tips; running advice. " />
+		<meta name="description" content="Get the latest news, training, and health information to help you prepare for the Blue Cross Broad Street Run." />
+		<link type="text/css" rel="stylesheet" media="screen" charset="utf-8" href="styles/screen.css" />
+        <link rel="stylesheet" href="styles/print.css" type="text/css" media="print">
+		<link type="text/css" rel="stylesheet" media="screen" charset="utf-8" href="styles/ui-lightness/jquery-ui-1.7.2.custom.css" />
+		<script language="javascript" type="text/javascript" src="scripts/objectEmbed.js">
+</script>
+		<script language="javascript" type="text/javascript" src="scripts/jquery-1.3.2.min.js">
+</script>
+		<script language="javascript" type="text/javascript" src="scripts/jquery-ui-1.7.2.custom.min.js">
+</script>
+		<script language="javascript" type="text/javascript" src="scripts/openwindow.js">
+</script>
+		<script type="text/javascript">
+//<![CDATA[
+			var flashvars = {};
+			var params = {};
+			params.wmode = "transparent";
+			var attributes = {};
+			swfobject.embedSWF("images/swfs/btn_nav2.swf", "swfnav", "202", "53", "9.0.0", false, flashvars, params, attributes);
+			swfobject.embedSWF("images/swfs/countdown.swf", "counter", "194", "55", "9.0.0");
+			
+			$.extend({
+			  getUrlVarsFromHash: function(){
+			    var vars = [], hash;
+			    var hashes = window.location.href.slice(window.location.href.indexOf('#') + 1).split('&');
+			    for(var i = 0; i < hashes.length; i++)
+			    {
+			      hash = hashes[i].split('=');
+			      vars.push(hash[0]);
+			      vars[hash[0]] = hash[1];
+			    }
+			    return vars;
+			  },
+			  getUrlVar: function(name){
+			    return $.getUrlVarsFromHash()[name];
+			  }
+			});
+			
+			$(function() {
+				$("#accordion").accordion({autoHeight: false,
+					icons: {
+						header: "ui-icon-circle-arrow-eM",
+						headerSelected: "ui-icon-circle-arrow-sM"
+						}
+				});
+			});
+			
+			var srcCheck = '';
+			
+			function loadArticle(link, src, accIndex) {
+				srcCheck = src;
+				if (accIndex) $('#accordion').accordion( 'activate' , accIndex);		
+				$(".rightnavlink").each( function (i) {
+					$(this).css({'backgroundColor' : '#FFFFFF'});
+					$(this).css({'color' : '#000000'});
+					$(this).hover(
+						function () { $(this).css({'backgroundColor' : '#e1e2e3'}); },
+						function () { $(this).css({'backgroundColor' : '#FFFFFF'}); }
+						)
+				});
+				if (link) {
+					$(link).hover(
+							function () { $(this).css({'backgroundColor' : '#0092DF'}); },
+							function () { $(this).css({'backgroundColor' : '#0092DF'}); }
+							)
+					$(link).css({'color' : '#FFFFFF'});
+					$(link).css({'backgroundColor' : "#0092DF"});
+				}
+				$("#contentCol1").load(src);
+				window.location.hash = "article=" + src + "&link=" + link.id;
+				pageTracker._trackEvent("Articles", "PageView", src);
+				if ($("#backToTopLink").length < 1) $("#contentCol1").after("<a id='backToTopLink' onclick='window.scrollTo(0, 340);' style='margin-left: 15px;'>Back to top</a>");
+				return false;               
+			}
+			
+			function pollHrefForChange() {
+				if (!($.getUrlVar('article'))) return;
+				if (srcCheck != $.getUrlVar('article')) window.location.reload();
+			}
+			
+			$(document).ready(function() {
+				var link = $.getUrlVar('link');
+				setInterval("pollHrefForChange()", 100);
+				if ($.getUrlVar('article')) {
+					accIndex = ($.getUrlVar('article').indexOf("novice_runner") > 0) ? 0 :
+							   ($.getUrlVar('article').indexOf("nutrition") > 0) 	 ? 1 :
+							   ($.getUrlVar('article').indexOf("safety") > 0) 	 	 ? 2 :
+							   ($.getUrlVar('article').indexOf("lifestyle") > 0) 	 ? 3 :
+							   ($.getUrlVar('article').indexOf("expert_advice") > 0) ? 4 :
+							   ($.getUrlVar('article').indexOf("gear_check") > 0)    ? 5 : false;
+					loadArticle(document.getElementById(link), $.getUrlVar('article'), accIndex);
+				}
+			});
+		//]]>
+		</script>
+		<script type="text/javascript">
+//<![CDATA[
+			var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+			document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+			//]]>
+		</script>
+		<script type="text/javascript">
+//<![CDATA[
+			try {
+			var pageTracker = _gat._getTracker("UA-12338157-1");
+			pageTracker._trackPageview();
+
+			} catch(err) {}
+			//]]>
+		</script>
+		<style type="text/css">
+/*<![CDATA[*/
+		/* Accordion Sub Button Styles */
+		#links ul {
+		list-style-type: none;
+		width: 258px;
+		margin-left: 0;
+		/*margin-right: -40px;
+
+
+		  */
+		margin-top: 0px; 
+		margin-bottom: 0px; 
+		padding-left: 0px;    
+		padding-right: 0px;  
+		} 
+
+		#links li {
+		border-top-width: 0px;
+		border-right-width: 0;
+		border-bottom-width: 1px;
+		border-left-width: 0;
+		border-top-style: solid;
+		border-right-style: solid;
+		border-bottom-style: solid;
+		border-left-style: solid;
+		border-top-color: #999;
+		border-right-color: #999;
+		border-bottom-color: #dddfe0;
+		border-left-color: #999;
+		margin-top: 0px;
+		margin-right: 0;
+		margin-bottom: 0px;
+		margin-left: 0;
+		padding-top: 1px;    
+		padding-bottom: 1px;
+		padding-right: 0px;
+
+		}
+
+		#links li a { 
+			color: #292929;
+			display: block;
+			font: 120% Arial, Helvetica, sans-serif;
+			text-indent:12px;
+			padding-left: 0px;
+			padding-right: 0px;
+			padding-top: 8px;    
+			padding-bottom: 8px;
+			text-decoration: none;
+			outline: none;
+		}
+
+		* html #links li a {  /* make hover effect work in IE */
+		width: 258px;
+		}
+
+		#links li a:hover {
+			background: #e1e2e3;
+		}
+		#links li a:active {
+			background: #e1e2e3;
+		}
+
+		#links a em { 
+			color: #292929;
+			display: block;
+			font: normal 85% Arial, Helvetica, sans-serif;
+			line-height: 125%; 
+		}
+
+		#links a span {
+			color: #125F15;
+			font: normal 70% Arial, Helvetica, sans-serif;
+			line-height: 150%;
+		}
+		#navCol2 { font: 145% "Arial", Arial; margin: 0px;}   
+		.accordionCase {
+		padding: 1px 5px 1px 7px;
+		margin: 0px 6px 0 6px;
+		background-repeat: repeat-y;
+		background-image: url(images/layout/nav_shadow_repeat.jpg);
+		width: 260px;
+		}
+
+		#navshadowtop {
+		background-image: url(images/layout/nav_shadow_top.jpg);
+		background-repeat: no-repeat;
+		margin: 5px 6px 0 6px;
+		height: 11px;
+		}
+		
+		* html .accordionCase {
+			padding-top: 0px;
+			margin-top: 0px;
+		}
+		
+		* html #navshadowtop {
+			margin-bottom: -5px;
+		}
+
+		#navshadowbottom {
+		background-image: url(images/layout/nav_shadow_bottom.jpg);
+		background-repeat: no-repeat;
+		margin: 0px 6px 0 6px;
+		height: 11px;
+		}
+
+		/*]]>*/
+		</style>
+	</head>
+	<body>
+		<div id="container">
+			<div id="printheader"><img src="images/layout/banner_logo_print.gif" alt="2010 Blue Cross Broad Street Run" width="650" height="85" /></div>
+<!-- End #printheader -->
+			<div id="wrapper">
+				<div id="leftcolWrapper">
+					<a href="index.html" title="Home"><img src="images/layout/bcbsr.jpg" alt="2010 Blue Cross Broad Street Run" width="237" height="110" /></a>
+					<div id="swfnav">
+						<a href="http://www.adobe.com/go/getflashplayer"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" /></a>
+					</div><!-- End FLASH -->
+					<div id="leftcol">
+						<ul class="lst">
+							<li>
+								<a href="index.html" title="Home"><em>Home</em> <img src="images/layout/nav_pointer_blue.gif" alt="Home" width="7" height="10" /></a>
+							</li>
+							<li>
+								<a href="photo_gallery.html" title="Photo Gallery"><em>Photo Gallery</em> <img src="images/layout/nav_pointer_blue.gif" alt="Photo Gallery" width="7" height="10" /></a>
+							</li>
+							<li>
+								<a href="interactive_map.html" title="Interactive Map"><em>Interactive Map</em> <img src="images/layout/nav_pointer_blue.gif" alt="Interactive Map" width="7" height="10" /></a>
+							</li>
+							<!-- <li><a href="share_your_story.html" title="Share Your Story"><em>Share Your Story</em> <img src="images/layout/nav_pointer_blue.gif" alt="Share your story" width="7" height="10" /></a></li> -->
+							<li>
+								<a href="10_for_10.html" title="10 for 10"><em>10 for 10</em> <img src="images/layout/nav_pointer_blue.gif" alt="10 for 10" width="7" height="10" /></a>
+							</li>
+							<li><a href="articles.html" title="Runners' Articles"><em>Runners' Articles</em> <img src="images/layout/nav_pointer_blue.gif" alt="Articles" width="7" height="10" /></a>
+							</li>
+							<li>
+								<a href="feedback.html" title="Feedback"><em>Feedback</em> <img src="images/layout/nav_pointer_blue.gif" alt="Feedback" width="7" height="10" /></a>
+							</li>
+							<li><a href="connect.html" title="Connect"><em>Connect</em><img src="images/layout/nav_pointer_blue.gif" alt="Connect" width="7" height="10" /><span><img src="images/icons/share_01.gif" width="13" height="14" alt=""  />&nbsp;<img src="images/icons/share_02.gif" width="13" height="14" alt="" />&nbsp;<img src="http://twitter-badges.s3.amazonaws.com/t_mini-b.png" width="13" height="15" alt=""/></span></a></li>
+						</ul>
+						<div id="countdown">
+							<img src="images/layout/countdown.gif" alt="Countdown to race" width="164" height="20" />
+						</div>
+						<div id="counter">
+							<a href="http://www.adobe.com/go/getflashplayer"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" /></a>
+						</div><!-- End FLASH -->
+					</div><!-- End leftcol -->
+				</div><!-- End #leftcolWrapper -->
+				<div id="contentWrapper">
+					<img src="images/headers/header_articles.jpg" alt="Photo - Novice Runner" />
+					<div id="navCol2">
+						<div id="navshadowtop"></div>
+						<div class="accordionCase">
+							<!-- Accordion -->
+							<div id="accordion">
+								<h3>
+									<a href="#">THE NOVICE RUNNER</a>
+								</h3>
+								<div>
+									<div id="links">
+										<ul>
+											<li>
+												<a id="nr1" class="rightnavlink" onclick="loadArticle(this, 'articles/novice_runner/avoid_the_top_mistakes_at_the_gym.html');">Avoid the top mistakes at the gym</a>
+											</li>
+											<li>
+												<a id="nr2" class="rightnavlink" onclick="loadArticle(this, 'articles/novice_runner/avoid_these_common_pitfalls.html');">Avoid these common pitfalls</a>
+											</li>
+											<li>
+												<a id="nr3" class="rightnavlink" onclick="loadArticle(this, 'articles/novice_runner/components_of_a_balanced_exercise_program.html');">A balanced exercise program</a>
+											</li>
+											<li>
+												<a id="nr4" class="rightnavlink" onclick="loadArticle(this, 'articles/novice_runner/keeping_your_training_interesting_and_fun.html');">Keeping your training interesting and fun</a>
+											</li>
+											<li>
+												<a id="nr5" class="rightnavlink" onclick="loadArticle(this, 'articles/novice_runner/leg_cramps.html');">Leg cramps: what they are, what to do</a>
+											</li>
+											<li>
+												<a id="nr6" class="rightnavlink" onclick="loadArticle(this, 'articles/novice_runner/put_your_best_foot_forward.html');">Foot care – put your best foot forward</a>
+											</li>
+											<li>
+												<a id="nr7" class="rightnavlink" onclick="loadArticle(this, 'articles/novice_runner/relaxing_after_the_race.html');">Relaxing after the race</a>
+											</li>
+											<li>
+												<a id="nr8" class="rightnavlink" onclick="loadArticle(this, 'articles/novice_runner/tune_up_your_warm_up.html');">Tune up your warm up</a>
+											</li>
+											<li>
+												<a id="nr9" class="rightnavlink" onclick="loadArticle(this, 'articles/novice_runner/what_to_expect.html');">Beginning your training: what to expect</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<h3>
+									<a href="#">NUTRITION</a>
+								</h3>
+								<div>
+									<div id="links">
+										<ul>
+											<li>
+												<a id="n1" class="rightnavlink" onclick="loadArticle(this, 'articles/nutrition/breakfast_of_champions.html');">Breakfast of champions</a>
+											</li>
+											<li>
+												<a id="n2" class="rightnavlink" onclick="loadArticle(this, 'articles/nutrition/drinking_on_the_run.html');">Drinking on the run</a>
+											</li>
+											<li>
+												<a id="n3" class="rightnavlink" onclick="loadArticle(this, 'articles/nutrition/eat_and_run.html');">Eat and run</a>
+											</li>
+											<li>
+												<a id="n4" class="rightnavlink" onclick="loadArticle(this, 'articles/nutrition/give_your_body_the_fuel_it_needs.html');">Give your body the fuel it needs</a>
+											</li>
+											<li>
+												<a id="n5" class="rightnavlink" onclick="loadArticle(this, 'articles/nutrition/how_do_you_fuel_your_workout.html');">How do you fuel your workout</a>
+											</li>
+											<li>
+												<a id="n6" class="rightnavlink" onclick="loadArticle(this, 'articles/nutrition/how_to_know_how_much_h20.html');">How much H20</a>
+											</li>
+											<li>
+												<a id="n7" class="rightnavlink" onclick="loadArticle(this, 'articles/nutrition/nutritional_recovery.html');">Nutritional recovery</a>
+											</li>
+											<li>
+												<a id="n8" class="rightnavlink" onclick="loadArticle(this, 'articles/nutrition/vitamin_supplements.html');">Vitamin supplements</a>
+											</li>
+											<li>
+												<a id="n9" class="rightnavlink" onclick="loadArticle(this, 'articles/nutrition/who_really_benefits_from_sports_drinks.html');">Who really benefits from sports drinks</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<h3>
+									<a href="#">SAFETY AND PREVENTION</a>
+								</h3>
+								<div>
+									<div id="links">
+										<ul>
+											<li>
+												<a id="s1" class="rightnavlink" onclick="loadArticle(this, 'articles/safety/common_running_injuries.html');">Common running injuries</a>
+											</li>
+											<li>
+												<a id="s2" class="rightnavlink" onclick="loadArticle(this, 'articles/safety/foot_stretches.html');">Foot stretches</a>
+											</li>
+											<li>
+												<a id="s3" class="rightnavlink" onclick="loadArticle(this, 'articles/safety/how_fit_are_your_feet.html');">How fit are your feet</a>
+											</li>
+											<li>
+												<a id="s4" class="rightnavlink" onclick="loadArticle(this, 'articles/safety/in_sickness_and_in_health.html');">In sickness and in health</a>
+											</li>
+											<li>
+												<a id="s5" class="rightnavlink" onclick="loadArticle(this, 'articles/safety/lone_runners.html');">Lone runners</a>
+											</li>
+											<li>
+												<a id="s6" class="rightnavlink" onclick="loadArticle(this, 'articles/safety/muscle_soreness.html');">Muscle soreness</a>
+											</li>
+											<li>
+												<a id="s7" class="rightnavlink" onclick="loadArticle(this, 'articles/safety/stretches_for_the_lower_body.html');">Stretches for the lower body</a>
+											</li>
+											<li>
+												<a id="s8" class="rightnavlink" onclick="loadArticle(this, 'articles/safety/winter_running.html');">Winter running</a>
+											</li>
+											<li>
+												<a id="s9" class="rightnavlink" onclick="loadArticle(this, 'articles/safety/working_out_in_the_cold.html');">Working out in the cold</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<h3>
+									<a href="#">LIFESTYLE</a>
+								</h3>
+								<div>
+									<div id="links">
+										<ul>
+											<li>
+												<a id="l1" class="rightnavlink" onclick="loadArticle(this, 'articles/lifestyle/adding_variety_to_your_workout.html');">Adding variety to your workout</a>
+											</li>
+											<li>
+												<a id="l2" class="rightnavlink" onclick="loadArticle(this, 'articles/lifestyle/choosing_your_next_event.html');">Choosing your next event</a>
+											</li>
+											<li>
+												<a id="l3" class="rightnavlink" onclick="loadArticle(this, 'articles/lifestyle/five_fresh_forms_of_indoor_fitness.html');">Five fresh forms of indoor fitness</a>
+											</li>
+											<li>
+												<a id="l4" class="rightnavlink" onclick="loadArticle(this, 'articles/lifestyle/may_I_still_go_out.html');">May I still go out</a>
+											</li>
+											<li>
+												<a id="l5" class="rightnavlink" onclick="loadArticle(this, 'articles/lifestyle/running_with_a_busy_schedule.html');">Running with a busy schedule</a>
+											</li>
+											<li>
+												<a id="l6" class="rightnavlink" onclick="loadArticle(this, 'articles/lifestyle/set_your_clock_to_workout_time.html');">Set your clock to workout time</a>
+											</li>
+											<li>
+												<a id="l7" class="rightnavlink" onclick="loadArticle(this, 'articles/lifestyle/the_runners_lexicon.html');">The runner's lexicon</a>
+											</li>
+											<li>
+												<a id="l8" class="rightnavlink" onclick="loadArticle(this, 'articles/lifestyle/the_sleep-exercise_connection.html');">The sleep-exercise connection</a>
+											</li>
+											<li>
+												<a id="l9" class="rightnavlink" onclick="loadArticle(this, 'articles/lifestyle/using_sports_psychology.html');">Using sports psychology</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<h3>
+									<a href="#">EXPERT ADVICE</a>
+								</h3>
+								<div>
+									<div id="links">
+										<ul>
+											<li>
+												<a id="ea1" class="rightnavlink" onclick="loadArticle(this, 'articles/expert_advice/add_intervals_of_intensity_for_a_stronger_heart.html');">Adding intervals for a stronger heart</a>
+											</li>
+											<li>
+												<a id="ea2" class="rightnavlink" onclick="loadArticle(this, 'articles/expert_advice/belly_breathing.html');">Belly breathing</a>
+											</li>
+											<li>
+												<a id="ea3" class="rightnavlink" onclick="loadArticle(this, 'articles/expert_advice/conditioning_strategies.html');">Conditioning strategies</a>
+											</li>
+											<li>
+												<a id="ea4" class="rightnavlink" onclick="loadArticle(this, 'articles/expert_advice/ken_turner_1.html');">Ken Turner 1</a>
+											</li>
+											<li>
+												<a id="ea5" class="rightnavlink" onclick="loadArticle(this, 'articles/expert_advice/ken_turner_2.html');">Ken Turner 2</a>
+											</li>
+											<li>
+												<a id="ea6" class="rightnavlink" onclick="loadArticle(this, 'articles/expert_advice/ken_turner_3.html');">Ken Turner 3</a>
+											</li>
+											<li>
+												<a id="ea7" class="rightnavlink" onclick="loadArticle(this, 'articles/expert_advice/post-race_running.html');">Post race running</a>
+											</li>
+											<li>
+												<a id="ea8" class="rightnavlink" onclick="loadArticle(this, 'articles/expert_advice/sandy_weston_1.html');">Sandy Weston 1</a>
+											</li>
+											<li>
+												<a id="ea9" class="rightnavlink" onclick="loadArticle(this, 'articles/expert_advice/sandy_weston_2.html');">Sandy Weston 2</a>
+											</li>
+											<li>
+												<a id="ea10" class="rightnavlink" onclick="loadArticle(this, 'articles/expert_advice/sandy_weston_3.html');">Sandy Weston 3</a>
+											</li>
+											<li>
+												<a id="ea11" class="rightnavlink" onclick="loadArticle(this, 'articles/expert_advice/sandy_weston_4.html');">Sandy Weston 4</a>
+											</li>
+											<li>
+												<a id="ea12" class="rightnavlink" onclick="loadArticle(this, 'articles/expert_advice/the_benefits_of_balance_training.html');">The benefits of balance training</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<h3>
+									<a href="#">GEAR CHECK</a>
+								</h3>
+								<div>
+									<div id="links">
+										<ul>
+											<li>
+												<a id="g1" class="rightnavlink" onclick="loadArticle(this, 'articles/gear_check/a_healthy_sneaker.html');">A healthy sneaker</a>
+											</li>
+											<li>
+												<a id="g2" class="rightnavlink" onclick="loadArticle(this, 'articles/gear_check/fitness_gifts_that_keep_on_giving.html');">Fitness gifts that keep on giving</a>
+											</li>
+											<li>
+												<a id="g3" class="rightnavlink" onclick="loadArticle(this, 'articles/gear_check/gear_check.html');">Gear check</a>
+											</li>
+											<li>
+												<a id="g4" class="rightnavlink" onclick="loadArticle(this, 'articles/gear_check/how_to_lace_before_you_race.html');">How to lace before you race</a>
+											</li>
+											<li>
+												<a  id="g5" class="rightnavlink" onclick="loadArticle(this, 'articles/gear_check/running_stinks.html');">Running stinks</a>
+											</li>
+											<li>
+												<a id="g6" class="rightnavlink" onclick="loadArticle(this, 'articles/gear_check/the_bare_necessities.html');">The bare necessities</a>
+											</li>
+											<li>
+												<a id="g7" class="rightnavlink" onclick="loadArticle(this, 'articles/gear_check/training_log.html');">Training log</a>
+											</li>
+											<li>
+												<a id="g8" class="rightnavlink" onclick="loadArticle(this, 'articles/gear_check/what_are_heart_monitors.html');">What are heart monitors</a>
+											</li>
+											<li>
+												<a id="g9" class="rightnavlink" onclick="loadArticle(this, 'articles/gear_check/whats_in_your_bag.html');">What's in your bag</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="navshadowbottom"></div>
+					</div>
+					<!-- AddThis Button BEGIN -->
+					<div class="addthis_toolbox addthis_default_style" style="margin: 10px 0px 0px 10px; line-height:1.8em;">
+					<a href="http://www.addthis.com/bookmark.php?v=250&amp;username=ibxdotcom" class="addthis_button_compact">Share</a>
+					<span class="addthis_separator">|</span>
+					<a class="addthis_button_facebook"></a>
+					<a class="addthis_button_twitter"></a>
+					<a class="addthis_button_digg"></a>
+					<a class="addthis_button_delicious"></a>
+					<a class="addthis_button_linkedin"></a>
+					</div>
+					<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=ibxdotcom"></script>
+					<!-- AddThis Button END -->
+					<div id="contentCol1">
+					
+
+
+						<h1>
+							A Must-Read for All Runners
+						</h1>
+						<p>
+							These training articles are a great resource for all runners who are running the Blue Cross Broad Street Run.
+						</p>
+						<h3>
+							Loaded with advice to help you:
+						</h3>
+						<ul>
+							<li>Stay motivated.
+							</li>
+							<li>Train smart and safe.
+							</li>
+							<li>Avoid injury.
+							</li>
+							<li>Maintain proper nutrition.
+							</li>
+						</ul>
+						<p>
+							Click on the titles to the right to read each article.
+						</p>
+						<p>&nbsp;
+							
+						</p>
+						<p>&nbsp;
+							
+						</p>
+						<p>&nbsp;
+							
+						</p>
+						<p>&nbsp;
+							
+						</p>
+						<p>&nbsp;
+							
+						</p>
+						<p>&nbsp;
+							
+						</p>
+						<p>&nbsp;
+							
+						</p>
+						<p>&nbsp;
+							
+						</p>
+						<p>&nbsp;
+							
+						</p>
+						<p>&nbsp;
+							
+						</p>
+						<p>&nbsp;
+							
+						</p>
+					</div><!-- End #content -->
+				</div><!-- End #contentWrapper -->
+				<div id="pagebottom"></div><!-- End #pagebottom -->
+			</div><!-- End #wrapper -->
+			<div id="footer">
+				<p>
+					© 2010 Independence Blue Cross. Independence Blue Cross is an independent licensee of the Blue Cross and Blue Shield Association, serving the health insurance needs of Philadelphia and southeastern Pennsylvania.
+				</p>
+			</div><!-- End #ter -->
+		</div><!-- End #container -->
+	</body>
+</html>
+

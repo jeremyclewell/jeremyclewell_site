@@ -1,0 +1,2518 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Module xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ibx="com.ibx.*" xmlns:analytics="com.google.analytics.components.*" layout="absolute" creationComplete="contentListSource.send(); cellPhone.getTextMessages('data/11_to_13_text_messages.xml');"  xmlns:local="*">
+	<mx:Script>
+		<![CDATA[
+		
+		 /*
+		 *  PAPER    ON   ERVIS  NPAPER ISION  PE  IS ON  PERVI IO  APER  SI  PA
+		 *  AP  VI  ONPA  RV  IO PA     SI  PA ER  SI NP PE     ON AP  VI ION AP
+		 *  PERVI  ON  PE VISIO  APER   IONPA  RV  IO PA  RVIS  NP PE  IS ONPAPE
+		 *  ER     NPAPER IS     PE     ON  PE  ISIO  AP     IO PA ER  SI NP PER
+		 *  RV     PA  RV SI     ERVISI NP  ER   IO   PE VISIO  AP  VISI  PA  RV3D 
+		 */
+		 
+		 
+		// _______________________________________________________________________
+		//   													 classes to import
+	
+	
+		import mx.controls.LinkButton;
+		import mx.controls.List;
+		import mx.controls.Alert;
+		import com.ibx.ListEx;
+		import flash.display.MovieClip;
+		import flash.display.StageAlign;
+		import flash.display.StageScaleMode;
+		import flash.display.Stage;
+		import flash.display.StageQuality;
+		import flash.events.Event;
+		import flash.events.MouseEvent;
+		import flash.text.TextField;
+		import flash.filters.BitmapFilterQuality;
+		import flash.filters.BlurFilter;
+		import fl.transitions.easing.*;
+		import flash.media.Sound;
+		import flash.geom.Rectangle;
+		import flash.net.URLRequest;
+		import mx.controls.LinkButton;
+		import flash.media.Sound;
+		import mx.events.ListEvent;
+		import mx.effects.easing.Quadratic;
+		import mx.core.UIComponent;
+		import flash.display.Sprite;
+		import flash.media.SoundTransform;
+		import PopupEvent;
+
+		
+		//import main papervision assets
+		import org.papervision3d.cameras.Camera3D;
+		import org.papervision3d.cameras.GenYCamera;
+		import org.papervision3d.lights.PointLight3D;
+		import org.papervision3d.render.BasicRenderEngine;
+		import org.papervision3d.materials.BitmapFileMaterial;
+		import org.papervision3d.materials.MovieAssetMaterial;
+		import org.papervision3d.scenes.Scene3D;
+		import org.papervision3d.events.InteractiveScene3DEvent;
+		import org.papervision3d.view.Viewport3D;
+		import org.papervision3d.objects.primitives.Plane;
+		import org.papervision3d.core.math.Number2D;
+		import org.papervision3d.core.effects.objects.LensFlare;
+		import org.papervision3d.view.layer.ViewportLayer;
+		import org.papervision3d.objects.special.Sound3D;
+		import org.papervision3d.core.log.event.PaperLoggerEvent;
+		import org.papervision3d.core.math.Number2D;
+		import org.papervision3d.core.render.data.RenderSessionData;
+	
+	
+	
+		//import objects
+		import org.papervision3d.objects.DisplayObject3D;
+		import org.papervision3d.objects.parsers.DAE;
+	
+		//import event listener
+		import org.papervision3d.events.FileLoadEvent;
+	
+		//import stats util
+		import com.rockonflash.utils.Stats;
+	
+		//import tweening 
+		import com.hydrotik.go.HydroTween;
+		import com.hydrotik.go.HydroSequence;
+		
+		import org.papervision3d.materials.BitmapMaterial;
+		
+		import com.google.analytics.GATracker; //this is the actual tracking class
+		import com.google.analytics.AnalyticsTracker; //this is an interface that the GATracker class implements
+		
+		// _______________________________________________________________________
+		//                                                                    vars
+
+		//embed flash based assets
+		[Embed(source='assets/swfs/FlashAssets.swf#home_button')]
+		[Bindable]
+		public var home_button:Class;
+		
+		[Embed(source='assets/swfs/FlashAssets.swf#content_close')]
+		[Bindable]
+		public var content_close:Class;
+		
+		[Embed(source='assets/swfs/FlashAssets.swf#world_phone')]
+		[Bindable]
+		private var world_phone:Class;
+		
+		[Embed(source='assets/swfs/FlashAssets.swf#world_phone_ringing')]
+		[Bindable]
+		private var world_phone_ringing:Class;
+		
+		[Embed(source='assets/swfs/FlashAssets.swf#world_backpack')]
+		[Bindable]
+		private var world_backpack:Class;
+		
+		[Embed(source='assets/swfs/FlashAssets.swf#world_map')]
+		[Bindable]
+		private var world_map:Class;
+		
+		[Embed(source='assets/swfs/FlashAssets.swf#world_instructions')]
+		[Bindable]
+		private var world_instructions:Class;
+		
+		[Embed(source='assets/swfs/FlashAssets.swf#lets_begin_btn')]
+		[Bindable]
+		private var lets_begin_btn:Class;
+		
+		[Embed(source='assets/swfs/FlashAssets.swf#enterToWin')]
+		[Bindable]
+		private var enterToWin:Class;
+		
+		
+		//papervision main assets
+		private var scene:Scene3D;
+		private var viewport:Viewport3D;
+		private var groundViewport:Viewport3D;
+		private var camera:GenYCamera;//GenYCamera;
+		private var groundCamera:Camera3D;
+		private var _light:PointLight3D;
+		private var _lensFlare:LensFlare;
+		private var renderer:BasicRenderEngine;
+
+		//other things needed for dae
+		private var universe:DisplayObject3D;
+		private var daeFile:DAE;
+		private var bl:Number;
+		private var bt:Number;
+		private var per:Number;
+
+
+		private var sky_mc:MovieClip;
+		private var contentWindow_mc:MovieClip;
+		private var innerShadow_mc:MovieClip;
+		private var yRot:Number;
+		private var xRot:Number = 0;
+		private var loader_mc:MovieClip;
+		private var loaded10:Boolean = false;
+		private var loaded20:Boolean = false;
+		private var loaded30:Boolean = false;
+		private var loaded40:Boolean = false;
+		private var loaded50:Boolean = false;
+		private var loaded60:Boolean = false;
+		private var loaded70:Boolean = false;
+		private var loaded80:Boolean = false;
+		private var loaded90:Boolean = false;
+		private var loaded100:Boolean = false;
+		
+		
+		
+		public var actorOne:Plane;
+		//private var actorOne:Plane = new Plane(new BitmapFileMaterial("assets/images/family.png", false), 850, 1100, 1,1);
+	/*	private var actorTwo:Plane = new Plane(new BitmapFileMaterial("assets/images/movies.png", false), 388, 1108, 1,1);
+		private var actorThree:Plane = new Plane(new BitmapFileMaterial("assets/images/grocery.png", false), 672, 1180, 1,1);
+		private var actorFour:Plane = new Plane(new BitmapFileMaterial("assets/images/doc.png", false), 314, 1100, 1,1);
+		private var actorFive:Plane = new Plane(new BitmapFileMaterial("assets/images/coach.png", false), 694, 1100, 1,1);
+		private var actorSix:Plane = new Plane(new BitmapFileMaterial("assets/images/playground.png", false), 332, 1080, 1,1);
+		private var actorSeven:Plane = new Plane(new BitmapFileMaterial("assets/images/teacher.png", false), 322, 1080, 1,1);
+		private var actorEight:Plane = new Plane(new BitmapFileMaterial("assets/images/talktoparents.png", false), 232, 980, 1,1);
+		private var actorNine:Plane = new Plane(new BitmapFileMaterial("assets/images/acne.png", false), 368, 1084, 1,1);
+		private var actorTen:Plane = new Plane(new BitmapFileMaterial("assets/images/bike.png", false), 600, 960, 1,1);
+		private var waterFountain:Plane = new Plane(new BitmapFileMaterial("assets/materials/park_fountain_spray.png", false), 1100, 900, 1,1);*/
+		private var actorTwo:Plane;
+		private var actorThree:Plane;
+		private var actorFour:Plane;
+		private var actorFive:Plane;
+		private var actorSix:Plane;
+		private var actorSeven:Plane;
+		private var actorEight:Plane;
+		private var actorNine:Plane;
+		private var actorTen:Plane;
+		private var waterFountain:Plane;
+		public var cell_open:Sound;
+		public var cell_close:Sound
+		public var bell:Sound;
+		public var fountain_snd:Sound;
+		
+		public function getBitmapData( target : UIComponent ) : BitmapData
+	   {
+	    var bd : BitmapData = new BitmapData( target.width, target.height, true );
+	    var m : Matrix = new Matrix();
+	    bd.draw( target, m );
+	    return bd;
+	   }
+	   private function loadAcne():void {
+	   		var request:URLRequest = new URLRequest( "assets/images/chad.png" );
+			var bitmapLoader:Loader = new Loader();
+			bitmapLoader.contentLoaderInfo.addEventListener( Event.COMPLETE, loadAcneCompleteHandler );
+			bitmapLoader.contentLoaderInfo.addEventListener( IOErrorEvent.IO_ERROR, loadBitmapErrorHandler );
+			bitmapLoader.load( request );
+	    }
+	 	private function loadAcneCompleteHandler(e:Event):void {
+			var loader:Loader = Loader( e.target.loader );
+			var loadedBitmap:Bitmap = Bitmap( loader.content );
+			actorNine = new Plane(new BitmapMaterial(loadedBitmap.bitmapData, false), 332, 1084, 1,1);
+			loadFamily();
+		}
+	    private function loadFamily():void {
+	    	parentDocument.moduleProgBar.visible = false;
+	   		var request:URLRequest = new URLRequest( "assets/images/family.png" );
+			var bitmapLoader:Loader = new Loader();
+			bitmapLoader.contentLoaderInfo.addEventListener( Event.COMPLETE, loadFamilyCompleteHandler );
+			bitmapLoader.contentLoaderInfo.addEventListener( IOErrorEvent.IO_ERROR, loadBitmapErrorHandler );
+			bitmapLoader.load( request );
+	    }
+	 	private function loadFamilyCompleteHandler(e:Event):void {
+			var loader:Loader = Loader( e.target.loader );
+			var loadedBitmap:Bitmap = Bitmap( loader.content );
+			actorOne = new Plane(new BitmapMaterial(loadedBitmap.bitmapData, false), 850, 1100, 3,3);
+			loadMovies();
+		}
+		private function loadMovies():void {
+	   		var request:URLRequest = new URLRequest( "assets/images/jamieSue.png" );
+			var bitmapLoader:Loader = new Loader();
+			bitmapLoader.contentLoaderInfo.addEventListener( Event.COMPLETE, loadmoviesCompleteHandler );
+			bitmapLoader.contentLoaderInfo.addEventListener( IOErrorEvent.IO_ERROR, loadBitmapErrorHandler );
+			bitmapLoader.load( request );
+	    }
+	 	private function loadmoviesCompleteHandler(e:Event):void {
+			var loader:Loader = Loader( e.target.loader );
+			var loadedBitmap:Bitmap = Bitmap( loader.content );
+			actorTwo = new Plane(new BitmapMaterial(loadedBitmap.bitmapData, false), 388, 1108, 2,2);
+			loadGrocery();
+		}
+		private function loadGrocery():void {
+	   		var request:URLRequest = new URLRequest( "assets/images/grocery.png" );
+			var bitmapLoader:Loader = new Loader();
+			bitmapLoader.contentLoaderInfo.addEventListener( Event.COMPLETE, loadGroceryCompleteHandler );
+			bitmapLoader.contentLoaderInfo.addEventListener( IOErrorEvent.IO_ERROR, loadBitmapErrorHandler );
+			bitmapLoader.load( request );
+	    }
+	 	private function loadGroceryCompleteHandler(e:Event):void {
+			var loader:Loader = Loader( e.target.loader );
+			var loadedBitmap:Bitmap = Bitmap( loader.content );
+			actorThree = new Plane(new BitmapMaterial(loadedBitmap.bitmapData, false), 672, 1180, 2,2);
+			loadDoc();
+		}
+		private function loadDoc():void {
+	   		var request:URLRequest = new URLRequest( "assets/images/doc.png" );
+			var bitmapLoader:Loader = new Loader();
+			bitmapLoader.contentLoaderInfo.addEventListener( Event.COMPLETE, loadDocCompleteHandler );
+			bitmapLoader.contentLoaderInfo.addEventListener( IOErrorEvent.IO_ERROR, loadBitmapErrorHandler );
+			bitmapLoader.load( request );
+	    }
+	 	private function loadDocCompleteHandler(e:Event):void {
+			var loader:Loader = Loader( e.target.loader );
+			var loadedBitmap:Bitmap = Bitmap( loader.content );
+			actorFour = new Plane(new BitmapMaterial(loadedBitmap.bitmapData, false), 314, 1100, 1,1);
+			loadCoach();
+		}
+		private function loadCoach():void {
+	   		var request:URLRequest = new URLRequest( "assets/images/coach.png" );
+			var bitmapLoader:Loader = new Loader();
+			bitmapLoader.contentLoaderInfo.addEventListener( Event.COMPLETE, loadCoachCompleteHandler );
+			bitmapLoader.contentLoaderInfo.addEventListener( IOErrorEvent.IO_ERROR, loadBitmapErrorHandler );
+			bitmapLoader.load( request );
+	    }
+	 	private function loadCoachCompleteHandler(e:Event):void {
+			var loader:Loader = Loader( e.target.loader );
+			var loadedBitmap:Bitmap = Bitmap( loader.content );
+			actorFive = new Plane(new BitmapMaterial(loadedBitmap.bitmapData, false), 694, 1100, 3,3);
+			loadPlayground();
+		}
+		private function loadPlayground():void {
+	   		var request:URLRequest = new URLRequest( "assets/images/playground.png" );
+			var bitmapLoader:Loader = new Loader();
+			bitmapLoader.contentLoaderInfo.addEventListener( Event.COMPLETE, loadPlaygroundCompleteHandler );
+			bitmapLoader.contentLoaderInfo.addEventListener( IOErrorEvent.IO_ERROR, loadBitmapErrorHandler );
+			bitmapLoader.load( request );
+	    }
+	 	private function loadPlaygroundCompleteHandler(e:Event):void {
+			var loader:Loader = Loader( e.target.loader );
+			var loadedBitmap:Bitmap = Bitmap( loader.content );
+			actorSix = new Plane(new BitmapMaterial(loadedBitmap.bitmapData, false), 368, 1080, 2,2);
+			loadTeacher();
+		}
+		private function loadTeacher():void {
+	   		var request:URLRequest = new URLRequest( "assets/images/teacher.png" );
+			var bitmapLoader:Loader = new Loader();
+			bitmapLoader.contentLoaderInfo.addEventListener( Event.COMPLETE, loadTeacherCompleteHandler );
+			bitmapLoader.contentLoaderInfo.addEventListener( IOErrorEvent.IO_ERROR, loadBitmapErrorHandler );
+			bitmapLoader.load( request );
+	    }
+	 	private function loadTeacherCompleteHandler(e:Event):void {
+			var loader:Loader = Loader( e.target.loader );
+			var loadedBitmap:Bitmap = Bitmap( loader.content );
+			actorSeven = new Plane(new BitmapMaterial(loadedBitmap.bitmapData, false), 322, 1080, 1,1);
+			loadTalkToParents();
+		}
+		private function loadTalkToParents():void {
+	   		var request:URLRequest = new URLRequest( "assets/images/talktoparents.png" );
+			var bitmapLoader:Loader = new Loader();
+			bitmapLoader.contentLoaderInfo.addEventListener( Event.COMPLETE, loadTalkToParentsCompleteHandler );
+			bitmapLoader.contentLoaderInfo.addEventListener( IOErrorEvent.IO_ERROR, loadBitmapErrorHandler );
+			bitmapLoader.load( request );
+	    }
+	 	private function loadTalkToParentsCompleteHandler(e:Event):void {
+			var loader:Loader = Loader( e.target.loader );
+			var loadedBitmap:Bitmap = Bitmap( loader.content );
+			actorEight = new Plane(new BitmapMaterial(loadedBitmap.bitmapData, false), 232, 980, 2,2);
+			loadBike();
+		}
+		private function loadBike():void {
+	   		var request:URLRequest = new URLRequest( "assets/images/bike.png" );
+			var bitmapLoader:Loader = new Loader();
+			bitmapLoader.contentLoaderInfo.addEventListener( Event.COMPLETE, loadBikeCompleteHandler );
+			bitmapLoader.contentLoaderInfo.addEventListener( IOErrorEvent.IO_ERROR, loadBitmapErrorHandler );
+			bitmapLoader.load( request );
+	    }
+	 	private function loadBikeCompleteHandler(e:Event):void {
+			var loader:Loader = Loader( e.target.loader );
+			var loadedBitmap:Bitmap = Bitmap( loader.content );
+			actorTen = new Plane(new BitmapMaterial(loadedBitmap.bitmapData, false), 600, 960, 3,3);
+			loadParkFountainSpray();
+		}
+		private function loadParkFountainSpray():void {
+	   		var request:URLRequest = new URLRequest( "assets/materials/park_fountain_spray.png" );
+			var bitmapLoader:Loader = new Loader();
+			bitmapLoader.contentLoaderInfo.addEventListener( Event.COMPLETE, loadParkFountainSprayCompleteHandler );
+			bitmapLoader.contentLoaderInfo.addEventListener( IOErrorEvent.IO_ERROR, loadBitmapErrorHandler );
+			bitmapLoader.load( request );
+	    }
+	 	private function loadParkFountainSprayCompleteHandler(e:Event):void {
+			var loader:Loader = Loader( e.target.loader );
+			var loadedBitmap:Bitmap = Bitmap( loader.content );
+			waterFountain = new Plane(new BitmapMaterial(loadedBitmap.bitmapData, false), 1100, 900, 2,2);
+			loadCellOpen();
+		}
+		private function loadCellOpen():void {
+	   		var request:URLRequest = new URLRequest( "assets/audio/cell_open.mp3" );
+	   		cell_open = new Sound();
+			cell_open.load(request);
+			cell_open.addEventListener( Event.COMPLETE, loadCellOpenCompleteHandler );
+			cell_open.addEventListener( IOErrorEvent.IO_ERROR, loadBitmapErrorHandler );
+	    }
+	 	private function loadCellOpenCompleteHandler(e:Event):void {
+	 		var request:URLRequest = new URLRequest( "assets/audio/cell_close.mp3" );
+	   		cell_close = new Sound();
+			cell_close.load(request);
+			cell_close.addEventListener( Event.COMPLETE, loadCellCloseCompleteHandler );
+			cell_close.addEventListener( IOErrorEvent.IO_ERROR, loadBitmapErrorHandler );
+		}
+		private function loadCellCloseCompleteHandler(e:Event):void {
+	 		var request:URLRequest = new URLRequest( "assets/audio/bell.mp3" );
+	   		bell = new Sound();
+			bell.load(request);
+			bell.addEventListener( Event.COMPLETE, loadBellCompleteHandler );
+			bell.addEventListener( IOErrorEvent.IO_ERROR, loadBitmapErrorHandler );
+		}
+		private function loadBellCompleteHandler(e:Event):void {
+	 		var request:URLRequest = new URLRequest( "assets/audio/water_fountain.mp3" );
+	   		fountain_snd = new Sound();
+			fountain_snd.load(request);
+			fountain_snd.addEventListener( Event.COMPLETE, loadFountainCompleteHandler );
+			fountain_snd.addEventListener( IOErrorEvent.IO_ERROR, loadBitmapErrorHandler );
+		}
+		private function loadFountainCompleteHandler(e:Event):void {
+			init();
+		}
+		
+		private function loadBitmapErrorHandler(e:Event):void {
+			var msg:String = "IO_ERROR :\nType: " + e.type.toString() + "\nEvent Phase: " + e.eventPhase.toString() + "\nCurrent Target: " + e.currentTarget.toString() + "\nTarget: " + e.target.toString() + "\n\n";
+			ExternalInterface.call('console.error', msg);
+		}		
+		
+		public function log(e:Event):void {
+			var msg:String = "########## New Event ##########\nType: " + e.type.toString() + "\nEvent Phase: " + e.eventPhase.toString() + "\nCurrent Target: " + e.currentTarget.toString() + "\nTarget: " + e.target.toLocaleString() + "\n\n";
+			ExternalInterface.call('console.log', msg);
+		}		
+		
+		public var fountainTrans:SoundTransform = new SoundTransform(1, 0);
+		public var fountainChannel:SoundChannel = new SoundChannel();
+		public var contentConnection:LocalConnection = new LocalConnection();
+		public var loaderLC:LocalConnection = new LocalConnection();
+		public var nextTarget:String = "The Smiths";
+		[Bindable]
+		public var userName:String;
+		public var targetMet:Boolean = false;
+		public var gotAllTen:Boolean = false;
+		public var firstLoad:Boolean = true;
+		public var congratulated:Boolean = false;
+		public var totalLoadedAssets:int = 0;
+		public var totalLoadedPercent:Number = 0;
+		
+		private var littleGuySourceFiles:Array = ["assets/images/littleGuys_0.png", "assets/images/littleGuys_1.png", "assets/images/littleGuys_2.png", "assets/images/littleGuys_3.png", "assets/images/littleGuys_4.png", "assets/images/littleGuys_5.png", "assets/images/littleGuys_6.png", "assets/images/littleGuys_7.png", "assets/images/littleGuys_8.png", "assets/images/littleGuys_9.png", "assets/images/littleGuys_10.png", "assets/images/littleGuys_11.png"];
+		private var littleGuyProgress:int = 0;
+		
+		private var blurFilter:BlurFilter = new BlurFilter(5, 5, BitmapFilterQuality.HIGH);
+		
+		private function onConnStatus(event:StatusEvent):void
+		{
+           switch (event.level) 
+           {
+		       case "status":
+		           trace("LocalConnection.send() succeeded");
+		           break;
+		       case "error":
+		           trace("LocalConnection.send() failed");
+		           break;
+			}
+		}
+		
+		private function onReceivedError(event:SecurityErrorEvent):void
+		{
+		                 
+		}
+		
+		//BFM reference for counting loaded materials --- used for the preloader
+		private var bitmapFileMaterialReference:BitmapFileMaterial = new BitmapFileMaterial();
+		
+		
+
+		// _______________________________________________________________________
+		//                                                                    initialize
+		private function init():void {
+			focusManager.setFocus(userNameInput);
+			addEventListener(KeyboardEvent.KEY_DOWN, keyHandler);
+			loaderLC.addEventListener(StatusEvent.STATUS, onConnStatus);
+			loaderLC.addEventListener(SecurityErrorEvent.SECURITY_ERROR, onReceivedError);
+			percent.visible = true;
+		
+			//Setup viewport, add to stage
+			viewport = new Viewport3D(940,400,false, true, true, false);
+			viewport.interactiveSceneManager.addEventListener(InteractiveScene3DEvent.OBJECT_CLICK, handleClick);
+			
+			//Atach to a UIComponent for rendereng in Flex
+			var uicomp:UIComponent = new UIComponent();
+        	PVmainStage.addChild( uicomp );
+        	uicomp.addChild( viewport );
+			
+			//Setup renderer
+			renderer = new BasicRenderEngine();
+
+			//Setup camera
+			camera = new GenYCamera(viewport, 50, 200, 60000);
+			camera.x = 3933;
+			camera.z = -8791;
+						
+			//Setup scene
+			scene = new Scene3D();
+			
+			//Setup Collada Importer
+			daeFile = new DAE();
+			daeFile.load(parentDocument.worldModel);
+			daeFile.scaleX = daeFile.scaleY = daeFile.scaleZ = 7000;
+	
+			//add loading listeners to dae
+			daeFile.addEventListener(FileLoadEvent.LOAD_COMPLETE, handleLoadComplete);
+			daeFile.addEventListener(FileLoadEvent.LOAD_ERROR, handleLoadError);
+			//daeFile.addEventListener(FileLoadEvent.LOAD_PROGRESS, handleProgress);
+			daeFile.addEventListener(FileLoadEvent.SECURITY_LOAD_ERROR, handleSecurity);
+
+			//Setup Actors
+			actorOne.material.doubleSided = true;
+			actorOne.material.interactive = true;
+			actorOne.material.smooth = true;
+			actorOne.x = 5498;
+			actorOne.z = -11020;
+			actorOne.y = 300;
+			actorOne.rotationY = 344;
+			
+			actorTwo.material.doubleSided = true;
+			actorTwo.material.interactive = true;
+			actorTwo.material.smooth = true;
+			actorTwo.y = 300;
+			actorTwo.x = 13831;
+			actorTwo.z = -8915;
+			actorTwo.rotationY = 297;
+			
+			actorThree.material.doubleSided = true;
+			actorThree.material.interactive = true;
+			actorThree.material.smooth = true;
+			actorThree.y = 300;
+			actorThree.x = -550;
+			actorThree.z = -4882;
+			actorThree.rotationY = 83;
+			
+			actorFour.material.doubleSided = true;
+			actorFour.material.interactive = true;
+			actorFour.material.smooth = true;
+			actorFour.y = 300;
+			actorFour.x = -550;
+			actorFour.z = -7482;
+			actorFour.rotationY = 88;
+			
+			actorFive.material.doubleSided = true;
+			actorFive.material.interactive = true;
+			actorFive.material.smooth = true;
+			actorFive.y = 300;
+			actorFive.x = 13015;
+			actorFive.z = -2733;
+			actorFive.rotationY = 235;
+			
+			actorSix.material.doubleSided = true;
+			actorSix.material.interactive = true;
+			actorSix.material.smooth = true;
+			actorSix.y = 300;
+			actorSix.x = 2443;
+			actorSix.z = -7738;
+			actorSix.rotationY = 50;
+			
+			actorSeven.material.doubleSided = true;
+			actorSeven.material.interactive = true;
+			actorSeven.material.smooth = true;
+			actorSeven.y = 300;
+			actorSeven.x = 5527;
+			actorSeven.z = -2285;
+			actorSeven.rotationY = 170;
+			
+			actorEight.material.doubleSided = true;
+			actorEight.material.interactive = true;
+			actorEight.material.smooth = true;
+			actorEight.y = 300;
+			actorEight.x = 9578;
+			actorEight.z = -7241;
+			actorEight.rotationY = 295;
+			
+			actorNine.material.doubleSided = true;
+			actorNine.material.interactive = true;
+			actorNine.material.smooth = true;
+			actorNine.y = 300;
+			actorNine.x = 2598;
+			actorNine.z = -2101;
+			actorNine.rotationY = 149;
+			
+			actorTen.material.doubleSided = true;
+			actorTen.material.interactive = true;
+			actorTen.material.smooth = true;
+			actorTen.y = 300;
+			actorTen.x = 10230;
+			actorTen.z = -11199;
+			actorTen.rotationY = 338;
+			
+			waterFountain.material.doubleSided = true;
+			waterFountain.material.smooth = true;
+			waterFountain.y = 550;
+			waterFountain.x = 7101;
+			waterFountain.z = -6525;
+
+			//Setup container, add dae to container, add actors to container, add container to scene.
+			universe = new DisplayObject3D();
+			universe.addChild(daeFile);
+			universe.addChild(actorOne);
+			universe.addChild(actorTwo);
+			universe.addChild(actorThree);
+			universe.addChild(actorFour);
+			universe.addChild(actorFive);
+			universe.addChild(actorSix);
+			universe.addChild(actorSeven);
+			universe.addChild(actorEight);
+			universe.addChild(actorNine);
+			universe.addChild(actorTen);
+			universe.addChild(waterFountain);
+			scene.addChild(universe);
+
+			//Listen to enter frame
+			addEventListener(Event.ENTER_FRAME, handleRender);
+			addEventListener(Event.ENTER_FRAME, preloadController);
+			addEventListener(PopupEvent.MESSAGE, handlePopup);
+			
+			//Uncomment for Stats
+			/*
+			var stats:Stats = new Stats( { bg: 0x202020, fps: Math.random() * 0xffffff, ms: Math.random() * 0xffffff, mem: Math.random() * 0xffffff, memmax: Math.random() * 0xffffff } )
+			uicomp.addChild( stats );
+			stats.y = 10;
+			*/
+		
+		}
+		
+		// _______________________________________________________________________
+		//                							 collada load event listeners
+		
+	
+		
+		private function preloadController(e:Event):void 
+		{
+			//update percentage by files loaded + percentage loaded
+			var per:int = Math.floor((bitmapFileMaterialReference.totalBytesLoaded / bitmapFileMaterialReference.totalBytes)*50);
+			var foo:int = (bitmapFileMaterialReference.totalBitmapsLoaded -1) * 50;
+			percent.text = (per+foo).toString() + "%";
+			//get files loaded and trigger animation in the preloader .swf through localConnection
+			switch (per+foo)
+			{
+				case 10:
+				case 11:
+				case 12:
+				case 13:
+				case 14:
+				case 15:
+				case 16:
+				case 17:
+				case 18:
+				case 19:
+					if (!loaded10) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "10");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						} 
+					} 
+					loaded10 = true;
+					break;
+				case 20:
+				case 21:
+				case 22:
+				case 23:
+				case 24:
+				case 25:
+				case 26:
+				case 27:
+				case 28:
+				case 29:
+					if (!loaded10) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "10");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						} 
+					} 
+					loaded10 = true;
+					if (!loaded20) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "20");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded20 = true;
+					break;
+				case 30:
+				case 31:
+				case 32:
+				case 33:
+				case 34:
+				case 35:
+				case 36:
+				case 37:
+				case 38:
+				case 39:
+					if (!loaded10) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "10");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						} 
+					} 
+					loaded10 = true;
+					if (!loaded20) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "20");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded20 = true;
+					if (!loaded30) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "30");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded30 = true;
+					break;
+				case 40:
+				case 41:
+				case 42:
+				case 43:
+				case 44:
+				case 45:
+				case 46:
+				case 47:
+				case 48:
+				case 49:
+					if (!loaded10) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "10");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						} 
+					} 
+					loaded10 = true;
+					if (!loaded20) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "20");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded20 = true;
+					if (!loaded30) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "30");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded30 = true;
+					if (!loaded40) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "40");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded40 = true;
+					break;
+				case 50:
+				case 51:
+				case 52:
+				case 53:
+				case 54:
+				case 55:
+				case 56:
+				case 57:
+				case 58:
+				case 59:
+					if (!loaded10) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "10");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						} 
+					} 
+					loaded10 = true;
+					if (!loaded20) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "20");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded20 = true;
+					if (!loaded30) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "30");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded30 = true;
+					if (!loaded40) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "40");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded40 = true;
+					if (!loaded50) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "50");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded50 = true;
+					break;
+				case 60:
+				case 61:
+				case 62:
+				case 63:
+				case 64:
+				case 65:
+				case 66:
+				case 67:
+				case 68:
+				case 69:
+					if (!loaded10) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "10");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						} 
+					} 
+					loaded10 = true;
+					if (!loaded20) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "20");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded20 = true;
+					if (!loaded30) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "30");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded30 = true;
+					if (!loaded40) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "40");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded40 = true;
+					if (!loaded50) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "50");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded50 = true;
+					if (!loaded60) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "60");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded60 = true;
+					break;
+				case 70:
+				case 71:
+				case 72:
+				case 73:
+				case 74:
+				case 75:
+				case 76:
+				case 77:
+				case 78:
+				case 79:
+					if (!loaded10) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "10");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						} 
+					} 
+					loaded10 = true;
+					if (!loaded20) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "20");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded20 = true;
+					if (!loaded30) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "30");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded30 = true;
+					if (!loaded40) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "40");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded40 = true;
+					if (!loaded50) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "50");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded50 = true;
+					if (!loaded60) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "60");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded60 = true;
+					if (!loaded70) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "70");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded70 = true;
+					break;
+				case 80:
+				case 81:
+				case 82:
+				case 83:
+				case 84:
+				case 85:
+				case 86:
+				case 87:
+				case 88:
+				case 89:
+					if (!loaded10) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "10");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						} 
+					} 
+					loaded10 = true;
+					if (!loaded20) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "20");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded20 = true;
+					if (!loaded30) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "30");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded30 = true;
+					if (!loaded40) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "40");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded40 = true;
+					if (!loaded50) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "50");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded50 = true;
+					if (!loaded60) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "60");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded60 = true;
+					if (!loaded70) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "70");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded70 = true;
+					if (!loaded80) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "80");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded80 = true;
+					break;
+				case 90:
+				case 91:
+				case 92:
+				case 93:
+				case 94:
+					if (!loaded10) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "10");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						} 
+					} 
+					loaded10 = true;
+					if (!loaded20) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "20");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded20 = true;
+					if (!loaded30) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "30");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded30 = true;
+					if (!loaded40) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "40");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded40 = true;
+					if (!loaded50) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "50");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded50 = true;
+					if (!loaded60) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "60");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded60 = true;
+					if (!loaded70) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "70");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded70 = true;
+					if (!loaded80) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "80");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded80 = true;
+					if (!loaded90) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "90");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded90 = true;
+					break;
+				case 95:
+				case 96:
+				case 97:
+				case 98:
+				case 99:
+					if (!loaded10) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "10");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						} 
+					} 
+					loaded10 = true;
+					if (!loaded20) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "20");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded20 = true;
+					if (!loaded30) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "30");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded30 = true;
+					if (!loaded40) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "40");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded40 = true;
+					if (!loaded50) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "50");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded50 = true;
+					if (!loaded60) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "60");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded60 = true;
+					if (!loaded70) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "70");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded70 = true;
+					if (!loaded80) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "80");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded80 = true;
+					if (!loaded90) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "90");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded90 = true;
+					if (!loaded100) 
+					{
+						try 
+						{
+							loaderLC.send("loaderConnection", "perComplete", "100");
+						} catch (error:ArgumentError) 
+						{
+						    trace("ArgumentError "  + error);
+						} catch(error:TypeError)
+						{
+						    trace("TypeError "  + error);
+						}
+					}
+					loaded100 = true;
+					break;
+			}
+			
+		}                                              
+
+		private function handleLoadComplete(e:Event):void 
+		{
+			trace("IN EVENT LISTENER, LOAD COMPLETE");
+			worldMask1.visible = true; 
+			worldMask2.visible = true;
+			worldMask3.visible = true;
+			worldMask4.visible = true;
+			littleGuys.visible = true;
+			cellPhoneButton.visible = true;
+			textMsgNum.visible = true;
+			backpackButton.visible = true;
+			mapButton.visible = true;
+			instructionsButton.visible = true;
+			homeButton.visible = true;
+			bottomBar.visible = true;
+			stage.quality = StageQuality.LOW;
+			removeEventListener(Event.ENTER_FRAME, preloadController);
+			parentDocument.footer.visible = true;
+			parentDocument.logo.visible = true;
+			welcome.visible = true;
+			HydroTween.go(viewport, {Blur_blurX:10, Blur_blurY:10}, 1, 0, Regular.easeOut);
+			camera.unregisterCamera();
+			var birds:Sound = new Sound(new URLRequest("assets/audio/city_ambience.mp3"));
+			var birds_trans:SoundTransform = new SoundTransform(.3, 0);
+			var birds_channel:SoundChannel = birds.play(0, 200, birds_trans);
+			fountainChannel = fountain_snd.play(0, 200, fountainTrans);			
+			function removeLoader():void 
+			{
+				removeChild(percent);
+				removeChild(preloader);
+				stage.quality = StageQuality.LOW;			
+			}
+			percent.visible = false;
+			HydroTween.go(preloader, {alpha:0}, .3, 0, Regular.easeOut, removeLoader);
+		}
+
+		//This is only for an external DAE file 
+		private function handleLoadError(e:Event):void 
+		{
+			trace("THERE HAS BEEN A LOADING ERROR");
+		}
+
+		//This is only for an external DAE file
+		private function handleProgress(e:FileLoadEvent):void 
+		{
+			trace(e.file + ':\n' + e.bytesLoaded + '/' + e.bytesTotal );			
+		}
+
+		//This is only for an external DAE file
+		private function handleSecurity(e:Event):void 
+		{
+			trace("THERE HAS BEEN A SECURITY ERROR");
+		}
+
+		private function handleMaterialsDone(e:Event):void 
+		{
+			trace("COLLADA MATERIALS LOAD COMPLETE");
+		}
+		
+		private function handleMouseDown(e:MouseEvent):void {}
+		
+		private function handleMouseUp(e:MouseEvent):void {}
+		
+		private function handleMouseMove(e:MouseEvent):void {}
+		
+		// _______________________________________________________________________
+		//                                                                
+		private function handle2DClick(e:MouseEvent):void 
+		{
+			switch (e.target) 
+			{
+				case contentWindow_mc.close_btn :
+					dispatchEvent(new PopupEvent("CLOSE_POPUP"));
+					break;
+			}
+		}
+		
+		private function handlePopup(e:PopupEvent):void 
+		{
+			switch (e.command) 
+			{
+				case "CLOSE_POPUP" :
+					contentWindow_mc.video_FLVPlayback.stop();
+					content.visible = false;
+					stage.quality = StageQuality.LOW;
+					HydroTween.go([viewport], {Blur_blurX:0, Blur_blurY:0}, 1, 0, Regular.easeOut);
+					addEventListener(Event.ENTER_FRAME, handleRender);
+					camera.registerCamera();
+					break;
+				case "OPEN_POPUP" :
+					content.visible = true;
+					stage.quality = StageQuality.BEST;
+					contentWindow_mc.video_FLVPlayback.seek(0);
+					contentWindow_mc.video_FLVPlayback.play();
+					removeEventListener(Event.ENTER_FRAME, handleRender);
+					break;
+			}
+		}
+		
+		// _______________________________________________________________________
+		//                                                                Setup Actors
+		private function setRotation():void 
+		{
+			dispatchEvent(new PopupEvent("OPEN_POPUP"));
+		}
+		
+		public function closeContent():void {
+			if (targetMet == true) cellPhone.restartPhone();
+			if (gotAllTen == true && congratulated == false) 
+			{
+				congrats.visible = true;
+				camera.unregisterCamera();
+			}
+			content.visible = false;
+			stage.quality = StageQuality.LOW;
+			HydroTween.go(viewport, {Blur_blurX:0, Blur_blurY:0}, 1, 0, Regular.easeOut);
+			addEventListener(Event.ENTER_FRAME, handleRender);
+			camera.registerCamera();
+			targetMet = false;
+		}
+		
+
+
+		private function handleClick(e:InteractiveScene3DEvent):void 
+		{
+			switch (e.displayObject3D.material) 
+			{
+				case actorOne.material :
+					if (actorOne.screenZ > 2000) return;
+					if (nextTarget == "The Smiths") 
+					{
+						targetMet = true;
+						addManIcon();
+						nextTarget = "Mrs. Cooke";
+					}
+					content.visible = true;
+					camera.unregisterCamera();
+					HydroTween.go(viewport, {Blur_blurX:10, Blur_blurY:10}, 1, 0, Regular.easeOut);
+					leftNav.dataProvider = contentList.getItemAt(0).children();					
+					pageTitle.source = contentList.getItemAt(0).topic[0].@headerSwf;
+					buildSubNav(contentList.getItemAt(0).topic[0]);
+					contentSwf.source = contentList.getItemAt(0).topic[0].swf[0].@source + "#" + Math.random().toString();
+					leftNav.selectedIndex = 0;
+					closeUp.source = contentList.getItemAt(0).@closeupImage;
+					callWebTrends(contentSwf.source.toString(), contentList.getItemAt(0).topic[0].swf[0].@name);
+					tracker.trackPageview("11-13/" + contentList.getItemAt(0).topic[0].swf[0].@name);
+					break;
+				case actorTwo.material :
+					if (actorTwo.screenZ > 2000) return;
+					if (nextTarget == "Jamie Sue") 
+					{
+						targetMet = true;
+						addManIcon();
+						nextTarget = "Jimmy";
+					}
+					content.visible = true;
+					camera.unregisterCamera();
+					HydroTween.go(viewport, {Blur_blurX:10, Blur_blurY:10}, 1, 0, Regular.easeOut);
+					leftNav.dataProvider = contentList.getItemAt(1).children();
+					pageTitle.source = contentList.getItemAt(1).topic[0].@headerSwf;
+					buildSubNav(contentList.getItemAt(1).topic[0]);
+					contentSwf.source = contentList.getItemAt(1).topic[0].swf[0].@source + "#" + Math.random().toString();
+					leftNav.selectedIndex = 0;
+					closeUp.source = contentList.getItemAt(1).@closeupImage;
+					callWebTrends(contentSwf.source.toString(), contentList.getItemAt(1).topic[0].swf[0].@name);
+					tracker.trackPageview("11-13/" + contentList.getItemAt(1).topic[0].swf[0].@name);
+					break;
+				case actorThree.material :
+					if (actorThree.screenZ > 2000) return;
+					if (nextTarget == "Cunninghams") 
+					{
+						targetMet = true;
+						addManIcon();
+						nextTarget = "Dr. Miller";
+					}
+					content.visible = true;
+					camera.unregisterCamera();
+					HydroTween.go(viewport, {Blur_blurX:10, Blur_blurY:10}, 1, 0, Regular.easeOut);
+					leftNav.dataProvider = contentList.getItemAt(2).children();
+					pageTitle.source = contentList.getItemAt(2).topic[0].@headerSwf;
+					buildSubNav(contentList.getItemAt(2).topic[0]);
+					contentSwf.source = contentList.getItemAt(2).topic[0].swf[0].@source + "#" + Math.random().toString();
+					leftNav.selectedIndex = 0;
+					closeUp.source = contentList.getItemAt(2).@closeupImage;
+					callWebTrends(contentSwf.source.toString(), contentList.getItemAt(2).topic[0].swf[0].@name);
+					tracker.trackPageview("11-13/" + contentList.getItemAt(2).topic[0].swf[0].@name);
+					break;
+				case actorFour.material :
+					if (actorFour.screenZ > 2000) return;
+					if (nextTarget == "Dr. Miller") 
+					{
+						targetMet = true;
+						addManIcon();
+						nextTarget = "Coach Tim";
+					}
+					content.visible = true;
+					camera.unregisterCamera();
+					HydroTween.go(viewport, {Blur_blurX:10, Blur_blurY:10}, 1, 0, Regular.easeOut);
+					leftNav.dataProvider = contentList.getItemAt(3).children();
+					pageTitle.source = contentList.getItemAt(3).topic[0].@headerSwf;
+					buildSubNav(contentList.getItemAt(3).topic[0]);
+					contentSwf.source = contentList.getItemAt(3).topic[0].swf[0].@source + "#" + Math.random().toString();
+					leftNav.selectedIndex = 0;
+					closeUp.source = contentList.getItemAt(3).@closeupImage;
+					callWebTrends(contentSwf.source.toString(), contentList.getItemAt(3).topic[0].swf[0].@name);
+					tracker.trackPageview("11-13/" + contentList.getItemAt(3).topic[0].swf[0].@name);
+					break;
+				case actorFive.material :
+					if (actorFive.screenZ > 2000) return;
+					if (nextTarget == "Coach Tim") 
+					{
+						targetMet = true;
+						addManIcon();
+						nextTarget = "Jason";
+					}
+					content.visible = true;
+					camera.unregisterCamera();
+					HydroTween.go(viewport, {Blur_blurX:10, Blur_blurY:10}, 1, 0, Regular.easeOut);
+					leftNav.dataProvider = contentList.getItemAt(4).children();
+					pageTitle.source = contentList.getItemAt(4).topic[0].@headerSwf;
+					buildSubNav(contentList.getItemAt(4).topic[0]);
+					contentSwf.source = contentList.getItemAt(4).topic[0].swf[0].@source + "#" + Math.random().toString();
+					leftNav.selectedIndex = 0;
+					closeUp.source = contentList.getItemAt(4).@closeupImage;
+					callWebTrends(contentSwf.source.toString(), contentList.getItemAt(4).topic[0].swf[0].@name);
+					tracker.trackPageview("11-13/" + contentList.getItemAt(4).topic[0].swf[0].@name);
+					break;
+				case actorSix.material :
+					if (actorSix.screenZ > 2000) return;
+					if (nextTarget == "Jason") 
+					{
+						targetMet = true;
+						addManIcon();
+						nextTarget = "Jamie Sue";
+					}
+					content.visible = true;
+					camera.unregisterCamera();
+					HydroTween.go(viewport, {Blur_blurX:10, Blur_blurY:10}, 1, 0, Regular.easeOut);
+					leftNav.dataProvider = contentList.getItemAt(5).children();
+					pageTitle.source = contentList.getItemAt(5).topic[0].@headerSwf;
+					buildSubNav(contentList.getItemAt(5).topic[0]);
+					contentSwf.source = contentList.getItemAt(5).topic[0].swf[0].@source + "#" + Math.random().toString();
+					leftNav.selectedIndex = 0;
+					closeUp.source = contentList.getItemAt(5).@closeupImage;
+					callWebTrends(contentSwf.source.toString(), contentList.getItemAt(5).topic[0].swf[0].@name);
+					tracker.trackPageview("11-13/" + contentList.getItemAt(5).topic[0].swf[0].@name);
+					break;
+				case actorSeven.material :
+					if (actorSeven.screenZ > 2000) return;
+					if (nextTarget == "Mrs. Cooke") 
+					{
+						targetMet = true;
+						addManIcon();
+						nextTarget = "Cunninghams";
+					}
+					content.visible = true;
+					camera.unregisterCamera();
+					HydroTween.go(viewport, {Blur_blurX:10, Blur_blurY:10}, 1, 0, Regular.easeOut);
+					leftNav.dataProvider = contentList.getItemAt(6).children();
+					pageTitle.source = contentList.getItemAt(6).topic[0].@headerSwf;
+					buildSubNav(contentList.getItemAt(6).topic[0]);
+					contentSwf.source = contentList.getItemAt(6).topic[0].swf[0].@source + "#" + Math.random().toString();
+					leftNav.selectedIndex = 0;
+					closeUp.source = contentList.getItemAt(6).@closeupImage;
+					callWebTrends(contentSwf.source.toString(), contentList.getItemAt(6).topic[0].swf[0].@name);
+					tracker.trackPageview("11-13/" + contentList.getItemAt(6).topic[0].swf[0].@name);
+					break;
+				case actorEight.material :
+					if (actorEight.screenZ > 2000) return;
+					if (nextTarget == "Kimberly") 
+					{
+						targetMet = true;
+						addManIcon();
+					}
+					content.visible = true;
+					camera.unregisterCamera();
+					HydroTween.go(viewport, {Blur_blurX:10, Blur_blurY:10}, 1, 0, Regular.easeOut);
+					leftNav.dataProvider = contentList.getItemAt(7).children();
+					pageTitle.source = contentList.getItemAt(7).topic[0].@headerSwf;
+					buildSubNav(contentList.getItemAt(7).topic[0]);
+					contentSwf.source = contentList.getItemAt(7).topic[0].swf[0].@source + "#" + Math.random().toString();
+					leftNav.selectedIndex = 0;
+					closeUp.source = contentList.getItemAt(7).@closeupImage;
+					callWebTrends(contentSwf.source.toString(), contentList.getItemAt(7).topic[0].swf[0].@name);
+					tracker.trackPageview("11-13/" + contentList.getItemAt(7).topic[0].swf[0].@name);
+					break;
+				case actorNine.material :
+					if (actorNine.screenZ > 2000) return;
+					if (nextTarget == "Chad") 
+					{
+						targetMet = true;
+						addManIcon();
+						nextTarget = "Kimberly";
+					}
+					content.visible = true;
+					camera.unregisterCamera();
+					HydroTween.go(viewport, {Blur_blurX:10, Blur_blurY:10}, 1, 0, Regular.easeOut);
+					leftNav.dataProvider = contentList.getItemAt(8).children();
+					pageTitle.source = contentList.getItemAt(8).topic[0].@headerSwf;
+					buildSubNav(contentList.getItemAt(8).topic[0]);
+					contentSwf.source = contentList.getItemAt(8).topic[0].swf[0].@source + "#" + Math.random().toString();
+					leftNav.selectedIndex = 0;
+					closeUp.source = contentList.getItemAt(8).@closeupImage;
+					callWebTrends(contentSwf.source.toString(), contentList.getItemAt(8).topic[0].swf[0].@name);
+					tracker.trackPageview("11-13/" + contentList.getItemAt(8).topic[0].swf[0].@name);
+					break;
+				case actorTen.material :
+					if (actorTen.screenZ > 2000) return;
+					if (nextTarget == "Jimmy") 
+					{
+						targetMet = true;
+						addManIcon();
+						nextTarget = "Chad";
+					}
+					content.visible = true;
+					camera.unregisterCamera();
+					HydroTween.go(viewport, {Blur_blurX:10, Blur_blurY:10}, 1, 0, Regular.easeOut);
+					leftNav.dataProvider = contentList.getItemAt(9).children();
+					pageTitle.source = contentList.getItemAt(9).topic[0].@headerSwf;
+					buildSubNav(contentList.getItemAt(9).topic[0]);
+					contentSwf.source = contentList.getItemAt(9).topic[0].swf[0].@source + "#" + Math.random().toString();
+					leftNav.selectedIndex = 0;
+					closeUp.source = contentList.getItemAt(9).@closeupImage;
+					callWebTrends(contentSwf.source.toString(), contentList.getItemAt(9).topic[0].swf[0].@name);
+					tracker.trackPageview("11-13/" + contentList.getItemAt(9).topic[0].swf[0].@name);
+					break;
+			}
+		}
+		
+		public function takeMeThere(xPos:int, zPos:int, yRot:int):void 
+		{
+			var oldRotationY:Number = camera.rotationY;
+			camera.rotationY = yRot;
+			closeContent();
+			map.visible = false;
+			cellPhone.visible = false;
+			stage.quality = StageQuality.LOW;
+			HydroTween.go(viewport, {Blur_blurX:0, Blur_blurY:0}, .25, 0, Regular.easeOut);
+			addEventListener(Event.ENTER_FRAME, handleRender);
+			camera.registerCamera();
+			HydroTween.go(camera, {x:xPos, z:zPos}, 3);
+			var r:Number = yRot %360;
+			var tr:Number = oldRotationY %360;
+			camera.rotationY = tr + ((Math.abs(tr-r) < 180) ? 0 : (tr>r) ? -360 : 360);
+			HydroTween.go(camera, {rotationY:yRot}, 1, 0, Quadratic.easeOut, function():void {camera.rotationY = yRot;});
+		}
+		
+		public function moveTo(xPos:int, zPos:int, yRot:int):void 
+		{
+			
+		} 
+		
+		public function loadBackpack():void 
+		{
+			content.visible = true;
+			camera.unregisterCamera();
+			HydroTween.go(viewport, {Blur_blurX:10, Blur_blurY:10}, 1, 0, Regular.easeOut);
+			leftNav.dataProvider = contentList.getItemAt(10).children();
+			pageTitle.source = contentList.getItemAt(10).topic[0].@headerSwf;
+			buildSubNav(contentList.getItemAt(10).topic[0]);
+			contentSwf.source = contentList.getItemAt(10).topic[0].swf[0].@source + "#" + Math.random().toString();
+			closeUp.source = contentList.getItemAt(10).@closeupImage;
+			callWebTrends(contentSwf.source.toString(), 'Backpack Content');
+			tracker.trackPageview("11-13/backpack_content");
+		}
+		
+		public function buildSubNav(content:XML):void 
+		{			
+			var length:int = content.children().length();
+			for (var n:int = 0; n < 3; n++) 
+			{
+				subNavContainer1.getChildren()[n].label = '';
+				subNavContainer1.getChildren()[n].id = '';
+			}
+			for (var m:int = 0; m < 3; m++) 
+			{
+				subNavContainer2.getChildren()[m].label = '';
+				subNavContainer2.getChildren()[m].id = '';
+			}
+			if (length == 1) 
+			{
+				wrapper.height = 275;
+				wrapper.y = 75;
+				return;
+			} else if (length <= 3) 
+			{
+				wrapper.height = 260;
+				wrapper.y = 90;
+			} else if (length > 3) 
+			{
+				wrapper.height = 235;
+				wrapper.y = 115;
+			}
+			for (var i:int = 0; i < length; i++) 
+			{
+				if (i < 3) 
+				{
+					subNavContainer1.getChildren()[i].label = content.children()[i].@name;
+					subNavContainer1.getChildren()[i].id = content.children()[i].@source + "#" + Math.random().toString();
+					subNavContainer1.getChildAt(i).addEventListener(MouseEvent.CLICK, function(e:MouseEvent):void {contentSwf.source = e.target.id + "#" + Math.random().toString(); callWebTrends(e.target.id, e.target.label); tracker.trackPageview("11-13/" + e.target.label);});
+				}
+				if (i > 2) 
+				{
+					subNavContainer2.getChildren()[i-3].label = content.children()[i].@name;
+					subNavContainer2.getChildren()[i-3].id = content.children()[i].@source + "#" + Math.random().toString();
+					subNavContainer2.getChildAt(i-3).addEventListener(MouseEvent.CLICK, function(e:MouseEvent):void {contentSwf.source = e.target.id + "#" + Math.random().toString(); callWebTrends(e.target.id, e.target.label); tracker.trackPageview("11-13/" + e.target.label);});
+				}
+			}
+		}
+	
+		
+		// _______________________________________________________________________
+		//                                                                Frame-by-frame setup
+
+		private function limitCamera():void 
+		{
+			if (camera.rotationX > 3) 
+			{
+				camera.rotationX = 3;
+			}
+			if (camera.rotationX < -20) 
+			{
+				camera.rotationX = -20;
+			}
+			//Set up bounding box to limit player movement
+			if (camera.x > 12852) 
+			{
+				camera.x = 12852;
+			}
+			if (camera.x < 1081) 
+			{
+				camera.x = 1081;
+			}
+			if (camera.z < -9932) 
+			{
+				camera.z = -9932;
+			}
+			if (camera.z > -4066) 
+			{
+				camera.z = -4066;
+			}
+			camera.y =  400;
+			//trace("Position:\nx: " + camera.x + "\nz: " + camera.z + "\nyrot: " + camera.rotationY + "\nxrot: " + camera.rotationX);
+		}
+
+		// _______________________________________________________________________
+		//                                                                   render on enterframe
+
+		public function handleRender(e:Event):void 
+		{
+			limitCamera();
+			actorOne.lookAt(camera);
+			actorTwo.lookAt(camera);
+			actorThree.lookAt(camera);
+			actorFour.lookAt(camera);
+			actorFive.lookAt(camera);
+			actorSix.lookAt(camera);
+			actorSeven.lookAt(camera);
+			actorEight.lookAt(camera);
+			actorNine.lookAt(camera);
+			actorTen.lookAt(camera);
+			waterFountain.lookAt(camera);
+			var vol:Number = 1 - (camera.distanceTo(waterFountain) / 4000);
+			var transform:SoundTransform = fountainChannel.soundTransform;
+            transform.volume = (vol > 0) ? vol : 0;
+            fountainChannel.soundTransform = transform;
+			renderer.renderScene(scene,camera,viewport);
+		}
+
+		
+		 public function reloadPage(event:MouseEvent):void 
+	     {
+	     	var branding:String;
+	     	try 
+	     	{
+	     		branding = (ExternalInterface.call("getHash") == undefined || ExternalInterface.call("getHash") == 'undefined') ? '' : ExternalInterface.call("getHash");
+	     	} catch (e:Error) 
+	     	{
+	     		branding = ''
+	     	}
+	     	finally 
+	     	{
+	     	var requestString:String = "main.html" + branding;
+	        var u:URLRequest = new URLRequest(requestString);
+	        navigateToURL(u, "_self");
+	      }
+	     }
+			
+			
+		private function activateCellPhone(isMessage:Boolean):void 
+		{
+			hideInstructions();
+			hideMap();
+			closeContent();
+			HydroTween.go(viewport, {Blur_blurX:10, Blur_blurY:10}, 1, 0, Regular.easeOut, function():void {trace("Blur Done!!!");});
+			camera.unregisterCamera();
+			removeEventListener(Event.ENTER_FRAME, handleRender);
+			if (isMessage) 
+			{
+				try 
+				{
+				cellPhone.inbox.selectedIndex = 0;
+				cellPhone.cellScreens.selectedIndex = 1;
+				cellPhone.textMessageViews.selectedIndex = 1;
+				} catch (e:Error) 
+				{
+					cellPhone.cellScreens.selectedIndex = 1;
+				}
+			} else 
+			{
+				cellPhone.cellScreens.selectedIndex = 0;
+			}
+			cell_open.play(0,0);
+			cellPhone.visible = true;
+		}
+			
+		public function	closeCellPhone():void 
+		{
+			if (cellPhone.visible == true) cell_close.play(0,0);
+			cellPhone.visible = false;
+			stage.quality = StageQuality.LOW;
+			HydroTween.go(viewport, {Blur_blurX:0, Blur_blurY:0}, 1, 0, Regular.easeOut);
+			addEventListener(Event.ENTER_FRAME, handleRender);
+			camera.registerCamera();
+		}
+		
+		public function showMap():void 
+		{
+			hideInstructions();
+			closeCellPhone();
+			closeContent();
+			HydroTween.go(viewport, {Blur_blurX:10, Blur_blurY:10}, 1, 0, Regular.easeOut, function():void {trace("Blur Done!!!");});
+			camera.unregisterCamera();
+			removeEventListener(Event.ENTER_FRAME, handleRender);
+			map.visible = true;
+			tracker.trackPageview("11-13/map");
+		}
+		
+		public function hideMap():void 
+		{
+			map.visible = false;
+			stage.quality = StageQuality.LOW;
+			HydroTween.go(viewport, {Blur_blurX:0, Blur_blurY:0}, 1, 0, Regular.easeOut);
+			addEventListener(Event.ENTER_FRAME, handleRender);
+			camera.registerCamera();
+		}
+		
+		public function showInstructions():void 
+		{
+			hideMap();
+			closeCellPhone();
+			closeContent();
+			HydroTween.go(viewport, {Blur_blurX:10, Blur_blurY:10}, 1, 0, Regular.easeOut, function():void {trace("Blur Done!!!");});
+			camera.unregisterCamera();
+			removeEventListener(Event.ENTER_FRAME, handleRender);
+			instructionsScreen.visible = true;
+			 tracker.trackPageview("11-13/instructions");
+		}
+		
+		public function hideInstructions():void 
+		{
+			instructionsScreen.visible = false;
+			stage.quality = StageQuality.LOW;
+			HydroTween.go(viewport, {Blur_blurX:0, Blur_blurY:0}, 1, 0, Regular.easeOut);
+			addEventListener(Event.ENTER_FRAME, handleRender);
+			camera.registerCamera();
+			if (firstLoad == true) cellPhone.restartPhone();
+			firstLoad = false;
+		}
+
+		public function removeLeftNavBackgroundImage(event:ListEvent):void 
+		{
+			event.target.background.source = "";
+		}
+		
+		public function ringPhone():void 
+		{
+			newMessage.visible = true;
+			var newMessageDisplayTimer:Timer = new Timer(2000, 1);
+			newMessageDisplayTimer.addEventListener(TimerEvent.TIMER_COMPLETE, function():void {newMessage.visible = false;});
+			newMessageDisplayTimer.start();
+			cellPhoneButton.source = world_phone_ringing;
+			var cellIconTimer:Timer = new Timer(500, 1);
+			cellIconTimer.addEventListener(TimerEvent.TIMER_COMPLETE, function():void {cellPhoneButton.source = world_phone;});
+			cellIconTimer.start();
+			var cellIconTimer2:Timer = new Timer(850, 1);
+			cellIconTimer2.addEventListener(TimerEvent.TIMER_COMPLETE, function():void {cellPhoneButton.source = world_phone_ringing;});
+			cellIconTimer2.start();
+			var cellIconTimer3:Timer = new Timer(1350, 1);
+			cellIconTimer3.addEventListener(TimerEvent.TIMER_COMPLETE, function():void {cellPhoneButton.source = world_phone;});
+			cellIconTimer3.start();
+			var snd:Sound = new Sound(new URLRequest("assets/audio/phone_vibrate.mp3"));
+			snd.play(0, 1);
+		}
+		
+		
+		public function addManIcon():void
+		{
+			if (littleGuyProgress < 9) 
+			{
+				littleGuyProgress++;
+				littleGuys.source = littleGuySourceFiles[littleGuyProgress];
+				littleGuys.visible = false;
+				littleGuys.visible = true;
+				bell.play(0, 0);
+			} else if (littleGuyProgress == 9) 
+			{
+				littleGuyProgress++;
+				littleGuys.source = littleGuySourceFiles[littleGuyProgress];
+				gotAllTen = true;				
+				 tracker.trackPageview("11-13/got_all_ten");
+			}
+		}
+		
+		public function letsBegin():void 
+		{
+			removeEventListener(KeyboardEvent.KEY_DOWN, keyHandler);
+			if (userNameInput.text != '') 
+			{
+				userName = userNameInput.text;
+				welcome.visible = false;
+				showInstructions();				
+			} else {
+				userName = "Good2Bme";
+				welcome.visible = false;
+				showInstructions();	
+			};	
+		}
+		
+		public function keyHandler(event:KeyboardEvent):void 
+		{
+			if (event.keyCode == 13) letsBegin();
+  		}
+		
+		public function callWebTrends(loc:String, desc:String):void 
+		{
+			trace("###  WT ###\n\tLoc: " +  loc + "\n\tDesc: " + desc);
+			if (ExternalInterface.available)
+			{
+				try
+				{
+					ExternalInterface.call(
+						'dcsMultiTrack',                        
+						'DCS.dcsuri',                          
+						loc,
+						'WT.ti', 
+						desc
+					);
+				}
+				catch (error:Error)
+				{
+					// Error handling here
+				}
+				catch (error:SecurityError)
+				{
+					// Error handling here
+				}
+			}
+		}
+
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Fade id="fadeIn"
+		alphaFrom="0"
+		alphaTo="1" 
+		duration="250" />
+		
+	<mx:Fade id="fadeInLong"
+		alphaFrom="0"
+		alphaTo="1"
+		startDelay="2000"
+		duration="3000" />
+		
+	<mx:Fade id="fadeOut"
+		alphaFrom="1"
+		alphaTo="0" 
+		duration="250" />
+		
+	<mx:Fade id="fadeOutLong"
+		alphaFrom="1"
+		alphaTo="0" 
+		duration="3000" />
+	
+	<mx:Style>
+		.linkOver {
+			text-decoration: underline;
+			color: #0088ce;
+		}
+		
+		.linkOut {
+			text-decoration: none;
+			color: #0088ce;
+		}
+	</mx:Style>
+	
+	<analytics:FlexTracker
+        xmlns:analytics="com.google.analytics.components.*"
+        id="tracker"
+        account="UA-10098215-1"
+        mode="AS3"
+        visualDebug="false"
+     />
+	
+	<mx:HTTPService id="contentListSource" 
+		url="data/11_to_13_contentList.xml" 
+		resultFormat="e4x" 
+		result="loadAcne()"/>
+		
+	<mx:XMLListCollection id="contentList" 
+		source="{contentListSource.lastResult.location}" />
+		
+	<mx:Canvas id="PVmainStage" 
+		width="940" height="400" 
+		horizontalCenter="0"  
+		horizontalScrollPolicy="off" 
+		top="175"/>
+	
+	<mx:Canvas id="bottomBar" 
+		width="100%" 
+		height="30" 
+		visible="false" 
+		backgroundColor="#000000" 
+		backgroundAlpha=".5" 
+		horizontalCenter="0" 
+		y="545" />
+	
+	<mx:Canvas id="content" 
+		horizontalCenter="0" 
+		y="165" 
+		width="945" 
+		height="410" 
+		horizontalScrollPolicy="off" 
+		verticalScrollPolicy="off"  
+		visible="false" 
+		backgroundColor="#FFFFFF" 
+		backgroundAlpha="0.0" 
+		showEffect="{fadeIn}" 
+		hideEffect="{fadeOut}" >
+		
+		<mx:Image source="@Embed(source='assets/images/contentBackground.png')" 
+			x="195" 
+			y="18" />
+			
+		<ibx:ListEx id="leftNav" 
+			dataProvider="" 
+			x="200" 
+			y="38"
+		    itemRenderer="views.leftNav" 
+		    width="145"
+		    themeColor="#bfe6f7"
+		    height="100%"
+		    backgroundAlpha="0"
+		    borderStyle="none" 
+		    useRollOver="false"/>
+	      
+		<mx:Image id="closeUp" 
+			y="15" />
+			
+		<mx:Canvas id="header"  
+			width="100%" 
+			height="170" 
+			x="359" 
+			y="20" 
+			backgroundAlpha="0.0" 
+			verticalScrollPolicy="off" 
+			horizontalScrollPolicy="off">
+			
+			<mx:SWFLoader id="pageTitle" 
+				x="5" 
+				y="0" />
+				
+			<mx:SWFLoader id="closeContentButton" 
+				source="{content_close}" 
+				click="closeContent()" 
+				x="515" 
+				y="10"/>
+				
+			<mx:Panel id="subNavContainer1" 
+				x="0" 
+				y="50" 
+				width="550" 
+				height="200" 
+				layout="horizontal" 
+				borderAlpha="0.0" 
+				borderThicknessTop="0"	
+				borderThicknessLeft="0" 
+				borderThicknessRight="0" 
+				headerHeight="0" 
+				dropShadowEnabled="false" 
+				backgroundAlpha="0.0"  
+				horizontalScrollPolicy="off" 
+				verticalScrollPolicy="off">
+				
+				<mx:LinkButton id="subNav1" 
+					color="#0088ce" 
+					skin="{null}" 
+					textDecoration="underline" />
+					
+				<mx:LinkButton id="subNav2" 
+					color="#0088ce" 
+					skin="{null}" 
+					textDecoration="underline" />
+					
+				<mx:LinkButton id="subNav3" 
+					color="#0088ce" 
+					skin="{null}" 
+					textDecoration="underline" />
+					
+			</mx:Panel>
+			
+			<mx:Panel id="subNavContainer2" 
+				x="0" 
+				y="75" 
+				width="550" 
+				height="200" 
+				layout="horizontal" 
+				borderAlpha="0.0" 
+				borderThicknessTop="0"	
+				borderThicknessLeft="0" 
+				borderThicknessRight="0" 
+				headerHeight="0" 
+				dropShadowEnabled="false" 
+				backgroundAlpha="0.0"  
+				horizontalScrollPolicy="off" 
+				verticalScrollPolicy="off">
+				
+				<mx:LinkButton id="subNav4" 
+					color="#0088ce" 
+					skin="{null}" 
+					textDecoration="underline" />
+					
+				<mx:LinkButton id="subNav5" 
+					color="#0088ce" 
+					skin="{null}" 
+					textDecoration="underline" />
+					
+				<mx:LinkButton id="subNav6" 
+					color="#0088ce" 
+					skin="{null}" 
+					textDecoration="underline" />
+					
+			</mx:Panel>
+
+		</mx:Canvas>
+		
+		<mx:Canvas id="wrapper" 
+			x="359" 
+			height="245" 
+			y="105" 
+			width="545" 
+			backgroundAlpha="0.0">
+			
+			<mx:SWFLoader id="contentSwf" />
+		
+		</mx:Canvas>
+		
+	</mx:Canvas>
+	
+	<mx:Image id="worldMask1" 
+		visible="false" 
+		source="@Embed(source='assets/images/worldMaskBottom.jpg')" 
+		horizontalCenter="1" 
+		y="575" />
+		
+	<mx:Image id="worldMask2" 
+		visible="false" 
+		source="@Embed(source='assets/images/worldMaskTop.jpg')" 
+		horizontalCenter="1" 
+		y="0" />
+		
+	<mx:Image id="worldMask3" 
+		visible="false" 
+		source="@Embed(source='assets/images/worldMaskLeft.jpg')" 
+		horizontalCenter="-734" 
+		y="176" />
+		
+	<mx:Image id="worldMask4" 
+		visible="false" 
+		source="@Embed(source='assets/images/worldMaskRight.jpg')" 
+		horizontalCenter="735" 
+		y="176" />
+		
+	<mx:Image id="littleGuys" 
+		visible="false" 
+		source="@Embed(source='assets/images/littleGuys_0.png')" 
+		 horizontalCenter="-295" 
+		 top="114" />
+		 
+	<mx:SWFLoader id="cellPhoneButton" 
+		visible="false" 
+		source="{world_phone}" 
+		horizontalCenter="-102" 
+		y="512" 
+		click="activateCellPhone(false)" />
+		
+	<mx:Label id="textMsgNum" 
+		visible="false" 
+		text="{cellPhone.currentMessages.length}" 
+		horizontalCenter="-94" 
+		y="515" 
+		textAlign="center" 
+		color="#666666" 
+		fontWeight="bold" />
+		
+	<mx:Image id="newMessage" 
+		source="@Embed(source='assets/images/cellphone/new_message_popup.png')" 
+		visible="false" 
+		horizontalCenter="-105" 
+		y="400" 
+		showEffect="{fadeIn}" 
+		hideEffect="{fadeOutLong}" 
+		click="activateCellPhone(true)" /> 
+		
+	<mx:SWFLoader id="backpackButton" 
+		visible="false" 
+		source="{world_backpack}" 
+		horizontalCenter="-34" 
+		y="512" 
+		click="loadBackpack()" />
+		
+	<mx:SWFLoader id="mapButton" 
+		visible="false" 
+		source="{world_map}" 
+		horizontalCenter="34" 
+		y="512" 
+		click="showMap()" />
+		
+	<mx:SWFLoader id="instructionsButton" 
+		visible="false" 
+		source="{world_instructions}" 
+		horizontalCenter="102" 
+		y="512" 
+		click="showInstructions()" />
+		
+	<mx:SWFLoader id="homeButton" 
+		visible="false" 
+		source="{home_button}" 
+		click="reloadPage(event)" 
+		horizontalCenter="-446" 
+		top="105"/>
+		
+	<local:cell_phone id="cellPhone" 
+		horizontalCenter="0" 
+		y="182"  
+		horizontalScrollPolicy="off" 
+		visible="false"  />
+		
+	<local:mapScreen id="map" 
+		horizontalScrollPolicy="off" 
+		horizontalCenter="0" 
+		y="176" 
+		verticalScrollPolicy="off" 
+		showEffect="{fadeIn}" 
+		hideEffect="{fadeOut}" 
+		visible="false" />
+		
+	<local:instructions id="instructionsScreen" 
+		horizontalScrollPolicy="off" 
+		horizontalCenter="0" 
+		y="176" 
+		verticalScrollPolicy="off" 
+		showEffect="{fadeIn}" 
+		hideEffect="{fadeOut}" 
+		visible="false" />
+		
+	<mx:Canvas id="welcome" 
+		horizontalCenter="0" 
+		y="175" 
+		visible="false" 
+		showEffect="{fadeIn}" 
+		hideEffect="{fadeOut}">
+		
+		<mx:Image source="@Embed(source='assets/images/welcome_BG.png')" />
+		
+		<mx:TextInput id="userNameInput" 
+			fontSize="28" 
+			horizontalCenter="0" 
+			y="180" 
+			textAlign="center" 
+			width="250" />
+			
+		<mx:SWFLoader source="{lets_begin_btn}" 
+			id="letsBeginButton"
+			click="letsBegin();" 
+			horizontalCenter="0" 
+			y="245" />
+						
+	</mx:Canvas>
+	
+	<mx:Canvas id="congrats" 
+		horizontalCenter="0" 
+		y="175" 
+		visible="false" 
+		showEffect="{fadeIn}" 
+		hideEffect="{fadeOut}">
+		
+		<mx:Image source="@Embed(source='assets/images/congrats.png')" />
+		
+		<mx:LinkButton textDecoration="underline" 
+			label="CONTINUE EXPLORING"  
+			y="290" 
+			horizontalCenter="0" 
+			click="congrats.visible = false; camera.registerCamera(); gotAllTen = false; congratulated = true;" 
+			color="#333333"/>
+		
+			
+		<!--
+		
+		##### Uncomment to reactivate congrats with Wii #####
+		
+		<mx:Image source="@Embed(source='assets/images/congrats_Wii.png')" />
+		
+		<mx:LinkButton textDecoration="underline" 
+			label="OR YOU CAN CONTINUE EXPLORING"  
+			y="290" 
+			horizontalCenter="0" 
+			click="congrats.visible = false; camera.registerCamera(); gotAllTen = false; congratulated = true;" 
+			color="#333333"/>
+		
+		<mx:SWFLoader source="{enterToWin}"  
+			y="230" 
+			click="parentDocument.wiiHit(); congrats.visible = false; camera.registerCamera(); gotAllTen = false; congratulated = true;" 
+			horizontalCenter="0"/>-->
+			
+	</mx:Canvas>
+	
+	<mx:SWFLoader id="preloader" 
+		source="@Embed(source='assets/swfs/pre-loader.swf')" 
+		visible="true" 
+		horizontalCenter="15" 
+		top="10" />
+		
+	<mx:Text id="percent" 
+		fontSize="25" 
+		color="#FFFFFF" 
+		fontWeight="bold" 
+		horizontalCenter="12" 
+		y="260" 
+		textAlign="center" 
+		visible="false" 
+		alpha="0" 
+		showEffect="{fadeInLong}" 
+		hideEffect="{fadeOut}" />
+		
+</mx:Module>

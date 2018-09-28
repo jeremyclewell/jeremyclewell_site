@@ -1,0 +1,472 @@
+@charset "UTF-8";
+/* CSS Document */
+
+
+/*===================================================================*/
+/* Reset */
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+	border: 0;
+	outline: 0;
+	background: transparent;
+	}
+	
+ol, ul {
+	list-style: disc;
+	}
+
+blockquote, q {
+	quotes: none;
+	}
+
+:focus {
+	outline: 0;
+	}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	}
+
+
+
+/*===================================================================*/
+/* Main Page Layout */
+
+
+html 
+	{
+	background-image: none;
+	background-repeat: repeat-x;
+	background-position: top left;
+	background-color: white;
+	font-size:100%; 
+}
+body{
+	text-align: left;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 0.625em;
+}
+#container{
+	width: 650px;
+	margin: auto;
+}
+#printheader{
+	width: 650px;
+	height: 100px;
+}#header #share{
+	display:none;
+	position: absolute;
+	right: 22px;
+	top: 13px;
+	text-align:right;
+}
+#wrapper{
+	position:relative;
+	width: 650px;
+	text-align: left;
+	background-image: none;
+	background-position: top left;
+	background-repeat:repeat-y;
+}
+#wrapper #leftcolWrapper{
+	display:none;
+}
+#wrapper #leftcolWrapper #swfnav{
+	display:none;
+	margin-left: 24px;
+}
+#wrapper #leftcolWrapper #leftcol{
+	display:none;
+	padding: 0px 14px 0 28px;
+	background-color: none;
+}
+#wrapper #leftcolWrapper #leftcol #countdown{
+	display:none;
+}
+#wrapper #leftcolWrapper #leftcol #counter{
+	display:none
+	position: absolute;
+	top: 448px;
+	left: 28px;
+}
+#wrapper #contentWrapper{
+	width: 650px;
+}
+#wrapper #contentWrapper img{
+display:none;
+}
+#wrapper #contentWrapper #content{
+	padding: 10px 0 0 15px;
+	height: auto;
+}
+#wrapper #contentWrapper #contentCol1{
+	padding: 10px 0px 0 15px;
+	width: 650px;
+	height: auto;
+}
+
+.addthis_toolbox {
+display:none;}
+
+#wrapper #contentWrapper #navCol2{
+display:none;
+	position:absolute;
+	top: 397px;
+	right: 0;
+	padding: 0;
+	width: 288px;
+	height: auto;
+}
+#pagebottom{
+display:none;
+	position: relative;
+	clear: both;
+	text-align: left;
+	width: 650px;
+	padding-top: 0px;
+	background-image: none;
+	background-repeat:no-repeat;
+	background-position:bottom left;
+	color:#000;
+}
+
+
+/*===================================================================*/
+/* Simple Colors to Hex */
+
+.white{
+	color: #fff;
+}
+.black{
+	color: #000;
+}
+.gray { 
+	color:#c5c7c8;
+}
+.grayBkg {
+	background-color:#c5c7c8;
+}
+.bluePale { 
+	color:#8ecaea;
+}
+.blue { 
+	color:#0088ce;
+}
+.blueBkgPale { 
+	background-color:#8ecaea;
+}
+.blueBkg { 
+	background-color:#0088ce;
+}
+
+/*===================================================================*/
+/* Typography Styling */
+
+ul, li{
+	font-weight: normal;
+}
+h1{
+	font-size: 2.5em;
+	line-height:120%;
+	font-style:normal;
+	font-weight:normal;
+}
+h2{
+	font-size: 1.8em;
+	line-height:125%;
+	font-style:normal;
+	font-weight:normal;
+}
+h3{
+	font-size: 1.4em;
+	line-height:125%;
+	font-style:normal;
+	font-weight:normal;
+}
+h4{
+	font-size: 1.1em;
+	line-height:125%;
+	font-style:normal;
+	font-weight:normal;
+	vertical-align:text-bottom;
+	margin-bottom:10px;
+	}
+h5{
+	font-size: 12px;
+	line-height:18px;
+	font-style:normal;
+	font-weight:normal;
+}
+h6{
+	font-size: 11px;
+	margin: 6px 0;
+	font-style:normal;
+	font-weight:normal;
+}
+p{
+	font-size: 1.3em;
+	line-height: 1.5em;
+	color: #333;
+	padding-bottom: 15px;
+}
+p.footnote{
+	font-size: 1.0em;
+	line-height: 1.2em;
+}
+a{
+	color: #0092df;
+	font-weight:bold;
+	text-decoration: none;
+}
+a:hover{
+	color: #303131;
+	font-weight:bold;
+	text-decoration: underline;
+}
+sup   {
+	font-size: 0.7em;
+	padding-left: 1px;
+	vertical-align: text-top; 
+}
+
+
+
+/*===================================================================*/
+/* Header Sharing Links */
+
+
+#header #share ul li{
+	display:inline;
+	font-size:1.1em;
+	line-height:2.0em;
+}
+#header #share li a{
+	margin-top: 4px;
+	margin-left:3px;
+}
+
+
+
+/*===================================================================*/
+/* Content */
+
+#wrapper #contentWrapper #contentCol1 h1, #wrapper #contentWrapper #content h1{
+	padding: 0 20px 10px 0;
+	margin-bottom:15px;
+	font-style:normal;
+	color: #666666;
+	background-image: url(../images/layout/underline_h1_dotted.gif);
+	background-position: bottom;
+	background-repeat:repeat-x; 
+	background-attachment:scroll;
+
+}
+#wrapper #contentWrapper #contentCol1 h2, #wrapper #contentWrapper #content h2{
+	margin: 5px 0;
+	font-style:normal;
+	color:#555555;
+}
+#wrapper #contentWrapper #contentCol1 h4, #wrapper #contentWrapper #content h4{
+	padding-bottom: 10px;
+	color: #595959;
+}
+#wrapper #contentWrapper #contentCol1 img.alignright, #wrapper #contentWrapper #content img.alignright{
+display:none;
+	float:right;
+	margin: 0 0 15px 15px;
+	border-top-right-radius: 8px;
+	-webkit-border-top-right-radius: 8px;
+	-moz-border-radius-topright: 8px;
+	border-top-left-radius: 8px;
+	-webkit-border-top-left-radius: 8px;
+	-moz-border-radius-topleft: 8px;
+	}
+#wrapper #contentWrapper #contentCol1 p.subtitle, #wrapper #contentWrapper #content p.subtitle{
+	font-size:1.1em;
+	color:#666666;
+	margin-top: -5px;
+}
+#wrapper #contentWrapper #contentCol1 ul, #wrapper #contentWrapper #content ul{
+	font-size: 1.3em;
+	line-height: 1.5em;
+	color: #333;
+	margin:0.5em 0em 15px 15px;
+	padding:0;
+}
+#wrapper #contentWrapper #contentCol1 ul li, #wrapper #contentWrapper #content ul li{
+	background-image: none;
+	background-repeat: no-repeat;
+	background-position: 0 0.6em;
+	padding-bottom:0.75em;
+	padding-left: 1.0em;
+	margin-bottom:0em;
+}
+
+	
+/* NEEDS TO BE MODIFIED TO MATCH BCBSR
+#container #wrapper #contentWrapper #content table.data {
+	width:400px;
+	color: #333; 
+	clear:both; 
+	font-size: 10pt; 
+	font-family: Arial, Helvetica, SunSans-Regular, sans-serif; 
+	text-align:right; 
+	line-height: 11pt; 
+	background-color: #ffffff; 
+	border-top:1px solid gray;
+	border-right:1px solid gray; 
+	margin-bottom:25px;
+}
+#container #wrapper #contentWrapper #content table.data th {
+	padding:5px;
+	border-bottom:1px solid #0055A0;
+	border-left:1px solid gray;
+	background-color:#0055A0; 
+	color:#ffffff; 
+	font-weight:bold;
+}
+#container #wrapper #contentWrapper #content table.data th.subtotal {
+	border-bottom:1px solid gray;
+	border-left:1px solid gray;
+	background-color:#cccccc; 
+	color:#333; 
+	font-weight:normal;
+}
+#container #wrapper #contentWrapper #content table.data td {
+	padding:5px;
+	border-bottom:1px solid gray;
+	border-left:1px solid gray;
+} */
+p.last { padding-bottom:0}
+
+/*===================================================================*/
+/* Left Column */
+/* Note: "em" is used on text in navigation It gives emphasis on a screen reader. I reset the font-style:normal so on screen it is NOT itals */
+
+#leftcol li{
+	list-style-type: none;
+	font-weight:bold;
+	font-size: 1.1em;
+	line-height:100%;
+	text-transform:uppercase;
+}
+#leftcol a:link {
+	text-decoration: none;
+	font-weight:bold;
+}
+#leftcol a:hover{
+	text-decoration: none;
+	color: #303131;
+}
+#leftcol ul.lst{
+	margin-top: 9px;
+}
+*html #leftcol ul.lst{
+margin-top: 18px;
+}
+#leftcol ul.lst li a {
+	display: block;
+	position: relative;
+	padding: 8px 0 8px 23px;
+	border-bottom: 1px solid #dddddd;
+}
+*html ul.lst li, *html ul.lst li a { 
+height: 1%;
+margin-top: -1px;
+}
+#leftcol ul.lst a:hover {
+	background: #e2eef6;
+}
+
+#leftcol ul.lst li div.share {
+	display: block;
+	position: relative;
+	padding: 8px 0 8px 23px;
+	border-bottom: 1px solid #dddddd;
+}
+#leftcol ul.lst li div.share a {
+	display:inline;
+	padding: 0;
+	border-bottom: none;
+}
+
+*html ul.lst li div.share, *html ul.lst li div.share a { 
+height: 1%;
+margin-top: -1px;
+}
+#leftcol ul.lst div.share {
+	background: none;
+}
+#leftcol ul.lst li em {
+	position: absolute;
+	top: 10px;
+	left: 55px;
+	color: #0e38a5;
+	font-style: normal;
+}
+html #leftcol ul.lst li em {
+position: absolute;
+top: 8px;
+} 
+#leftcol ul.lst li a:hover em {
+	color: #000;
+}
+#leftcol ul.lst li span {
+	position: absolute;
+	top: 7px;
+	left: 135px;
+}
+
+
+/*===================================================================*/
+/* Footer */
+
+#footer {
+	width: 650px;
+	text-align:left;
+}
+#footer p{
+	padding: 10px 0px 15px;
+	font-weight: bold;
+	color: #000;
+	font-size: 7pt;
+	line-height: 1.25em;
+}
+#footer a
+	{
+	color:#fff;
+}
+#footer a:hover
+	{
+	color: #666;
+	text-decoration:underline;
+	}
+#footer ul 
+	{
+	margin: 15px 40px;
+	padding: 0;
+	list-style-type: none;
+}
+	#footer ul li 
+	{
+	display:inline ;
+	font-size:1.1em;
+	line-height:1.25em;
+	padding-right: 16px;
+}
+*HTML #footer ul li 
+{
+padding-right: 4px;
+margin-right: 5px;
+}
+#footer ul li.last 
+	{
+	border-right:none;
+	margin-right:0;
+}
+	

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Box xmlns:mx="http://www.adobe.com/2006/mxml" width="135" verticalScrollPolicy="off" horizontalScrollPolicy="off" borderStyle="none" backgroundAlpha="0" click="setNav()" rollOver="sectionName.styleName = 'on'" rollOut="sectionName.styleName = 'off'" creationComplete="init()" verticalAlign="middle">
+		<!--<mx:Image id="background" source="" /> -->
+	<mx:TextArea id="sectionName"  text="{data.@name}" fontFamily="Avenir" themeColor="#FFFFFFFF"  fontSize="13" color="#474646" width="135" verticalScrollPolicy="off" rollOver="sectionName.styleName = 'on'" rollOut="sectionName.styleName = 'off'" selectable="false" backgroundAlpha="0" wordWrap="true" borderStyle="none"  textAlign="right"/>
+	
+	<mx:Style>
+		.over
+		{
+			color: #0088CE;
+		}
+		
+		.off
+		{
+			color: #474646;
+		}
+		
+	</mx:Style>
+	<mx:Script>
+		<![CDATA[
+		//	Alert.show(data);
+		private function init():void {
+			
+		/*	if (data.@multiline == "true") {
+				trace("multiline = " + data.@multiline);
+				sectionName.y = 0;
+			} else {
+				sectionName.y = 20;
+			}*/
+		}
+		
+		private function setNav():void {
+			parentDocument.pageTitle.source = data.@headerSwf;
+			parentDocument.buildSubNav(data);
+			parentDocument.contentSwf.source = data.swf[0].@source + "#" + Math.random().toString();
+			parentDocument.callWebTrends(data.swf[0].@source, data.swf[0].@name);
+			//background.source = data.@backgroundImage;
+		}
+		]]>
+	</mx:Script>
+</mx:Box>

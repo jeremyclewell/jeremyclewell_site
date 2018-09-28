@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml">
+<mx:Script>
+	<![CDATA[
+		[Embed(source='assets/swfs/FlashAssets.swf#world_screen_close_btn')]
+		[Bindable]
+		private var close_btn:Class;
+	
+		public function iterateSources():void {
+			trace(instructionsImage.source);
+			if (instructionsImage.source == "assets/images/instructions_3.png") parentDocument.hideInstructions();
+			if (instructionsImage.source == "assets/images/instructions_2.png") instructionsImage.source = "assets/images/instructions_3.png";
+			if (instructionsImage.source == "assets/images/instructions_1.png") instructionsImage.source = "assets/images/instructions_2.png";
+		}
+	]]>
+</mx:Script>
+
+	<mx:Fade id="showEffect"
+		alphaFrom="0"
+		alphaTo="1"
+		duration="250" />
+
+	<mx:Image id="instructionsImage" source="assets/images/instructions_BG.png"  y="-1" x="2"/>
+	<mx:Image id="instructions1" source="assets/images/instructions_1.png" visible="true" showEffect="{showEffect}"  y="76" x="227"/>
+	<mx:Image id="instructions2" source="assets/images/instructions_2.png" visible="false" showEffect="{showEffect}" y="76" x="227"/>
+	<mx:Image id="instructions3" source="assets/images/instructions_3.png" visible="false" showEffect="{showEffect}" y="76" x="270"/>
+	<mx:LinkButton label="1) THE BASICS" skin="{null}" textRollOverColor="#0088ce" click="instructions1.visible = true; instructions2.visible = false; instructions3.visible = false;" y="93" x="285"/>
+	<mx:LinkButton label="2) MORE DETAIL" skin="{null}" textRollOverColor="#0088ce" click="instructions1.visible = false; instructions2.visible = true; instructions3.visible = false;"  y="93" x="410"/>
+	<mx:LinkButton label="3) PRIZES" skin="{null}" textRollOverColor="#0088ce" click="instructions1.visible = false; instructions2.visible = false; instructions3.visible = true;"  y="93" x="575"/>
+	<mx:SWFLoader source="{close_btn}" click="parentDocument.hideInstructions();"  x="906"/>
+</mx:Canvas>

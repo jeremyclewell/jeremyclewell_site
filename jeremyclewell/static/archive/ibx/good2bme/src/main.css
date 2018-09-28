@@ -1,0 +1,17 @@
+
+AccordionHeader
+{
+	skin: Embed(skinClass="AccordionHeader_skin");
+}
+Slider 
+{
+	thumbSkin: Embed(source="assets/images/volumeHandle.png");
+	trackHighlightSkin: Embed(source="assets/images/volumeTrackHighlight.png");
+	trackSkin: Embed(source="assets/images/volumeTrack.png");
+}
+List {  
+  padding-bottom: 0;  
+  padding-left: 0;  
+  padding-right: 0;
+  padding-top: 0;
+}  

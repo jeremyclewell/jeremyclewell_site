@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<topic name="IMMUNIZATION" source="assets/swfs/parents/immunization/intro.swf" headerSwf="assets/swfs/headers/P_1.swf">
+		<articles>
+			<article name="Recommended Immunizations" source="assets/swfs/parents/immunization/recommended_immunizations.swf" headerSwf="assets/swfs/headers/P_1_4.swf"/>
+			<article name="Important Reminders" source="assets/swfs/parents/immunization/important_reminders.swf" headerSwf="assets/swfs/headers/P_1_2.swf"/>
+			<article name="Immunization FAQ" source="assets/swfs/parents/immunization/immunization_faq.swf" headerSwf="assets/swfs/headers/P_1_3.swf"/>
+			<article name="Immunization Links" source="assets/swfs/parents/immunization/immunization_links.swf" headerSwf="assets/swfs/headers/P_1_1.swf"/>
+		</articles>
+		<tweens>
+			<group name="Immunizations" headerSwf="assets/swfs/headers/1_1.swf">
+				<swf name="RECOMMENDED VACCINES" source="assets/swfs/11-13/my_house/immunizations_vaccines/recommended_vaccines.swf"/>
+				<swf name="CATCH-UP VACCINES" source="assets/swfs/11-13/my_house/immunizations_vaccines/catch-up_vaccines.swf"/>
+				<swf name="VACCINES FOR HIGH-RISK GROUPS" source="assets/swfs/11-13/my_house/immunizations_vaccines/vaccines_for_high-risk_groups.swf"/>
+			</group>
+		</tweens>
+		<teens>
+			<group name="Immunizations" headerSwf="assets/swfs/headers/1_1.swf">
+				<swf name="RECOMMENDED VACCINES" source="assets/swfs/14-17/my_house/immunizations_vaccines/recommended_vaccines.swf"/>
+				<swf name="CATCH-UP VACCINES" source="assets/swfs/14-17/my_house/immunizations_vaccines/catch-up_vaccines.swf"/>
+				<swf name="VACCINES FOR HIGH-RISK GROUPS" source="assets/swfs/14-17/my_house/immunizations_vaccines/vaccines_for_high-risk_groups.swf"/>
+			</group>
+		</teens>
+	</topic>
+	<topic name="NUTRITION" source="assets/swfs/parents/nutrition/intro.swf" headerSwf="assets/swfs/headers/P_2.swf">
+		<articles>
+			<article name="Healthier Fast Food Choices" source="assets/swfs/parents/nutrition/healthier_fast_food_choices.swf" headerSwf="assets/swfs/headers/P_2_3.swf"/>
+			<article name="Tip the Scale..." source="assets/swfs/parents/nutrition/tip_the_scale.swf" headerSwf="assets/swfs/headers/P_2_6.swf"/>
+		</articles>
+		<tweens>
+			<group name="Nutrition" headerSwf="assets/swfs/headers/3_1.swf">
+				<swf name="YOU ARE WHAT YOU EAT" source="assets/swfs/shared/mini_mart/nutrition/you_are_what_you_eat.swf"/>
+				<swf name="WHAT FOODS DO I NEED?" source="assets/swfs/shared/mini_mart/nutrition/what_foods_do_i_need.swf"/>
+                <swf name="EATING OUT, EATING SMART" source="assets/swfs/shared/mini_mart/nutrition/eating_out.swf"/>
+			</group>
+			<group name="Obesity" headerSwf="assets/swfs/headers/3_2.swf">
+				<swf name="AM I A HEALTHY WEIGHT?" source="assets/swfs/shared/mini_mart/weight/am_i_a_healthy_weight.swf"/>
+			</group>
+			<group name="Healthy Snack Ideas" headerSwf="assets/swfs/headers/3_3.swf">
+				<swf name="HEALTHY SNACK IDEAS" source="assets/swfs/shared/mini_mart/healthy_snack_ideas/healthy_snack_ideas.swf"/>
+			</group>
+			<!--<group name="Calorie Counter" headerSwf="assets/swfs/headers/3_4.swf">
+				<swf name="CALORIE COUNTER" source="assets/swfs/shared/mini_mart/calorie_counter/calorie_counter.swf"/>
+			</group>-->
+		</tweens>
+		<teens>
+			<group name="Nutrition" headerSwf="assets/swfs/headers/3_1.swf">
+				<swf name="YOU ARE WHAT YOU EAT" source="assets/swfs/shared/mini_mart/nutrition/you_are_what_you_eat.swf"/>
+				<swf name="WHAT FOODS DO I NEED?" source="assets/swfs/shared/mini_mart/nutrition/what_foods_do_i_need.swf"/>
+                <swf name="EATING OUT, EATING SMART" source="assets/swfs/shared/mini_mart/nutrition/eating_out.swf"/>
+			</group>
+			<group name="Obesity" headerSwf="assets/swfs/headers/3_2.swf">
+				<swf name="AM I A HEALTHY WEIGHT?" source="assets/swfs/shared/mini_mart/weight/am_i_a_healthy_weight.swf"/>
+			</group>
+			<group name="Healthy Snack Ideas" headerSwf="assets/swfs/headers/3_3.swf">
+				<swf name="HEALTHY SNACK IDEAS" source="assets/swfs/shared/mini_mart/healthy_snack_ideas/healthy_snack_ideas.swf"/>
+			</group>
+			<!--<group name="Calorie Counter" headerSwf="assets/swfs/headers/3_4.swf">
+				<swf name="CALORIE COUNTER" source="assets/swfs/shared/mini_mart/calorie_counter/calorie_counter.swf"/>
+			</group>-->
+		</teens>
+	</topic>
+	<topic name="WELLNESS" source="assets/swfs/parents/wellness/intro.swf" headerSwf="assets/swfs/headers/P_3.swf">
+		<articles></articles>
+		<tweens>
+			<group name="Immunization" headerSwf="assets/swfs/headers/1_1.swf">
+				<swf name="RECOMMENDED VACCINES" source="assets/swfs/11-13/my_house/immunizations_vaccines/recommended_vaccines.swf"/>
+				<swf name="CATCH-UP VACCINES" source="assets/swfs/11-13/my_house/immunizations_vaccines/catch-up_vaccines.swf"/>
+				<swf name="VACCINES FOR HIGH-RISK GROUPS" source="assets/swfs/11-13/my_house/immunizations_vaccines/vaccines_for_high-risk_groups.swf"/>
+			</group>
+			<group name="Alergies/Asthma" headerSwf="assets/swfs/headers/1_2.swf">
+				<swf name="WHAT IS ASTHMA?" source="assets/swfs/11-13/my_house/asthma/what_is_asthma.swf"/>
+				<swf name="WHAT ARE ASTHMA TRIGGERS?" source="assets/swfs/11-13/my_house/asthma/what_are_asthma_triggers.swf"/>
+				<swf name="ALLERGIES VS. ASTHMA" source="assets/swfs/11-13/my_house/asthma/asthma_vs_allergies.swf"/>
+				<swf name="IMPORTANCE OF ASTHMA MEDICATION" source="assets/swfs/11-13/my_house/asthma/importance_of_asthma_medication.swf"/>
+				<swf name="TELLING OTHERS ABOUT MY ASTHMA" source="assets/swfs/11-13/my_house/asthma/telling_others_about_my_asthma.swf"/>
+			</group>
+			<group name="MRSA" headerSwf="assets/swfs/headers/7_3.swf">
+				<swf name="WHAT IS MRSA?" source="assets/swfs/11-13/school/mrsa/what_is_mrsa.swf"/>
+				<swf name="HOW CAN I PREVENT MRSA?" source="assets/swfs/11-13/school/mrsa/how_can_i_prevent_mrsa.swf"/>
+				<swf name="HOW IS MRSA TREATED?" source="assets/swfs/11-13/school/mrsa/how_is_mrsa_treated.swf"/>
+			</group>
+		</tweens>
+		<teens>
+			<group name="Immunization" headerSwf="assets/swfs/headers/1_1.swf">
+				<swf name="RECOMMENDED VACCINES" source="assets/swfs/14-17/my_house/immunizations_vaccines/recommended_vaccines.swf"/>
+				<swf name="CATCH-UP VACCINES" source="assets/swfs/14-17/my_house/immunizations_vaccines/catch-up_vaccines.swf"/>
+				<swf name="VACCINES FOR HIGH-RISK GROUPS" source="assets/swfs/14-17/my_house/immunizations_vaccines/vaccines_for_high-risk_groups.swf"/>
+			</group>
+			<group name="Alergies/Asthma" headerSwf="assets/swfs/headers/1_2.swf">
+				<swf name="WHAT IS ASTHMA?" source="assets/swfs/14-17/my_house/asthma/what_is_asthma.swf"/>
+				<swf name="WHAT ARE ASTHMA TRIGGERS?" source="assets/swfs/14-17/my_house/asthma/what_are_asthma_triggers.swf"/>
+				<swf name="ALLERGIES VS. ASTHMA" source="assets/swfs/14-17/my_house/asthma/asthma_vs_allergies.swf"/>
+				<swf name="IMPORTANCE OF ASTHMA MEDICATION" source="assets/swfs/14-17/my_house/asthma/importance_of_asthma_medication.swf"/>
+				<swf name="TELLING OTHERS ABOUT MY ASTHMA" source="assets/swfs/14-17/my_house/asthma/telling_others_about_my_asthma.swf"/>
+			</group>
+			<group name="MRSA" headerSwf="assets/swfs/headers/7_3.swf">
+				<swf name="WHAT IS MRSA?" source="assets/swfs/14-17/school/mrsa/what_is_mrsa.swf"/>
+				<swf name="HOW CAN I PREVENT MRSA?" source="assets/swfs/14-17/school/mrsa/how_can_i_prevent_mrsa.swf"/>
+				<swf name="HOW IS MRSA TREATED?" source="assets/swfs/14-17/school/mrsa/how_is_mrsa_treated.swf"/>
+			</group>
+		</teens>
+	</topic>
+	<topic name="FITNESS" source="assets/swfs/parents/fitness/intro.swf" headerSwf="assets/swfs/headers/P_4.swf">
+		<articles>
+			<article name="Family Fitness" source="assets/swfs/parents/fitness/family_fitness.swf" headerSwf="assets/swfs/headers/P_4_1.swf"/>
+			<article name="Helping Your Child..." source="assets/swfs/parents/fitness/becoming_a_healthy_adult.swf" headerSwf="assets/swfs/headers/P_4_2.swf"/>
+		</articles>
+		<tweens>
+			<group name="Sports" headerSwf="assets/swfs/headers/5_3.swf">
+				<swf name="STAYING SAFE" source="assets/swfs/shared/gym/sports_and_you/staying_safe.swf"/>
+				<swf name="HYDRATION" source="assets/swfs/shared/gym/sports_and_you/hydration.swf"/>
+				<swf name="WEIGHT LIFTING VS. STRENGTH TRAINING" source="assets/swfs/shared/gym/sports_and_you/weight_lifting.swf"/>
+				<swf name="STEROIDS" source="assets/swfs/shared/gym/sports_and_you/steroids.swf"/>
+            </group>
+			<group name="Physical Activity" headerSwf="assets/swfs/headers/5_1.swf">
+				<swf name="WHY SHOULD YOU EXERCISE?" source="assets/swfs/shared/gym/exercise/why_should_you_exercise.swf"/>
+				<swf name="HOW MUCH EXCERCISE DO I NEED?" source="assets/swfs/shared/gym/exercise/how_much_excercise_do_i_need.swf"/>
+				<swf/>
+				<swf name="DO WHAT YOU LOVE" source="assets/swfs/shared/gym/exercise/do_what_you_love.swf"/>
+			</group>
+			<group name="BMI" headerSwf="assets/swfs/headers/5_2.swf">
+				<swf name="WHAT IS BMI?" source="assets/swfs/shared/gym/bmi_and_your_health/what_is_bmi.swf"/>
+				<swf name="BMI AND WEIGHT CATEGORIES" source="assets/swfs/shared/gym/bmi_and_your_health/bmi_and_weight_categories.swf"/>
+			</group>
+			<group name="Healthy Weight" headerSwf="assets/swfs/headers/3_2.swf">
+				<swf name="AM I A HEALTHY WEIGHT?" source="assets/swfs/shared/mini_mart/weight/am_i_a_healthy_weight.swf"/>
+			</group>
+		</tweens>
+		<teens>
+			<group name="Sports" headerSwf="assets/swfs/headers/5_3.swf">
+				<swf name="STAYING SAFE" source="assets/swfs/shared/gym/sports_and_you/staying_safe.swf"/>
+				<swf name="HYDRATION" source="assets/swfs/shared/gym/sports_and_you/hydration.swf"/>
+				<swf name="WEIGHT LIFTING VS. STRENGTH TRAINING" source="assets/swfs/shared/gym/sports_and_you/weight_lifting.swf"/>
+				<swf name="STEROIDS" source="assets/swfs/shared/gym/sports_and_you/steroids.swf"/>
+            </group>
+			<group name="Physical Activity" headerSwf="assets/swfs/headers/5_1.swf">
+				<swf name="WHY SHOULD YOU EXERCISE?" source="assets/swfs/shared/gym/exercise/why_should_you_exercise.swf"/>
+				<swf name="HOW MUCH EXCERCISE DO I NEED?" source="assets/swfs/shared/gym/exercise/how_much_excercise_do_i_need.swf"/>
+				<swf/>
+				<swf name="DO WHAT YOU LOVE" source="assets/swfs/shared/gym/exercise/do_what_you_love.swf"/>
+			</group>
+			<group name="BMI" headerSwf="assets/swfs/headers/5_2.swf">
+				<swf name="WHAT IS BMI?" source="assets/swfs/shared/gym/bmi_and_your_health/what_is_bmi.swf"/>
+				<swf name="BMI AND WEIGHT CATEGORIES" source="assets/swfs/shared/gym/bmi_and_your_health/bmi_and_weight_categories.swf"/>
+			</group>
+			<group name="Healthy Weight" headerSwf="assets/swfs/headers/3_2.swf">
+				<swf name="AM I A HEALTHY WEIGHT?" source="assets/swfs/shared/mini_mart/weight/am_i_a_healthy_weight.swf"/>
+			</group>
+		</teens>
+	</topic>
+	<topic name="SAFETY" source="assets/swfs/parents/safety/intro.swf" headerSwf="assets/swfs/headers/P_5.swf">
+		<articles>
+			<article name="Teens and Self-esteem" source="assets/swfs/parents/safety/teens_and_self-esteem.swf" headerSwf="assets/swfs/headers/P_5_1.swf"/>
+			<article name="Substance Abuse" source="assets/swfs/parents/safety/subtance_abuse.swf" headerSwf="assets/swfs/headers/P_5_2.swf"/>
+			<article name="Internet Safety Tips For Parents" source="assets/swfs/parents/safety/internet_safety_tips.swf" headerSwf="assets/swfs/headers/P_5_3.swf"/>
+		</articles>
+		<tweens>
+			<group name="Drugs, Alcohol, Tobacco" headerSwf="assets/swfs/headers/6_1.swf">
+				<swf name="DANGERS OF DRUGS" source="assets/swfs/11-13/playground/drugs_alcohol_tobacco/dangers_of_drugs.swf"/>
+				<swf name="HOW DOES SOMEONE BECOME AN ADDICT?" source="assets/swfs/11-13/playground/drugs_alcohol_tobacco/how_does_someone_become_an_addict.swf"/>
+				<swf/>
+				<swf name="RISKS OF USING ALCOHOL" source="assets/swfs/11-13/playground/drugs_alcohol_tobacco/risks_of_using_alcohol.swf"/>
+				<swf name="WHAT'S SO BAD ABOUT TOBACCO?" source="assets/swfs/11-13/playground/drugs_alcohol_tobacco/whats_so_bad_about_tobacco.swf"/>
+			</group>
+			<group name="Street Safety" headerSwf="assets/swfs/headers/6_2.swf">
+		    	<swf name="BE SAFE ON YOUR OWN" source="assets/swfs/11-13/playground/street_safety/be_safe_on_your_own.swf"/>
+				<swf name="BASIC STREET SAFETY REMINDERS" source="assets/swfs/11-13/playground/street_safety/basic_street_safety_reminders.swf"/>
+				<swf name="ON FOOT" source="assets/swfs/11-13/playground/street_safety/on_foot.swf"/>
+				<swf name="ON PUBLIC TRANSPORTATION" source="assets/swfs/11-13/playground/street_safety/on_public_transportation.swf"/>
+			</group>
+			<group name="Internet Safety" headerSwf="assets/swfs/headers/7_1.swf">
+		    	<swf name="WHY IT'S IMPORTANT" source="assets/swfs/11-13/school/internet_safety/why_its_important.swf"/>
+				<swf name="INTERNET AND CELL PHONE SAFETY TIPS" source="assets/swfs/11-13/school/internet_safety/internet_and_cell_phone_safety_tips.swf"/>
+				<swf name="CYBER-BULLIES" source="assets/swfs/11-13/school/internet_safety/cyber-bullies.swf"/>
+			</group>
+			<group name="Backpack Safety" headerSwf="assets/swfs/headers/11_1.swf">
+				<swf name="ABOUT YOUR BACKPACK" source="assets/swfs/shared/backpack/about_your_backpack/about_your_backpack.swf"/>
+			</group>
+			<group name="Bike Safety" headerSwf="assets/swfs/headers/10_2.swf">
+				<swf name="WEAR A HELMET" source="assets/swfs/shared/teenager_3/bike_safety/wear_a_helmet.swf"/>
+				<swf name="PREPARING TO RIDE" source="assets/swfs/shared/teenager_3/bike_safety/preparing_to_ride.swf"/>
+				<swf name="BASIC RULES OF THE ROAD" source="assets/swfs/shared/teenager_3/bike_safety/basic_rules_of_the_road.swf"/>
+			</group>
+		</tweens>
+		<teens>
+			<group name="Drugs, Alcohol, Tobacco" headerSwf="assets/swfs/headers/6_1.swf">
+				<swf name="ABOUT SUBSTANCE ABUSE" source="assets/swfs/14-17/playground/drugs_alcohol_tobacco/about_substance_abuse.swf"/>
+				<swf name="DANGERS OF DRUGS" source="assets/swfs/14-17/playground/drugs_alcohol_tobacco/dangers_of_drugs.swf"/>
+				<swf name="HOW DOES SOMEONE BECOME AN ADDICT?" source="assets/swfs/14-17/playground/drugs_alcohol_tobacco/how_does_someone_become_an_addict.swf"/>
+				<swf name="RISKS OF USING ALCOHOL" source="assets/swfs/14-17/playground/drugs_alcohol_tobacco/risks_of_using_alcohol.swf"/>
+				<swf name="WHAT'S SO BAD ABOUT TOBACCO?" source="assets/swfs/14-17/playground/drugs_alcohol_tobacco/whats_so_bad_about_tobacco.swf"/>
+			</group>
+			<group name="Street Safety"  headerSwf="assets/swfs/headers/6_2.swf">
+		    	<swf name="BE SAFE ON YOUR OWN" source="assets/swfs/14-17/playground/street_safety/be_safe_on_your_own.swf"/>
+				<swf name="BASIC STREET SAFETY REMINDERS" source="assets/swfs/14-17/playground/street_safety/basic_street_safety_reminders.swf"/>
+				<swf name="CARS AND CARJACKING" source="assets/swfs/14-17/playground/street_safety/cars_and_carjacking.swf"/>
+				<swf name="ON FOOT" source="assets/swfs/14-17/playground/street_safety/on_foot.swf"/>
+				<swf name="ON PUBLIC TRANSPORTATION" source="assets/swfs/14-17/playground/street_safety/on_public_transportation.swf"/>
+			</group>
+			<group name="Car Safety" headerSwf="assets/swfs/headers/6_3.swf">
+		    	<swf name="BEHIND THE WHEEL" source="assets/swfs/14-17/playground/car_safety/behind_the_wheel.swf"/>
+			</group>
+			<group name="Internet Safety" headerSwf="assets/swfs/headers/7_1.swf">
+				<swf name="WHY IT'S IMPORTANT" source="assets/swfs/14-17/school/internet_safety/why_its_important.swf"/>
+				<swf name="INTERNET AND CELL PHONE SAFETY TIPS" source="assets/swfs/14-17/school/internet_safety/internet_and_cell_phone_safety_tips.swf"/>
+				<swf name="CYBER-BULLIES" source="assets/swfs/14-17/school/internet_safety/cyber-bullies.swf"/>
+			</group>
+			<group name="Backpack Safety" headerSwf="assets/swfs/headers/11_1.swf">
+				<swf name="ABOUT YOUR BACKPACK" source="assets/swfs/shared/backpack/about_your_backpack/about_your_backpack.swf"/>
+			</group>
+			<group name="Bike Safety" headerSwf="assets/swfs/headers/10_2.swf">
+				<swf name="WEAR A HELMET" source="assets/swfs/shared/teenager_3/bike_safety/wear_a_helmet.swf"/>
+				<swf name="PREPARING TO RIDE" source="assets/swfs/shared/teenager_3/bike_safety/preparing_to_ride.swf"/>
+				<swf name="BASIC RULES OF THE ROAD" source="assets/swfs/shared/teenager_3/bike_safety/basic_rules_of_the_road.swf"/>
+			</group>
+		</teens>
+	</topic>
+	<topic name="BULLYING" source="assets/swfs/parents/bullying/intro.swf" headerSwf="assets/swfs/headers/P_6.swf">
+		<articles>
+			<article name="More Common Than You Think" source="assets/swfs/parents/bullying/bullying.swf" headerSwf="assets/swfs/headers/P_6_1.swf"/>
+		</articles>
+		<tweens>
+			<group name="Bullying" headerSwf="assets/swfs/headers/7_2.swf">
+		    	<swf name="WHAT IS BULLYING?" source="assets/swfs/11-13/school/bullying/what_is_bullying.swf"/>
+				<swf name="CYBER-BULLIES" source="assets/swfs/11-13/school/internet_safety/cyber-bullies.swf"/>
+				<swf name="WHAT CAN I DO IF I'M BEING BULLIED?" source="assets/swfs/11-13/school/bullying/what_can_i_do_if_im_being_bullied.swf"/>
+			</group>
+		</tweens>
+		<teens>
+			<group name="Bullying" headerSwf="assets/swfs/headers/7_2.swf">
+				<swf name="WHAT IS BULLYING?" source="assets/swfs/14-17/school/bullying/what_is_bullying.swf"/>
+				<swf name="CYBER-BULLIES" source="assets/swfs/14-17/school/internet_safety/cyber-bullies.swf"/>
+				<swf name="WHAT CAN I DO IF I'M BEING BULLIED?" source="assets/swfs/14-17/school/bullying/what_can_i_do_if_im_being_bullied.swf"/>
+			</group>
+		</teens>
+	</topic>
+	<topic name="PUBERTY" source="assets/swfs/parents/about_your_body/intro.swf" headerSwf="assets/swfs/headers/P_7.swf">
+		<articles></articles>
+		<tweens>
+			<group name="Body Image" headerSwf="assets/swfs/headers/2_1.swf">
+		    	<swf name="PREPARING FOR PUBERTY" source="assets/swfs/11-13/movie_theater/about_your_body/preparing_for_puberty.swf"/> 
+				<swf name="JUST FOR GIRLS" source="assets/swfs/11-13/movie_theater/about_your_body/just_for_girls.swf"/>
+				<swf name="JUST FOR GUYS" source="assets/swfs/11-13/movie_theater/about_your_body/just_for_guys.swf"/>
+				<swf name="HAIR, HAIR EVERYWHERE" source="assets/swfs/11-13/movie_theater/about_your_body/hair_hair_everywhere.swf"/>
+			</group>
+			<group name="Depression" headerSwf="assets/swfs/headers/2_2.swf">
+				<swf name="CAUSES OF DEPRESSION" source="assets/swfs/shared/movie_theater/depression/causes_of_depression.swf"/>
+				<swf name="GETTING HELP" source="assets/swfs/shared/movie_theater/depression/getting_help.swf"/>
+			</group>
+			<group name="Eating Disorders" headerSwf="assets/swfs/headers/2_3.swf">
+		    	<swf name="WHAT ARE THEY?" source="assets/swfs/11-13/movie_theater/eating_disorders/what_are_they.swf"/>
+				<swf name="ANOREXIA NERVOSA" source="assets/swfs/11-13/movie_theater/eating_disorders/anorexia_nervosa.swf"/>
+				<swf name="BULIMIA NERVOSA" source="assets/swfs/11-13/movie_theater/eating_disorders/bulimia_nervosa.swf"/>
+				<swf name="GETTING HELP" source="assets/swfs/11-13/movie_theater/eating_disorders/getting_help.swf"/>
+			</group>
+		</tweens>
+		<teens>
+			<group name="Body Image" headerSwf="assets/swfs/headers/2_1.swf">
+				<swf name="ABOUT BODY IMAGE" source="assets/swfs/14-17/movie_theater/about_your_body/about_body_image.swf"/>
+				<swf name="LEARNING TO FEEL BETTER ABOUT YOUR BODY" source="assets/swfs/14-17/movie_theater/about_your_body/learning_to_feel_better.swf"/>
+			</group>
+			<group name="Depression" headerSwf="assets/swfs/headers/2_2.swf">
+				<swf name="CAUSES OF DEPRESSION" source="assets/swfs/shared/movie_theater/depression/causes_of_depression.swf"/>
+				<swf name="GETTING HELP" source="assets/swfs/shared/movie_theater/depression/getting_help.swf"/>
+			</group>
+			<group name="Eating Disorders" headerSwf="assets/swfs/headers/2_3.swf">
+				<swf name="WHAT ARE THEY?" source="assets/swfs/14-17/movie_theater/eating_disorders/what_are_they.swf"/>
+				<swf name="ANOREXIA NERVOSA" source="assets/swfs/14-17/movie_theater/eating_disorders/anorexia_nervosa.swf"/>
+				<swf name="BULIMIA NERVOSA" source="assets/swfs/14-17/movie_theater/eating_disorders/bulimia_nervosa.swf"/>
+				<swf name="GETTING HELP" source="assets/swfs/14-17/movie_theater/eating_disorders/getting_help.swf"/>
+			</group>
+		</teens>
+	</topic>
+	<topic name="TALKING TO YOUR KIDS" source="assets/swfs/parents/talking_to_your_kids/intro.swf" headerSwf="assets/swfs/headers/P_8.swf">
+		<articles>
+			<article name="Understanding Adolescence" source="assets/swfs/parents/talking_to_your_kids/understanding_adolescense.swf" headerSwf="assets/swfs/headers/P_8_1.swf"/>
+			<article name="Stay on Track with Your Teen" source="assets/swfs/parents/talking_to_your_kids/five_ways.swf" headerSwf="assets/swfs/headers/P_8_2.swf"/>
+			<article name="Building Kid's Confidence" source="assets/swfs/parents/talking_to_your_kids/building_kids_confidence.swf" headerSwf="assets/swfs/headers/P_8_3.swf"/>
+		</articles>
+		<tweens>
+			<group name="Talking to Your Parents" headerSwf="assets/swfs/headers/8_1.swf">
+				<swf name="TIPS FOR TALKING TO PARENTS" source="assets/swfs/shared/teenager_1/tips_for_talking_to_parents/tips_for_talking_to_parents.swf"/>
+		    	<swf name="WHEN TO SPEAK UP" source="assets/swfs/shared/teenager_1/tips_for_talking_to_parents/when_to_speak_up.swf"/>
+			</group>
+		</tweens>
+		<teens>
+			<group name="Talking to Your Parents" headerSwf="assets/swfs/headers/8_1.swf">
+				<swf name="TIPS FOR TALKING TO PARENTS" source="assets/swfs/shared/teenager_1/tips_for_talking_to_parents/tips_for_talking_to_parents.swf"/>
+				<swf name="WHEN TO SPEAK UP" source="assets/swfs/shared/teenager_1/tips_for_talking_to_parents/when_to_speak_up.swf"/>
+			</group>
+		</teens>
+	</topic>
+</root>
