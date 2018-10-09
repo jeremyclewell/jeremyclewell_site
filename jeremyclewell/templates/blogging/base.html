@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    {% block meta %}
+    {% endblock meta %}
+    {% block style %}
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.css" rel="stylesheet"/>
+    <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet"/>
+    <link href="{{ url_for('static', filename='css/hilite/gruvbox-dark.css') }}" rel="stylesheet">
+    <style>
+        body { padding-top: 80px;}
+    </style>
+    {% endblock style %}
+    {% block extrastyle %}
+    {% endblock extrastyle %}
+    <title>
+        {% block title %}
+        {% endblock title %}
+    </title>
+</head>
+<body>
+
+    <!-- navbar header -->
+    <div id="console" class="navbar navbar-default navbar-fixed-top">
+        <div class="noisy">
+            <div class="navbar-header output">
+                <a href='{{ config.BLOGGING_BRANDURL or "/"}}' class="navbar-brand">
+                    {{ config.BLOGGING_SITENAME or 'Flask-Blogging'}}
+                </a>
+                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/">Home</a></li>
+                               <li><a href="/blog">Blog</a></li>
+                               <li><a href="/resume">Resume</a></li>
+                  </ul>
+                  <div class="header-piece scanlines noclick">
+                  <div class="header-piece glow noclick">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- main content -->
+     <div class="container">
+         {% block message %}
+         {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                    <div id="alert_div" class="alert alert-{{category}} alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        {{ message }}
+                    </div>
+                    </div>
+                 </div>
+                {% endfor %}
+            {% endif %}
+         {% endwith %}
+
+         {% endblock %}
+         {% block main %}
+         {% endblock main %}
+         {% block extramain %}
+         {% endblock extramain %}
+     </div>
+    {% include "blogging/analytics.html" %}
+    {% block js %}
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static', filename='js/highlight.pack.js') }}"></script>
+    <script type="text/x-mathjax-config">
+          MathJax.Hub.Config({
+          "HTML-CSS": {
+          styles: {
+          ".MathJax .mo, .MathJax .mi": {color: "black ! important"}}
+          },
+          tex2jax: {inlineMath: [['$','$'], ['\\\\(','\\\\)']],processEscapes: true}
+          });
+    </script>
+
+    <script>
+        hljs.initHighlightingOnLoad();
+
+        $(document).ready(function(){
+            $("#alert_div").fadeTo(3000, 500).slideUp(500, function(){
+               $("#alert_div").slideUp(500);
+                });
+
+            $('.popup').magnificPopup({
+                type: 'image',
+                closeOnContentClick: false,
+                closeBtnInside: false,
+                mainClass: 'mfp-with-zoom mfp-img-mobile',
+                image: {
+                    verticalFit: true,
+                    titleSrc: function(item) {
+                        return item.el.attr('title') + ' &middot; <a class="image-source-link" href="'+item.el.attr('data-source')+'" target="_blank">image source</a>';
+                    }
+                },
+                gallery: {
+                    enabled: true
+                },
+                zoom: {
+                    enabled: true,
+                    duration: 300, // don't foget to change the duration also in CSS
+                    opener: function(element) {
+                        return element.find('img');
+                    }
+                }
+                
+            });
+        })
+    </script>
+
+    {% endblock js %}
+    {% block extrajs %}
+    {% endblock extrajs %}
+</body>
+</html>
