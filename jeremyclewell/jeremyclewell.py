@@ -7,6 +7,15 @@ from flask_blogging.dynamodbstorage import DynamoDBStorage
 from flask_fileupload.storage.s3storage import S3Storage
 from flask_fileupload import FlaskFileUpload
 
+from markdown.extensions.attr_list import AttrListExtension
+from markdown.extensions.extra import ExtraExtension
+from markdown.extensions.meta import MetaExtension
+
+
+extn1 = AttrListExtension()
+extn3 = ExtraExtension()
+extn4 = MetaExtension()
+
 app = Flask(__name__)
 
 app.config["SECRET_KEY"] = "secret"  # for WTF-forms and login
@@ -18,13 +27,15 @@ app.config["BLOGGING_SITENAME"] = "Jeremy Clewell"
 app.config["FILEUPLOAD_S3_BUCKET"]='jeremyclewell-site'
 app.config["FILEUPLOAD_PREFIX"] = "/upload"
 app.config["FILEUPLOAD_ALLOWED_EXTENSIONS"] = ["png", "jpg", "jpeg", "gif"]
+app.config["BLOGGING_ESCAPE_MARKDOWN"] = False
+app.config["BLOGGING_GOOGLE_ANALYTICS"] = "UA-15169356-1"
 
 # extensions
 s3storage = S3Storage(app)
 file_upload = FlaskFileUpload(app, storage=s3storage)
 
 dyn_storage = DynamoDBStorage(endpoint_url="https://dynamodb.us-east-1.amazonaws.com")
-blog_engine = BloggingEngine(app, dyn_storage, file_upload=file_upload)
+blog_engine = BloggingEngine(app, dyn_storage, file_upload=file_upload, extensions=[extn1, extn3, extn4])
 login_manager = LoginManager(app)
 
 
@@ -33,7 +44,7 @@ class User(UserMixin):
         self.id = user_id
 
     def get_name(self):
-        return "Paul Dirac"  # typically the user's name
+        return "Jeremy Clewell"  # typically the user's name
 
 @login_manager.user_loader
 @blog_engine.user_loader
